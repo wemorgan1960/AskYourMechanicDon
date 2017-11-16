@@ -196,6 +196,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProductManagerController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -276,6 +277,10 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\ProductManager\Index.cshtml" />
+    <Content Include="Views\ProductManager\Create.cshtml" />
+    <Content Include="Views\ProductManager\Edit.cshtml" />
+    <Content Include="Views\ProductManager\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -284,6 +289,24 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.2.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.2.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AskYourMechanicDon.Core\AskYourMechanicDon.Core.csproj">
+      <Project>{be83d816-e35f-4eee-9e68-176be911e71e}</Project>
+      <Name>AskYourMechanicDon.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AskYourMechanicDon.DataAccess.InMemory\AskYourMechanicDon.DataAccess.InMemory.csproj">
+      <Project>{004bfc97-5706-4afc-bf28-9613b0a3eec5}</Project>
+      <Name>AskYourMechanicDon.DataAccess.InMemory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AskYourMechanicDon.DataAccess.SQL\AskYourMechanicDon.DataAccess.SQL.csproj">
+      <Project>{9245fcbb-a83a-4711-8e07-1ffcd412bebe}</Project>
+      <Name>AskYourMechanicDon.DataAccess.SQL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AskYourMechanicDon.Services\AskYourMechanicDon.Services.csproj">
+      <Project>{ad26e720-3589-4140-94f2-6da05a59b38f}</Project>
+      <Name>AskYourMechanicDon.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
