@@ -54,6 +54,7 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SQLRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -63,6 +64,10 @@
     <ProjectReference Include="..\AskYourMechanicDon.Core\AskYourMechanicDon.Core.csproj">
       <Project>{BE83D816-E35F-4EEE-9E68-176BE911E71E}</Project>
       <Name>AskYourMechanicDon.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AskYourMechanicDon.DataAccess.InMemory\AskYourMechanicDon.DataAccess.InMemory.csproj">
+      <Project>{004bfc97-5706-4afc-bf28-9613b0a3eec5}</Project>
+      <Name>AskYourMechanicDon.DataAccess.InMemory</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
