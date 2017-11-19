@@ -6,7 +6,7 @@
 <h2>@Html.DisplayFor(model=>model.Name)</h2>
 <div>
     <div class="col-md-2">
-        <img class="img-responsive" scr="~/Content/ProductImages/@Model.Image" />
+        <img class="img-responsive" style="height:50px" scr="~/Content/ProductImages/@Model.Image" />
     </div>
     <div class="col-md-10">
         <dl class="dl-horizontal">
@@ -50,7 +50,7 @@
                 @Html.DisplayFor(model => model.Price)
             </dd>
             <dt></dt>
-            <dd><a href="#" class="btn btn-default">Add to Basket</a></dd>
+            <dd><a href="@Url.Action("AddToBasket","Basket",new {Id = Model.Id})" class="btn btn-default">Add to Basket</a></dd>
 
             <dt></dt>
             <dd>@Html.ActionLink("Back to List", "Index")</dd>
