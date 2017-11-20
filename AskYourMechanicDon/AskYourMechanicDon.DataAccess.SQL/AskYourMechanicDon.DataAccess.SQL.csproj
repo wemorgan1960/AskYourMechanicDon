@@ -56,6 +56,10 @@
     <Compile Include="Migrations\201711191446101_AddBasket.Designer.cs">
       <DependentUpon>201711191446101_AddBasket.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711201551147_removeVinQuestionFromModel.cs" />
+    <Compile Include="Migrations\201711201551147_removeVinQuestionFromModel.Designer.cs">
+      <DependentUpon>201711201551147_removeVinQuestionFromModel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SQLRepository.cs" />
@@ -80,6 +84,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711191446101_AddBasket.resx">
       <DependentUpon>201711191446101_AddBasket.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711201551147_removeVinQuestionFromModel.resx">
+      <DependentUpon>201711201551147_removeVinQuestionFromModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

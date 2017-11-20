@@ -4,6 +4,7 @@ using AskYourMechanicDon.DataAccess.InMemory;
 using AskYourMechanicDon.Core.Contracts;
 using Unity;
 using AskYourMechanicDon.DataAccess.SQL;
+using AskYourMechanicDon.Services;
 
 namespace AskYourMechanicDon.WebUI
 {
@@ -50,7 +51,7 @@ namespace AskYourMechanicDon.WebUI
             container.RegisterType<IRepository<ProductCategory>, SQLRepository<ProductCategory>>();
             container.RegisterType<IRepository<Basket>, SQLRepository<Basket>>();
             container.RegisterType<IRepository<BasketItem>, SQLRepository<BasketItem>>();
-            container.RegisterType<IBasketService, IBasketService>();
+            container.RegisterType<IBasketService, BasketService>();
         }
     }
 }

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 using AskYourMechanicDon.Core.Contracts;
 using AskYourMechanicDon.Core.Models;
@@ -10,7 +8,7 @@ using AskYourMechanicDon.Core.ViewModels;
 
 namespace AskYourMechanicDon.Services
 {
-    public class BasketService:IBasketService
+    public class BasketService : IBasketService
     {
         IRepository<Product> productContext;
         IRepository<Basket> basketContext;

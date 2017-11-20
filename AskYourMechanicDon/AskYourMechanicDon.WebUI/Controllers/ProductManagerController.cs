@@ -7,7 +7,7 @@ using System.Web.Mvc;
 using AskYourMechanicDon.Core.Contracts;
 using AskYourMechanicDon.Core.Models;
 using AskYourMechanicDon.Core.ViewModels;
-using AskYourMechanicDon.DataAccess.InMemory;
+
 
 namespace AskYourMechanicDon.WebUI.Controllers
 {
@@ -91,14 +91,12 @@ namespace AskYourMechanicDon.WebUI.Controllers
                 if (file != null)
                 {
                     productToEdit.Image = product.Id + Path.GetExtension(file.FileName);
-                    file.SaveAs(Server.MapPath("//Context//ProductImages//") + productToEdit.Image);
+                    file.SaveAs(Server.MapPath("//Content//ProductImages//") + productToEdit.Image);
                 }
                 productToEdit.Category = product.Category;
                 productToEdit.Description = product.Description;
                 productToEdit.Name = product.Name;
                 productToEdit.Price = product.Price;
-                productToEdit.Question = product.Question;
-                productToEdit.VIN = product.VIN;
 
                 context.Commit();
 
