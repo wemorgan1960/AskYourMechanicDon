@@ -24,9 +24,9 @@ namespace AskYourMechanicDon.WebUI.Controllers
             return View(model);
         }
 
-        public ActionResult AddToBasket(string Id)
+        public ActionResult AddToBasket(string Id, string Vin, string Question)
         {
-            basketService.AddToBasket(this.HttpContext, Id);
+            basketService.AddToBasket(this.HttpContext, Id, Vin, Question);
 
             return RedirectToAction("Index");
         }
