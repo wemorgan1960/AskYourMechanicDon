@@ -3,9 +3,9 @@
     ViewBag.Title = "Home Page";
 }
 
-<h1>Products</h1>
+<h1>Ask Your Question</h1>
 
-<div class="col-md-2">
+@*<div class="col-md-2">
     <h4>Filter by Category</h4>
     <div class="list-group">
         @Html.ActionLink("All","Index",null, new { @class = Request["Category"] == null ? "list-group-item active": "list-group-item"})
@@ -14,7 +14,7 @@
             @Html.ActionLink(cat.Category,"Index", new { Category = cat.Category}, new { @class = Request["Category"] == cat.Category ? "list-group-item active" : "list-group-item" })
         }
     </div>
-</div>
+</div>*@
 <div class="col-md-10">
     @foreach (var Item in Model.Products)
     {

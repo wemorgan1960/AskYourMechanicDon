@@ -24,14 +24,14 @@ namespace AskYourMechanicDon.WebUI.Controllers
             List<Product> products = context.Collection().ToList();
             List<ProductCategory> categories = productCategories.Collection().ToList();
 
-            if (categories == null)
-            {
+            //if (categories == null)
+            //{
                 products = context.Collection().ToList();
-            }
-            else
-            {
-                products = context.Collection().Where(p => p.Category == Category).ToList();
-            }
+            //}
+            //else
+            //{
+            //    products = context.Collection().Where(p => p.Category == Category).ToList();
+            //}
 
             ProductListViewModel model = new ProductListViewModel();
             model.Products = products;
