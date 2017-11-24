@@ -20,15 +20,15 @@
     {
         @*<div class="col-md-10" style="height:150px;padding:10px;margin:10px;border:solid thin whitesmoke"> </div>*@
         <div class="col-md-10">
-            <img class="img" style="height:150px" src="~/Content/ProductImages/@Item.Image" />
+            <!--<img class="img" style="height:150px" src="~/Content/ProductImages/@Item.Image" />-->
             <div class="col-md-10">
                 @*<strong>@Html.ActionLink(Item.Name, "Details", new { id = Item.Id })</strong>*@
             </div>
-            <div class="col-md-10">
+            @*<div class="col-md-10">
                 <p>@Item.Description</p>
-            </div>
+            </div>*@
             <div class="col-md-10">
-                <h4>$@Item.Price</h4>
+                <h4>Price $@Item.Price</h4>
             </div>
             <div class="col-md-10">
                 <form action="@Url.Action("AddToBasket","Basket")" method="post">
@@ -37,7 +37,7 @@
                         VIN: <input type="text" name="Vin">
                     </p>
                    <p>
-                        <strong>Your Question Question:</strong>
+                        <strong>Your Question:</strong>
                         <br /><textarea rows="15" name="Question" cols="50">Enter your question</textarea>
                     </p>
                     <br />
