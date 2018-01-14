@@ -1,17 +1,50 @@
-﻿@{
+﻿@model AskYourMechanicDon.WebUI.Models.EmailFormModel
+@{
     ViewBag.Title = "Contact";
 }
 <h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+<section class="wrapper-lg">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-4">
+            </div>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+            @using (Html.BeginForm("ContactAsync", "Home", new { @class = "form-inline" }))
+            {
+                @Html.AntiForgeryToken()
+                <div class="col-sm-12 col-md-4">
+                    <h4>Send your comments.</h4>
+                    <hr />
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.FromName, new { @class = "col-md-12 control-label" })
 
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+                        @Html.TextBoxFor(m => m.FromName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.FromName)
+
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.FromEmail, new { @class = "col-md-12 control-label" })
+
+                        @Html.TextBoxFor(m => m.FromEmail, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.FromEmail)
+
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Message, new { @class = "col-md-12 control-label" })
+
+                        @Html.TextAreaFor(m => m.Message, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Message)
+
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-default" value="Send" />
+                    </div>
+                </div>
+            }
+        </div><!--/row -->
+    </div><!-- /.container -->
+</section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

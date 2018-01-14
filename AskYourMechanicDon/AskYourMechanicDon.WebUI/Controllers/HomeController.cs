@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using AskYourMechanicDon.Core.Contracts;
 using AskYourMechanicDon.Core.Models;
 using AskYourMechanicDon.Core.ViewModels;
+using AskYourMechanicDon.WebUI.Models;
 
 namespace AskYourMechanicDon.WebUI.Controllers
 {
@@ -56,7 +59,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "About askyourmechanicdon.com";
 
             return View();
         }
@@ -65,6 +68,41 @@ namespace AskYourMechanicDon.WebUI.Controllers
         {
             ViewBag.Message = "Your contact page.";
 
+            return View();
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ContactAsync(EmailFormModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var subject = "AskYourMechanicDon.com Contact Form Email";
+                var body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
+                var fromAddress = model.FromEmail;
+                var toAddress = "admin@backcountryfreedom.com";
+                var emailBody = string.Format(body, model.FromName, model.FromEmail, model.Message);
+
+                var smtp = new SmtpClient();
+                {
+                    smtp.Host = "smtp.backcountryfreedom.com";
+                    smtp.Port = 587;
+                    smtp.EnableSsl = false;
+                    smtp.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
+                    smtp.Credentials = new NetworkCredential("admin@backcountryfreedom.com", "MIIPqAQm8");
+                    smtp.Timeout = 20000;
+                }
+
+                smtp.Send(toAddress, toAddress, subject, emailBody);
+                return RedirectToAction("Sent");
+            }
+            else
+            {
+                return View();
+            }
+
+        }
+        public ActionResult Sent()
+        {
             return View();
         }
     }

@@ -7,6 +7,7 @@ using AskYourMechanicDon.Core.Contracts;
 
 namespace AskYourMechanicDon.WebUI.Controllers
 {
+    [Authorize]
     public class BasketController : Controller
     {
         IBasketService basketService;
