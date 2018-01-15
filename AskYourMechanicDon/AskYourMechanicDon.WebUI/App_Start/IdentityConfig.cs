@@ -11,6 +11,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using AskYourMechanicDon.WebUI.Models;
+using System.Net.Mail;
+using System.Net;
 
 namespace AskYourMechanicDon.WebUI
 {
@@ -19,6 +21,23 @@ namespace AskYourMechanicDon.WebUI
         public Task SendAsync(IdentityMessage message)
         {
             // Plug in your email service here to send an email.
+            var subject = message.Subject;
+            var body = message.Body;
+            var fromAddress = "admin@backcountryfreedom.com";
+            var toAddress = message.Destination;
+
+
+            var smtp = new SmtpClient();
+            {
+                smtp.Host = "smtp.backcountryfreedom.com";
+                smtp.Port = 587;
+                smtp.EnableSsl = false;
+                smtp.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
+                smtp.Credentials = new NetworkCredential("admin@backcountryfreedom.com", "MIIPqAQm8");
+                smtp.Timeout = 20000;
+            }
+
+            smtp.Send(fromAddress, toAddress, subject, body);
             return Task.FromResult(0);
         }
     }

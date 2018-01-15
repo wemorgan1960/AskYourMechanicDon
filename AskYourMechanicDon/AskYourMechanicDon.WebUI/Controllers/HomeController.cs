@@ -63,10 +63,16 @@ namespace AskYourMechanicDon.WebUI.Controllers
 
             return View();
         }
+        public ActionResult Disclaimer()
+        {
+            ViewBag.Message = "Disclaimer";
+
+            return View();
+        }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Message = "askyourmechanicdon.com contact page.";
 
             return View();
         }

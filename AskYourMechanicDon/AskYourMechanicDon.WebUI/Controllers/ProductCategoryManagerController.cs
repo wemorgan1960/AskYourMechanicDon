@@ -9,7 +9,7 @@ using AskYourMechanicDon.DataAccess.InMemory;
 
 namespace AskYourMechanicDon.WebUI.Controllers
 {
-    [Authorize]
+
     public class ProductCategoryManagerController : Controller
     {
         IRepository<ProductCategory> context;

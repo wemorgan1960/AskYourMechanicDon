@@ -37,68 +37,68 @@ namespace AskYourMechanicDon.WebUI
                 roleManager.Create(role);
 
             }
-            if (roleManager.RoleExists("AskAdmin"))
-            {
+            //if (roleManager.RoleExists("AskAdmin"))
+            //{
 
-                //Here we create a Admin super user who will maintain the website                  
+            //    //Here we create a Admin super user who will maintain the website                  
 
-                var user = new ApplicationUser();
-                user.UserName = "admin";
-                user.Email = "admin@askyourmechanicdon.com";
+            //    var user = new ApplicationUser();
+            //    user.UserName = "admin";
+            //    user.Email = "admin@askyourmechanicdon.com";
 
-                string userPWD = "@Spring1960";
+            //    string userPWD = "@Spring1960";
 
-                var chkUser = UserManager.Create(user, userPWD);
+            //    var chkUser = UserManager.Create(user, userPWD);
 
-                //Add default User to Role Admin   
-                if (chkUser.Succeeded)
-                {
-                    var result1 = UserManager.AddToRole(user.Id, "AskAdmin");
-                    var result2 = UserManager.AddToRole(user.Id, "AskUser");
+            //    //Add default User to Role Admin   
+            //    if (chkUser.Succeeded)
+            //    {
+            //        var result1 = UserManager.AddToRole(user.Id, "AskAdmin");
+            //        var result2 = UserManager.AddToRole(user.Id, "AskUser");
 
-                }
-            }
-            if (roleManager.RoleExists("AskAdmin"))
-            {
+            //    }
+            //}
+            //if (roleManager.RoleExists("AskAdmin"))
+            //{
 
-                //Here we create a Admin super user who will maintain the website                  
+            //    //Here we create a Admin super user who will maintain the website                  
 
-                var user = new ApplicationUser();
-                user.UserName = "BillM";
-                user.Email = "bmorgan@telusplanet.net";
+            //    var user = new ApplicationUser();
+            //    user.UserName = "BillM";
+            //    user.Email = "bmorgan@telusplanet.net";
 
-                string userPWD = "@Spring1960";
+            //    string userPWD = "@Spring1960";
 
-                var chkUser = UserManager.Create(user, userPWD);
+            //    var chkUser = UserManager.Create(user, userPWD);
 
-                //Add default User to Role Admin   
-                if (chkUser.Succeeded)
-                {
-                    var result1 = UserManager.AddToRole(user.Id, "AskAdmin");
-                    var result2 = UserManager.AddToRole(user.Id, "AskUser");
+            //    //Add default User to Role Admin   
+            //    if (chkUser.Succeeded)
+            //    {
+            //        var result1 = UserManager.AddToRole(user.Id, "AskAdmin");
+            //        var result2 = UserManager.AddToRole(user.Id, "AskUser");
 
-                }
-            }
-            if (roleManager.RoleExists("AskAdmin"))
-            {
+            //    }
+            //}
+            //if (roleManager.RoleExists("AskAdmin"))
+            //{
 
-                //Here we create a Admin super user who will maintain the website                  
+            //    //Here we create a Admin super user who will maintain the website                  
 
-                var user = new ApplicationUser();
-                user.UserName = "DonM";
-                user.Email = "drshaw.ca";
+            //    var user = new ApplicationUser();
+            //    user.UserName = "DonM";
+            //    user.Email = "drshaw.ca";
 
-                string userPWD = "@Mountains1959";
+            //    string userPWD = "@Mountains1959";
 
-                var chkUser = UserManager.Create(user, userPWD);
+            //    var chkUser = UserManager.Create(user, userPWD);
 
-                //Add default User to Role Admin   
-                if (chkUser.Succeeded)
-                {
-                    var result1 = UserManager.AddToRole(user.Id, "AskAdmin");
-                    var result2 = UserManager.AddToRole(user.Id, "AskUser");
-                }
-            }
+            //    //Add default User to Role Admin   
+            //    if (chkUser.Succeeded)
+            //    {
+            //        var result1 = UserManager.AddToRole(user.Id, "AskAdmin");
+            //        var result2 = UserManager.AddToRole(user.Id, "AskUser");
+            //    }
+            //}
         }
     }
 }

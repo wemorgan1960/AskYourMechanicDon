@@ -5,28 +5,12 @@
 
 <h1>Ask Your Question</h1>
 
-@*<div class="col-md-2">
-    <h4>Filter by Category</h4>
-    <div class="list-group">
-        @Html.ActionLink("All","Index",null, new { @class = Request["Category"] == null ? "list-group-item active": "list-group-item"})
-        @foreach (var cat in Model.ProductCategories)
-        {
-            @Html.ActionLink(cat.Category,"Index", new { Category = cat.Category}, new { @class = Request["Category"] == cat.Category ? "list-group-item active" : "list-group-item" })
-        }
-    </div>
-</div>*@
 <div class="col-md-10">
     @foreach (var Item in Model.Products)
     {
-        @*<div class="col-md-10" style="height:150px;padding:10px;margin:10px;border:solid thin whitesmoke"> </div>*@
         <div class="col-md-10">
-            <!--<img class="img" style="height:150px" src="~/Content/ProductImages/@Item.Image" />-->
             <div class="col-md-10">
-                @*<strong>@Html.ActionLink(Item.Name, "Details", new { id = Item.Id })</strong>*@
             </div>
-            @*<div class="col-md-10">
-                <p>@Item.Description</p>
-            </div>*@
             <div class="col-md-10">
                 <h4>Price $@Item.Price</h4>
             </div>
@@ -43,7 +27,6 @@
                     <br />
                     <input type="submit" class="btn btn-default" value="Add to Basket">
                 </form>
-                @*<a href="@Url.Action("AddToBasket","Basket",new {Id = Item.Id})" class="btn btn-default">Add to Basket</a>*@
             </div>
         </div>
 
