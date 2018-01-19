@@ -12,6 +12,7 @@ namespace MyShop.WebUI.Controllers
         // GET: Admin
         public ActionResult Index()
         {
+            ViewBag.IsIndexHome = false;
             return View();
         }
     }

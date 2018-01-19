@@ -54,6 +54,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
         // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
+            ViewBag.IsIndexHome = false;
             ViewBag.StatusMessage =
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
                 : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
@@ -66,6 +67,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
             var userId = User.Identity.GetUserId();
             var model = new IndexViewModel
             {
+        
                 HasPassword = HasPassword(),
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
@@ -81,6 +83,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> RemoveLogin(string loginProvider, string providerKey)
         {
+            ViewBag.IsIndexHome = false;
             ManageMessageId? message;
             var result = await UserManager.RemoveLoginAsync(User.Identity.GetUserId(), new UserLoginInfo(loginProvider, providerKey));
             if (result.Succeeded)
@@ -103,6 +106,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
         // GET: /Manage/AddPhoneNumber
         public ActionResult AddPhoneNumber()
         {
+            ViewBag.IsIndexHome = false;
             return View();
         }
 
@@ -112,6 +116,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> AddPhoneNumber(AddPhoneNumberViewModel model)
         {
+            ViewBag.IsIndexHome = false;
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -136,6 +141,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> EnableTwoFactorAuthentication()
         {
+            ViewBag.IsIndexHome = false;
             await UserManager.SetTwoFactorEnabledAsync(User.Identity.GetUserId(), true);
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
             if (user != null)
@@ -151,6 +157,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DisableTwoFactorAuthentication()
         {
+            ViewBag.IsIndexHome = false;
             await UserManager.SetTwoFactorEnabledAsync(User.Identity.GetUserId(), false);
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
             if (user != null)
@@ -164,6 +171,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
         // GET: /Manage/VerifyPhoneNumber
         public async Task<ActionResult> VerifyPhoneNumber(string phoneNumber)
         {
+            ViewBag.IsIndexHome = false;
             var code = await UserManager.GenerateChangePhoneNumberTokenAsync(User.Identity.GetUserId(), phoneNumber);
             // Send an SMS through the SMS provider to verify the phone number
             return phoneNumber == null ? View("Error") : View(new VerifyPhoneNumberViewModel { PhoneNumber = phoneNumber });
@@ -175,6 +183,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> VerifyPhoneNumber(VerifyPhoneNumberViewModel model)
         {
+            ViewBag.IsIndexHome = false;
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -200,6 +209,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> RemovePhoneNumber()
         {
+            ViewBag.IsIndexHome = false;
             var result = await UserManager.SetPhoneNumberAsync(User.Identity.GetUserId(), null);
             if (!result.Succeeded)
             {
@@ -217,6 +227,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
         // GET: /Manage/ChangePassword
         public ActionResult ChangePassword()
         {
+            ViewBag.IsIndexHome = false;
             return View();
         }
 
@@ -226,6 +237,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
         {
+            ViewBag.IsIndexHome = false;
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -248,6 +260,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
         // GET: /Manage/SetPassword
         public ActionResult SetPassword()
         {
+            ViewBag.IsIndexHome = false;
             return View();
         }
 
@@ -257,6 +270,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> SetPassword(SetPasswordViewModel model)
         {
+            ViewBag.IsIndexHome = false;
             if (ModelState.IsValid)
             {
                 var result = await UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
@@ -280,6 +294,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
         // GET: /Manage/ManageLogins
         public async Task<ActionResult> ManageLogins(ManageMessageId? message)
         {
+            ViewBag.IsIndexHome = false;
             ViewBag.StatusMessage =
                 message == ManageMessageId.RemoveLoginSuccess ? "The external login was removed."
                 : message == ManageMessageId.Error ? "An error has occurred."

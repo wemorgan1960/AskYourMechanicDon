@@ -19,6 +19,7 @@ namespace MyShop.WebUI.Controllers
         // GET: OrderManager
         public ActionResult Index()
         {
+            ViewBag.IsIndexHome = false;
             List<Order> orders = orderService.GetOrderList();
 
             return View(orders);
@@ -32,6 +33,7 @@ namespace MyShop.WebUI.Controllers
                 "Order Complete"
             };
             Order order = orderService.GetOrder(Id);
+            ViewBag.IsIndexHome = false;
             return View(order);
         }
 
@@ -42,6 +44,7 @@ namespace MyShop.WebUI.Controllers
             order.OrderStatus = updatedOrder.OrderStatus;
             orderService.UpdateOrder(order);
 
+            ViewBag.IsIndexHome = false;
             return RedirectToAction("Index");
         }
     }

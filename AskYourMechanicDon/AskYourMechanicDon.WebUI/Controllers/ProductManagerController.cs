@@ -25,11 +25,13 @@ namespace AskYourMechanicDon.WebUI.Controllers
         // GET: ProductManager
         public ActionResult Index()
         {
+            ViewBag.IsIndexHome = false;
             List<Product> products = context.Collection().ToList();
             return View(products);
         }
         public ActionResult Create()
         {
+            ViewBag.IsIndexHome = false;
             ProductManagerViewModel viewModel = new ProductManagerViewModel();
             
             viewModel.Product = new Product();
@@ -40,7 +42,8 @@ namespace AskYourMechanicDon.WebUI.Controllers
         [HttpPost]
         public ActionResult Create(Product product, HttpPostedFileBase file)
         {
-            if(!ModelState.IsValid)
+            ViewBag.IsIndexHome = false;
+            if (!ModelState.IsValid)
             {
                 return View(product);
 
@@ -60,6 +63,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
         }
         public ActionResult Edit(string Id)
         {
+            ViewBag.IsIndexHome = false;
             Product product = context.Find(Id);
             if (product == null)
             {
@@ -77,6 +81,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
         [HttpPost]
         public ActionResult Edit(Product product, string Id, HttpPostedFileBase file)
         {
+            ViewBag.IsIndexHome = false;
             Product productToEdit = context.Find(Id);
             if (product == null)
             {
@@ -107,6 +112,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
         }
         public ActionResult Delete(string Id)
         {
+            ViewBag.IsIndexHome = false;
             Product productToDelete = context.Find(Id);
             if (productToDelete == null)
             {
@@ -121,6 +127,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
         [ActionName("Delete")]
         public ActionResult ConfirmDelete(string Id)
         {
+            ViewBag.IsIndexHome = false;
             Product productToDelete = context.Find(Id);
             if (productToDelete == null)
             {

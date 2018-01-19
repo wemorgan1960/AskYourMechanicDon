@@ -19,6 +19,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
         // GET: Basket
         public ActionResult Index()
         {
+            ViewBag.IsIndexHome = false;
             var model = basketService.GetBasketItems(this.HttpContext);
 
             return View(model);
@@ -26,6 +27,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
 
         public ActionResult AddToBasket(string Id, string Vin, string Question)
         {
+            ViewBag.IsIndexHome = false;
             basketService.AddToBasket(this.HttpContext, Id, Vin, Question);
 
             return RedirectToAction("Index");
@@ -33,6 +35,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
 
         public ActionResult RemoveFromBasket(string Id)
         {
+            ViewBag.IsIndexHome = false;
             basketService.RemoveFromBasket(this.HttpContext, Id);
 
             return RedirectToAction("Index");
@@ -40,6 +43,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
 
         public PartialViewResult BasketSummary()
         {
+            ViewBag.IsIndexHome = false;
             var basketSummary = basketService.GetBasketSummary(this.HttpContext);
 
             return PartialView(basketSummary);

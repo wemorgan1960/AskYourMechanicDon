@@ -22,11 +22,13 @@ namespace AskYourMechanicDon.WebUI.Controllers
         public ActionResult Index()
         {
             List<ProductCategory> productCategories = context.Collection().ToList();
+            ViewBag.IsIndexHome = false;
             return View(productCategories);
         }
         public ActionResult Create()
         {
             ProductCategory productCategory = new ProductCategory();
+            ViewBag.IsIndexHome = false;
             return View(productCategory);
         }
         [HttpPost]
@@ -41,15 +43,17 @@ namespace AskYourMechanicDon.WebUI.Controllers
             {
                 context.Insert(productCategory);
                 context.Commit();
-
+                ViewBag.IsIndexHome = false;
                 return RedirectToAction("Index");
             }
         }
         public ActionResult Edit(string Id)
         {
+            ViewBag.IsIndexHome = false;
             ProductCategory productCategory = context.Find(Id);
             if (productCategory == null)
             {
+                
                 return HttpNotFound();
             }
             else
@@ -60,6 +64,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
         [HttpPost]
         public ActionResult Edit(ProductCategory productCategory, string Id)
         {
+            ViewBag.IsIndexHome = false;
             ProductCategory productCategoryToEdit = context.Find(Id);
             if (productCategory == null)
             {
@@ -81,6 +86,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
         }
         public ActionResult Delete(string Id)
         {
+            ViewBag.IsIndexHome = false;
             ProductCategory productCategoryToDelete = context.Find(Id);
             if (productCategoryToDelete == null)
             {
@@ -95,6 +101,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
         [ActionName("Delete")]
         public ActionResult ConfirmDelete(string Id)
         {
+            ViewBag.IsIndexHome = false;
             ProductCategory productCategoryToDelete = context.Find(Id);
             if (productCategoryToDelete == null)
             {

@@ -1,4 +1,5 @@
-﻿<nav class="navbar navbar-inverse navbar-static-top ">
+﻿<!--Main nav begin-->
+<nav class="navbar navbar-inverse navbar-static-top sticky">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -7,24 +8,34 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
+            <a class="navbar-brand" href="#"><img src="" alt=""></a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav"></ul>
             <ul class="nav navbar-nav navbar-right scroll-to">
-                <li>@Html.ActionLink("Shop", "Index", "Home")</li>
-                <li>@Html.ActionLink("Product Admin", "Index", "ProductManager")</li>
-                <li>@Html.ActionLink("Category Admin", "Index", "ProductCategoryManager")</li>
-                <li>@Html.ActionLink("About", "About", "Home")</li>
-                <li>@Html.ActionLink("Disclaimer", "Disclaimer", "Home")</li>
-                <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                <li class="dropdown">
+                    <a button class="dropdown-toggle" id="dropdownCommonMenu" data-toggle="dropdown">Admin<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">@Html.ActionLink("Product Admin", "Index", "ProductManager")</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="#">@Html.ActionLink("Category Admin", "Index", "ProductCategoryManager")</a></li>
+                    </ul>
+                </li>
                 @Html.Partial("_LoginPartial")
                 @{
-        Html.RenderAction("BasketSummary", "Basket");
+                    Html.RenderAction("BasketSummary", "Basket");
                 }
+                <li>@Html.ActionLink("Check Out", "CheckOut", "Basket")</li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown">About <b class="caret"></b></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li role="menuitem">@Html.ActionLink("About", "About", "Home")</li>
+                        <li role="menuitem">@Html.ActionLink("Contact Us", "Contact", "Home")</li>
+                    </ul>
+                </li>
+                <li>@Html.ActionLink("Disclaimer", "Disclaimer", "Home")</li>
             </ul>
         </div><!--/.nav-collapse -->
-
-
+        @*<button type="button" class="navbar-toggle side-panel" data-toggle="offcanvas" data-target=".navmenu" data-canvas="body"><i class="ti-menu-alt"></i></button>*@
     </div><!--/.container -->
 </nav>
 <!--Main nav end-->

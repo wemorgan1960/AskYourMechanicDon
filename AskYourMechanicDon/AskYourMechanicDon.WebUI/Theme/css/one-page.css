@@ -40,6 +40,7 @@ a {
   color: #32c5d2;
 }
 
+
 a:hover, a:focus, button:focus, .btn, button {
   border: 0px;
   outline: 0 !important;
@@ -1367,3 +1368,6 @@ Contact section
     background-position: center center !important;
   }
 }
+
+
+

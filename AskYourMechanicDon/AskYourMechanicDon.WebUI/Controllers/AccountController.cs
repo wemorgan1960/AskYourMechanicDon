@@ -57,6 +57,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            ViewBag.IsIndexHome = false;
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -68,6 +69,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
+            ViewBag.IsIndexHome = false;
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -96,6 +98,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> VerifyCode(string provider, string returnUrl, bool rememberMe)
         {
+            ViewBag.IsIndexHome = false;
             // Require that the user has already logged in via username/password or external login
             if (!await SignInManager.HasBeenVerifiedAsync())
             {
@@ -111,6 +114,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> VerifyCode(VerifyCodeViewModel model)
         {
+            ViewBag.IsIndexHome = false;
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -139,6 +143,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            ViewBag.IsIndexHome = false;
             return View();
         }
 
@@ -149,6 +154,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            ViewBag.IsIndexHome = false;
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
@@ -177,6 +183,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(string userId, string code)
         {
+            ViewBag.IsIndexHome = false;
             if (userId == null || code == null)
             {
                 return View("Error");
@@ -190,6 +197,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
         [AllowAnonymous]
         public ActionResult ForgotPassword()
         {
+            ViewBag.IsIndexHome = false;
             return View();
         }
 
@@ -200,6 +208,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
+            ViewBag.IsIndexHome = false;
             if (ModelState.IsValid)
             {
                 var user = await UserManager.FindByNameAsync(model.Email);
@@ -226,6 +235,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
         [AllowAnonymous]
         public ActionResult ForgotPasswordConfirmation()
         {
+            ViewBag.IsIndexHome = false;
             return View();
         }
 
@@ -234,6 +244,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
         [AllowAnonymous]
         public ActionResult ResetPassword(string code)
         {
+            ViewBag.IsIndexHome = false;
             return code == null ? View("Error") : View();
         }
 
@@ -244,6 +255,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ResetPassword(ResetPasswordViewModel model)
         {
+            ViewBag.IsIndexHome = false;
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -268,6 +280,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
         [AllowAnonymous]
         public ActionResult ResetPasswordConfirmation()
         {
+            ViewBag.IsIndexHome = false;
             return View();
         }
 
@@ -278,6 +291,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ExternalLogin(string provider, string returnUrl)
         {
+            ViewBag.IsIndexHome = false;
             // Request a redirect to the external login provider
             return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
         }
@@ -287,6 +301,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> SendCode(string returnUrl, bool rememberMe)
         {
+            ViewBag.IsIndexHome = false;
             var userId = await SignInManager.GetVerifiedUserIdAsync();
             if (userId == null)
             {
@@ -304,6 +319,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> SendCode(SendCodeViewModel model)
         {
+            ViewBag.IsIndexHome = false;
             if (!ModelState.IsValid)
             {
                 return View();
@@ -322,6 +338,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
+            ViewBag.IsIndexHome = false;
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
             if (loginInfo == null)
             {
@@ -354,6 +371,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
         {
+            ViewBag.IsIndexHome = false;
             if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Manage");
@@ -391,6 +409,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
+            ViewBag.IsIndexHome = false;
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
         }
@@ -400,6 +419,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
         [AllowAnonymous]
         public ActionResult ExternalLoginFailure()
         {
+            ViewBag.IsIndexHome = false;
             return View();
         }
 

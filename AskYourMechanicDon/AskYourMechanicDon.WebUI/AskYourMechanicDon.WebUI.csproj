@@ -866,6 +866,9 @@
     <Content Include="Views\OrderManager\Index.cshtml" />
     <Content Include="Views\OrderManager\OrderItems.cshtml" />
     <Content Include="Views\OrderManager\UpdateOrder.cshtml" />
+    <Content Include="Views\Home\Products.cshtml" />
+    <Content Include="Views\Shared\_FooterToolBar.cshtml" />
+    <Content Include="Views\Shared\_HeaderToolBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

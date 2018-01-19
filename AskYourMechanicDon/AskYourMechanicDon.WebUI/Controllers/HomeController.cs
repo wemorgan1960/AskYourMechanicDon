@@ -22,14 +22,38 @@ namespace AskYourMechanicDon.WebUI.Controllers
             context = productContext;
             productCategories = productCategoryContext;
         }
-        public ActionResult Index(string Category=null)
+        public ActionResult Index()
         {
+            ViewBag.IsIndexHome = true;
+            //List<Product> products = context.Collection().ToList();
+            //List<ProductCategory> categories = productCategories.Collection().ToList();
+
+            ////if (categories == null)
+            ////{
+            //    products = context.Collection().ToList();
+            ////}
+            ////else
+            ////{
+            ////    products = context.Collection().Where(p => p.Category == Category).ToList();
+            ////}
+
+            //ProductListViewModel model = new ProductListViewModel();
+            //model.Products = products;
+            //model.ProductCategories = categories;
+
+            return View() ;
+        }
+
+        public ActionResult Products(string Category = null)
+        {
+            ViewBag.IsIndexHome = false;
+
             List<Product> products = context.Collection().ToList();
             List<ProductCategory> categories = productCategories.Collection().ToList();
 
             //if (categories == null)
             //{
-                products = context.Collection().ToList();
+            products = context.Collection().ToList();
             //}
             //else
             //{
@@ -45,6 +69,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
 
         public ActionResult Details(string Id)
         {
+            ViewBag.IsIndexHome = false;
             Product product = context.Find(Id);
             if (product == null)
             {
@@ -59,12 +84,14 @@ namespace AskYourMechanicDon.WebUI.Controllers
 
         public ActionResult About()
         {
+            ViewBag.IsIndexHome = false;
             ViewBag.Message = "About askyourmechanicdon.com";
 
             return View();
         }
         public ActionResult Disclaimer()
         {
+            ViewBag.IsIndexHome = false;
             ViewBag.Message = "Disclaimer";
 
             return View();
@@ -72,6 +99,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
 
         public ActionResult Contact()
         {
+            ViewBag.IsIndexHome = false;
             ViewBag.Message = "askyourmechanicdon.com contact page.";
 
             return View();
@@ -80,6 +108,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ContactAsync(EmailFormModel model)
         {
+            ViewBag.IsIndexHome = false;
             if (ModelState.IsValid)
             {
                 var subject = "AskYourMechanicDon.com Contact Form Email";
@@ -109,6 +138,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
         }
         public ActionResult Sent()
         {
+            ViewBag.IsIndexHome = false;
             return View();
         }
     }

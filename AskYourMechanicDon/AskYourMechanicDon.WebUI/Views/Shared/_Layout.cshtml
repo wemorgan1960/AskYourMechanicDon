@@ -22,7 +22,8 @@
     <!--cube css-->
     <link href="~/Theme/cubeportfolio/css/cubeportfolio.min.css" rel="stylesheet" type="text/css">
     <!--custom css (comile from one-page.scss)-->
-    <link href="~/Theme/css/one-page-dark.css" rel="stylesheet">
+    @*<link href="~/Theme/css/one-page-dark.css" rel="stylesheet">*@
+    <link href="css/one-page.css" rel="stylesheet">
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -32,202 +33,19 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body data-spy="scroll">
-    <!--Home section start-->
-    <section id="slider" class=" clearfix">
-        <!--
-        #################################
-            - THEMEPUNCH BANNER -
-        #################################
-        -->
-        <div class="fullwidthbanner">
-            <div class="tp-fullscreen-banner">
-                <ul>
-                    <!-- SLIDE  -->
-                    <li class="dark" data-transition="fade" data-slotamount="1" data-masterspeed="1500" data-thumb="img/showcase-4.jpg" data-delay="10000" data-saveperformance="off" data-title="Ask Your Mechanic Don">
-                        <!-- MAIN IMAGE -->
-                        <img src="~/Theme/img/showcase-4.jpg" alt="kenburns1" data-bgposition="left center" data-kenburns="on" data-duration="10000" data-ease="Linear.easeNone" data-bgfit="130" data-bgfitend="100" data-bgpositionend="right center">
-                        <!-- LAYERS -->
-                        <!-- LAYER NR. 2 -->
-                        <div class="tp-caption title customin ltl tp-resizeme"
-                             data-x="center"
-                             data-y="200"
-                             data-customin="x:0;y:150;z:0;rotationZ:0;scaleX:1;scaleY:1;skewX:0;skewY:0;opacity:0;transformPerspective:200;transformOrigin:50% 0%;"
-                             data-speed="800"
-                             data-start="1000"
-                             data-easing="easeOutQuad"
-                             data-splitin="none"
-                             data-splitout="none"
-                             data-elementdelay="0.01"
-                             data-endelementdelay="0.1"
-                             data-endspeed="1000"
-                             data-endeasing="Power4.easeIn" style="z-index: 3;">
-                            Ask your Mechanic Don
-                        </div>
-                        <div class="tp-caption customin subtitle ltl tp-resizeme"
-                             data-x="center"
-                             data-y="280"
-                             data-customin="x:0;y:150;z:0;rotationZ:0;scaleX:1;scaleY:1;skewX:0;skewY:0;opacity:0;transformPerspective:200;transformOrigin:50% 0%;"
-                             data-speed="800"
-                             data-start="1250"
-                             data-easing="easeOutQuad"
-                             data-splitin="none"
-                             data-splitout="none"
-                             data-elementdelay="0.01"
-                             data-endelementdelay="0.1"
-                             data-endspeed="1000"
-                             data-endeasing="Power4.easeIn" style="z-index: 3;">
-                            <p class="lead">We simply answer your automotive question.</p>
-                        </div>
-                        <div class="tp-caption customin scroll-to ltl tp-resizeme"
-                             data-x="center"
-                             data-y="350"
-                             data-customin="x:0;y:150;z:0;rotationZ:0;scaleX:1;scaleY:1;skewX:0;skewY:0;opacity:0;transformPerspective:200;transformOrigin:50% 0%;"
-                             data-speed="800"
-                             data-start="1550"
-                             data-easing="easeOutQuad"
-                             data-splitin="none"
-                             data-splitout="none"
-                             data-elementdelay="0.01"
-                             data-endelementdelay="0.1"
-                             data-endspeed="1000"
-                             data-endeasing="Power4.easeIn" style="z-index: 3;"><a href="#work" class="btn btn-lg btn-white-border"><span>Ask</span> <i class="icon-angle-right"></i></a></div>
-                    </li>
+<body>
+    @if (!ViewBag.IsIndexHome)
+    {
+        @Html.Partial("_HeaderToolBar")
+    }
 
-                    <!-- SLIDE  -->
-                    <li data-transition="slideup" data-slotamount="1" data-masterspeed="1500" data-thumb="~/Theme/img/bg-4.jpg" data-delay="10000" data-saveperformance="off" data-title="Over 35 years of automotive experiance">
-                        <!-- MAIN IMAGE -->
-                        <img src="~/Theme/img/bg-4.jpg" alt="kenburns6" data-bgposition="center bottom" data-kenburns="on" data-duration="10000" data-ease="Linear.easeNone" data-bgfit="100" data-bgfitend="120" data-bgpositionend="center top">
-                        <!-- LAYERS -->
-                        <!-- LAYER NR. 2 -->
-                        <div class="tp-caption title customin ltl tp-resizeme"
-                             data-x="center"
-                             data-y="200"
-                             data-customin="x:0;y:150;z:0;rotationZ:0;scaleX:1;scaleY:1;skewX:0;skewY:0;opacity:0;transformPerspective:200;transformOrigin:50% 0%;"
-                             data-speed="800"
-                             data-start="1000"
-                             data-easing="easeOutQuad"
-                             data-splitin="none"
-                             data-splitout="none"
-                             data-elementdelay="0.01"
-                             data-endelementdelay="0.1"
-                             data-endspeed="1000"
-                             data-endeasing="Power4.easeIn" style="z-index: 3;">
-                            Over 35 years of automotive experiance
-                        </div>
-                        <div class="tp-caption subtitle customin ltl tp-resizeme"
-                             data-x="center"
-                             data-y="280"
-                             data-customin="x:0;y:150;z:0;rotationZ:0;scaleX:1;scaleY:1;skewX:0;skewY:0;opacity:0;transformPerspective:200;transformOrigin:50% 0%;"
-                             data-speed="800"
-                             data-start="1250"
-                             data-easing="easeOutQuad"
-                             data-splitin="none"
-                             data-splitout="none"
-                             data-elementdelay="0.01"
-                             data-endelementdelay="0.1"
-                             data-endspeed="1000"
-                             data-endeasing="Power4.easeIn" style="z-index: 3;">
-                            <p class="lead">We provide amazingly simple answers.</p>
-                        </div>
-                        <div class="tp-caption customin scroll-to ltl tp-resizeme"
-                             data-x="center"
-                             data-y="350"
-                             data-customin="x:0;y:150;z:0;rotationZ:0;scaleX:1;scaleY:1;skewX:0;skewY:0;opacity:0;transformPerspective:200;transformOrigin:50% 0%;"
-                             data-speed="800"
-                             data-start="1550"
-                             data-easing="easeOutQuad"
-                             data-splitin="none"
-                             data-splitout="none"
-                             data-elementdelay="0.01"
-                             data-endelementdelay="0.1"
-                             data-endspeed="1000"
-                             data-endeasing="Power4.easeIn" style="z-index: 3;"><a href="#work" class="btn btn-lg btn-white-border"><span>Ask</span> <i class="icon-angle-right"></i></a></div>
-                    </li>
-                </ul>
-            </div>
-        </div>
+    @RenderBody()
 
-        <!-- END REVOLUTION SLIDER -->
-    </section>
-
-    <!--Home section end-->
-    <!--Main nav begin-->
-    <nav class="navbar navbar-inverse navbar-static-top sticky">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#"><img src="" alt=""></a>
-            </div>
-            <div id="navbar" class="navbar-collapse collapse">
-                <ul class="nav navbar-nav"></ul>
-                <ul class="nav navbar-nav navbar-right scroll-to">
-                    <li>@Html.ActionLink("Shop", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Product Admin", "Index", "ProductManager")</li>
-                    <li>@Html.ActionLink("Category Admin", "Index", "ProductCategoryManager")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Disclaimer", "Disclaimer", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    @Html.Partial("_LoginPartial")
-                    @{
-                         
-                    }
-                </ul>
-            </div><!--/.nav-collapse -->
-            <button type="button" class="navbar-toggle side-panel" data-toggle="offcanvas" data-target=".navmenu" data-canvas="body"><i class="ti-menu-alt"></i></button>
-        </div><!--/.container -->
-    </nav>
-    <!--Main nav end-->
-    <section id="work">
-        <div class="container body-content">
-            @RenderBody()
-            <hr />
-        </div>
-    </section>
-    <!--footer-->
-    <footer class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6 col-sm-offset-3 text-center margin20">
-                    <div class="footer-col">
-                        @*<h3><img src="~/Theme/img/logo-white.png" alt=""></h3>*@
-                        <div class="social">
-                            <a href="#" class="social-icon si-dark si-gray-round si-colored-facebook">
-                                <i class="fa fa-facebook"></i>
-                                <i class="fa fa-facebook"></i>
-                            </a>
-                            <a href="#" class="social-icon si-dark si-gray-round si-colored-google-plus">
-                                <i class="fa fa-google-plus"></i>
-                                <i class="fa fa-google-plus"></i>
-                            </a>
-                            <a href="#" class="social-icon si-dark si-gray-round si-colored-instagram">
-                                <i class="fa fa-instagram"></i>
-                                <i class="fa fa-instagram"></i>
-                            </a>
-                            <a href="#" class="social-icon si-dark si-gray-round si-colored-linkedin">
-                                <i class="fa fa-linkedin"></i>
-                                <i class="fa fa-linkedin"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div><!--footer col-->
-            </div>
-            <div class="row">
-                <div class="col-md-12 text-center">
-                    <div class="footer-btm">
-                        <span>&copy;2017. Theme by Design_mylife</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer><!--footer 2 end-->
-    <!--footer end-->
-    <div id="back-to-top">
+    @if (!ViewBag.IsIndexHome)
+    {
+    @Html.Partial("_FooterToolBar")
+    }
+       <div id="back-to-top">
         <a href="#top"><i class="fa fa-angle-up"></i></a>
     </div>
     <!-- jQuery-->
@@ -262,50 +80,3 @@
 
 
 
-@*<!DOCTYPE html>
-    <html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>@ViewBag.Title - My ASP.NET Application</title>
-        @Styles.Render("~/Content/css")
-        @Scripts.Render("~/bundles/modernizr")
-
-    </head>
-    <body>
-        <div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                        <li>@Html.ActionLink("Product Admin", "Index", "ProductManager")</li>
-                        <li>@Html.ActionLink("Category Admin", "Index", "ProductCategoryManager")</li>
-                    </ul>
-                    @Html.Partial("_LoginPartial")
-                    @{
-                        Html.RenderAction("BasketSummary","Basket" );
-                   }
-                </div>
-            </div>
-        </div>
-        <div class="container body-content">
-            @RenderBody()
-            <hr />
-            <footer>
-                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-            </footer>
-        </div>
-
-        @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/bootstrap")
-        @RenderSection("scripts", required: false)
-    </body>
-    </html>*@
