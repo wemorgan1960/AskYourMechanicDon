@@ -25,22 +25,6 @@ namespace AskYourMechanicDon.WebUI.Controllers
         public ActionResult Index()
         {
             ViewBag.IsIndexHome = true;
-            //List<Product> products = context.Collection().ToList();
-            //List<ProductCategory> categories = productCategories.Collection().ToList();
-
-            ////if (categories == null)
-            ////{
-            //    products = context.Collection().ToList();
-            ////}
-            ////else
-            ////{
-            ////    products = context.Collection().Where(p => p.Category == Category).ToList();
-            ////}
-
-            //ProductListViewModel model = new ProductListViewModel();
-            //model.Products = products;
-            //model.ProductCategories = categories;
-
             return View() ;
         }
 
@@ -51,14 +35,14 @@ namespace AskYourMechanicDon.WebUI.Controllers
             List<Product> products = context.Collection().ToList();
             List<ProductCategory> categories = productCategories.Collection().ToList();
 
-            //if (categories == null)
-            //{
+            if (Category == null)
+            {
             products = context.Collection().ToList();
-            //}
-            //else
-            //{
-            //    products = context.Collection().Where(p => p.Category == Category).ToList();
-            //}
+            }
+            else
+            {
+                products = context.Collection().Where(p => p.Category == Category).ToList();
+            }
 
             ProductListViewModel model = new ProductListViewModel();
             model.Products = products;
@@ -114,16 +98,16 @@ namespace AskYourMechanicDon.WebUI.Controllers
                 var subject = "AskYourMechanicDon.com Contact Form Email";
                 var body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
                 var fromAddress = model.FromEmail;
-                var toAddress = "admin@backcountryfreedom.com";
+                var toAddress = "admin@askyourmechanicdon.com";
                 var emailBody = string.Format(body, model.FromName, model.FromEmail, model.Message);
 
                 var smtp = new SmtpClient();
                 {
-                    smtp.Host = "smtp.backcountryfreedom.com";
+                    smtp.Host = "smtp.askyourmechanicdon.com";
                     smtp.Port = 587;
                     smtp.EnableSsl = false;
                     smtp.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
-                    smtp.Credentials = new NetworkCredential("admin@backcountryfreedom.com", "MIIPqAQm8");
+                    smtp.Credentials = new NetworkCredential("admin@askyourmechanicdon.com", "TtLUVAz5");
                     smtp.Timeout = 20000;
                 }
 

@@ -7,10 +7,11 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using AskYourMechanicDon.WebUI.Models;
+using AskYourMechanicDon.Core.Models;
 
 namespace AskYourMechanicDon.WebUI.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = RoleName.AskAdmin +"," + RoleName.AskUser)]
     public class ManageController : Controller
     {
         private ApplicationSignInManager _signInManager;

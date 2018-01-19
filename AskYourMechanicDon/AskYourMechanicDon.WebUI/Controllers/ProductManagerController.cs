@@ -11,7 +11,7 @@ using AskYourMechanicDon.Core.ViewModels;
 
 namespace AskYourMechanicDon.WebUI.Controllers
 {
-
+    [Authorize(Roles = RoleName.AskAdmin )]
     public class ProductManagerController : Controller
     {
         IRepository<Product> context;

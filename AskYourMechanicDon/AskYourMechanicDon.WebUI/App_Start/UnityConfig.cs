@@ -58,10 +58,10 @@ namespace AskYourMechanicDon.WebUI
             container.RegisterType<IOrderService, OrderService>();
             container.RegisterType<IBasketService, BasketService>();
 
-            //container.RegisterType<AccountController>(new InjectionConstructor());
-            ////container.RegisterType<RolesAdminController>(new InjectionConstructor());
-            //container.RegisterType<ManageController>(new InjectionConstructor());
-            ////container.RegisterType<UsersAdminController>(new InjectionConstructor());
+            container.RegisterType<AccountController>(new InjectionConstructor());
+            //container.RegisterType<RolesAdminController>(new InjectionConstructor());
+            container.RegisterType<ManageController>(new InjectionConstructor());
+            //container.RegisterType<UsersAdminController>(new InjectionConstructor());
         }
     }
 }
