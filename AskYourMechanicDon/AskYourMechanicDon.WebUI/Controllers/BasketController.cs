@@ -65,11 +65,11 @@ namespace AskYourMechanicDon.WebUI.Controllers
                 {
                     Email = customer.Email,
                     City = customer.City,
-                    State = customer.State,
+                    Province = customer.Province,
                     Street = customer.Street,
                     FirstName = customer.FirstName,
                     Surname = customer.LastName,
-                    ZipCode = customer.ZipCode
+                    PostalCode = customer.PostalCode
                 };
 
                 return View(order);

@@ -25,6 +25,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
         public ActionResult Index()
         {
             ViewBag.IsIndexHome = true;
+            //return RedirectToAction("UnderConstruction");
             return View() ;
         }
 
@@ -123,6 +124,11 @@ namespace AskYourMechanicDon.WebUI.Controllers
         public ActionResult Sent()
         {
             ViewBag.IsIndexHome = false;
+            return View();
+        }
+        public ActionResult UnderConstruction()
+        {
+            ViewBag.IsIndexHome = true;
             return View();
         }
     }

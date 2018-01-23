@@ -55,27 +55,6 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.4.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AI.DependencyCollector, Version=2.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ApplicationInsights.DependencyCollector.2.4.1\lib\net45\Microsoft.AI.DependencyCollector.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AI.PerfCounterCollector, Version=2.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ApplicationInsights.PerfCounterCollector.2.4.1\lib\net45\Microsoft.AI.PerfCounterCollector.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AI.ServerTelemetryChannel, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.TelemetryChannel.2.4.0\lib\net45\Microsoft.AI.ServerTelemetryChannel.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AI.Web, Version=2.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ApplicationInsights.Web.2.4.1\lib\net45\Microsoft.AI.Web.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.AI.WindowsServer, Version=2.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ApplicationInsights.WindowsServer.2.4.1\lib\net45\Microsoft.AI.WindowsServer.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.ApplicationInsights, Version=2.4.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.ApplicationInsights.2.4.0\lib\net46\Microsoft.ApplicationInsights.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.AspNet.TelemetryCorrelation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.TelemetryCorrelation.1.0.0\lib\net45\Microsoft.AspNet.TelemetryCorrelation.dll</HintPath>
     </Reference>
@@ -230,6 +209,11 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\ProductImages\4524b6bd-94f6-4494-bdd2-3e833134106b.jpg" />
+    <Content Include="Content\ProductImages\4a6bf408-121e-40ff-93d0-362144de0570.jpg" />
+    <Content Include="Content\ProductImages\b2147651-e630-416f-8b82-e23b42fc8f84.jpg" />
+    <Content Include="Content\ProductImages\de558a6d-7966-43aa-b549-8f0467215291.jpg" />
+    <Content Include="Content\ProductImages\eeef5ceb-6a68-44b0-b81c-4246d215655e.jpg" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -280,6 +264,7 @@
     <Content Include="Theme\css\owl.carousel.css" />
     <Content Include="Theme\css\owl.theme.css" />
     <Content Include="Theme\css\rev-style.css" />
+    <Content Include="Theme\css\style.css" />
     <Content Include="Theme\css\YTPlayer.css" />
     <Content Include="Theme\cubeportfolio\css\cubeportfolio.css" />
     <Content Include="Theme\cubeportfolio\css\cubeportfolio.min.css" />
@@ -290,73 +275,75 @@
     <Content Include="Theme\font-awesome\css\font-awesome.min.css" />
     <Content Include="Theme\font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="Theme\img\bg-1.jpg" />
+    <Content Include="Theme\img\bg-1a.jpg" />
     <Content Include="Theme\img\bg-2.jpg" />
+    <Content Include="Theme\img\bg-2a.jpg" />
     <Content Include="Theme\img\bg-3.jpg" />
+    <Content Include="Theme\img\bg-3a.jpg" />
     <Content Include="Theme\img\bg-4.jpg" />
+    <Content Include="Theme\img\bg-4a.jpg" />
     <Content Include="Theme\img\cl-1.png" />
     <Content Include="Theme\img\cl-2.png" />
     <Content Include="Theme\img\cl-3.png" />
     <Content Include="Theme\img\cl-4.png" />
     <Content Include="Theme\img\cl-5.png" />
-    <Content Include="Theme\img\customer-1.jpg" />
-    <Content Include="Theme\img\customer-2.jpg" />
-    <Content Include="Theme\img\customer-3.jpg" />
     <Content Include="Theme\img\grabbing.png" />
-    <Content Include="Theme\img\iceberg.jpg" />
-    <Content Include="Theme\img\iceberg.mp4" />
-    <Content Include="Theme\img\img-1.jpg" />
-    <Content Include="Theme\img\img-2.jpg" />
-    <Content Include="Theme\img\img-3.jpg" />
-    <Content Include="Theme\img\img-4.jpg" />
-    <Content Include="Theme\img\img-5.jpg" />
-    <Content Include="Theme\img\img-6.jpg" />
-    <Content Include="Theme\img\img-7.jpg" />
-    <Content Include="Theme\img\img-8.jpg" />
-    <Content Include="Theme\img\img-9.jpg" />
-    <Content Include="Theme\img\imgs\20170910_124034_HDR.jpg" />
-    <Content Include="Theme\img\imgs\20170910_130226_HDR-1024x576.jpg" />
-    <Content Include="Theme\img\imgs\20170910_133749_HDR.jpg" />
     <Content Include="Theme\img\logo-white.png" />
-    <Content Include="Theme\img\logo.png" />
-    <Content Include="Theme\img\mas-1.jpg" />
-    <Content Include="Theme\img\mas-2.jpg" />
-    <Content Include="Theme\img\mockup-ipad.png" />
     <Content Include="Theme\img\pattern.png" />
     <Content Include="Theme\img\plus.png" />
     <Content Include="Theme\img\shadow-bg.png" />
     <Content Include="Theme\img\showcase-1.jpg" />
+    <Content Include="Theme\img\showcase-1a.jpg" />
     <Content Include="Theme\img\showcase-2.jpg" />
+    <Content Include="Theme\img\showcase-2a.jpg" />
     <Content Include="Theme\img\showcase-3.jpg" />
+    <Content Include="Theme\img\showcase-3a.jpg" />
     <Content Include="Theme\img\showcase-4.jpg" />
+    <Content Include="Theme\img\showcase-4a.jpg" />
     <Content Include="Theme\img\showcase-5.jpg" />
-    <Content Include="Theme\img\team-1.jpg" />
-    <Content Include="Theme\img\team-2.jpg" />
-    <Content Include="Theme\img\team-3.jpg" />
-    <Content Include="Theme\img\team-4.jpg" />
-    <Content Include="Theme\img\team-5.jpg" />
-    <Content Include="Theme\img\team-6.jpg" />
-    <Content Include="Theme\img\team-7.jpg" />
-    <Content Include="Theme\img\team-8.jpg" />
+    <Content Include="Theme\img\showcase-5a.jpg" />
     <Content Include="Theme\index-dark.html" />
     <Content Include="Theme\index-video.html" />
     <Content Include="Theme\index.html" />
+    <Content Include="Theme\js\bootstrap-hover-dropdown.min.js" />
+    <Content Include="Theme\js\bootstrap.touchspin.js" />
     <Content Include="Theme\js\contact_me.js" />
     <Content Include="Theme\js\cube-portfolio.js" />
+    <Content Include="Theme\js\custom.js" />
+    <Content Include="Theme\js\gmaps.js" />
+    <Content Include="Theme\js\isotope-custom.js" />
     <Content Include="Theme\js\jasny-bootstrap.min.js" />
     <Content Include="Theme\js\jqBootstrapValidation.js" />
     <Content Include="Theme\js\jquery-migrate.min.js" />
+    <Content Include="Theme\js\jquery-ui.min.js" />
+    <Content Include="Theme\js\jquery.backstretch.min.js" />
+    <Content Include="Theme\js\jquery.countdown.js" />
+    <Content Include="Theme\js\jquery.countdown.min.js" />
     <Content Include="Theme\js\jquery.counterup.min.js" />
     <Content Include="Theme\js\jquery.easing.1.3.min.js" />
     <Content Include="Theme\js\jquery.flexslider-min.js" />
+    <Content Include="Theme\js\jquery.imagesloaded.min.js" />
+    <Content Include="Theme\js\jquery.isotope.min.js" />
+    <Content Include="Theme\js\jquery.magnific-popup.min.js" />
+    <Content Include="Theme\js\jquery.masonry.min.js" />
     <Content Include="Theme\js\jquery.mb.YTPlayer.min.js" />
+    <Content Include="Theme\js\jquery.metisMenu.js" />
     <Content Include="Theme\js\jquery.min.js" />
+    <Content Include="Theme\js\jquery.stellar.min.js" />
     <Content Include="Theme\js\jquery.sticky.js" />
+    <Content Include="Theme\js\map.js" />
+    <Content Include="Theme\js\masonary-custom.js" />
+    <Content Include="Theme\js\masonry.pkgd.min.js" />
     <Content Include="Theme\js\modernizr.custom.97074.js" />
     <Content Include="Theme\js\one-page.js" />
     <Content Include="Theme\js\owl.carousel.min.js" />
     <Content Include="Theme\js\pace.min.js" />
     <Content Include="Theme\js\parallax.min.js" />
     <Content Include="Theme\js\revolution-custom.js" />
+    <Content Include="Theme\js\sky-forms-custom.js" />
+    <Content Include="Theme\js\sweetalert.min.js" />
+    <Content Include="Theme\js\tweetie.min.js" />
+    <Content Include="Theme\js\typed.js" />
     <Content Include="Theme\js\waypoints.min.js" />
     <Content Include="Theme\js\wow.min.js" />
     <Content Include="Theme\mail\contact_me.php" />
@@ -844,8 +831,6 @@
     <Content Include="Theme\font-awesome\fonts\fontawesome-webfont.woff" />
     <Content Include="Theme\font-awesome\fonts\fontawesome-webfont.woff2" />
     <Content Include="Theme\font-awesome\fonts\FontAwesome.otf" />
-    <Content Include="Theme\img\imgs\Thumbs.db" />
-    <Content Include="Theme\img\Thumbs.db" />
     <Content Include="Theme\owl-carousel\LICENSE" />
     <Content Include="Theme\owl-carousel\README.md" />
     <Content Include="Theme\rs-plugin\assets\arrows.psd" />
@@ -870,10 +855,11 @@
     <Content Include="Views\Shared\_FooterToolBar.cshtml" />
     <Content Include="Views\Shared\_HeaderToolBar.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Home\UnderConstruction.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\ProductImages\" />
+    <Folder Include="Theme\img\imgs\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

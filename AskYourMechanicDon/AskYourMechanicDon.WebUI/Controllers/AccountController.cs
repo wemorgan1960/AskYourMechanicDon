@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using AskYourMechanicDon.WebUI.Models;
 using AskYourMechanicDon.Core.Models;
+using AskYourMechanicDon.Core.Contracts;
 
 namespace AskYourMechanicDon.WebUI.Controllers
 {
@@ -18,17 +19,12 @@ namespace AskYourMechanicDon.WebUI.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private IRepository<Customer> customerRepository;
 
-        public AccountController()
+        public AccountController(IRepository<Customer> customerRepository)
         {
+            this.customerRepository = customerRepository;
         }
-
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
-        {
-            UserManager = userManager;
-            SignInManager = signInManager;
-        }
-
         public ApplicationSignInManager SignInManager
         {
             get
@@ -52,6 +48,36 @@ namespace AskYourMechanicDon.WebUI.Controllers
                 _userManager = value;
             }
         }
+
+        //public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        //{
+        //    UserManager = userManager;
+        //    SignInManager = signInManager;
+        //}
+
+        //public ApplicationSignInManager SignInManager
+        //{
+        //    get
+        //    {
+        //        return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+        //    }
+        //    private set
+        //    {
+        //        _signInManager = value;
+        //    }
+        //}
+
+        //public ApplicationUserManager UserManager
+        //{
+        //    get
+        //    {
+        //        return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+        //    }
+        //    private set
+        //    {
+        //        _userManager = value;
+        //    }
+        //}
 
         //
         // GET: /Account/Login
@@ -107,7 +133,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl,  model.RememberMe });
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
@@ -162,51 +188,54 @@ namespace AskYourMechanicDon.WebUI.Controllers
 
         //
         // GET: /Account/Register
-        //[AllowAnonymous]
-        [Authorize(Roles = RoleName.AskAdmin + "," + RoleName.AskUser)]
+        [AllowAnonymous]
+        //[Authorize(Roles = RoleName.AskAdmin + "," + RoleName.AskUser)]
         public ActionResult Register()
         {
             ViewBag.IsIndexHome = false;
             return View();
         }
-
-        //
         // POST: /Account/Register
         [HttpPost]
-        //[AllowAnonymous]
-        [Authorize(Roles = RoleName.AskAdmin + "," + RoleName.AskUser)]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             ViewBag.IsIndexHome = false;
-
             if (ModelState.IsValid)
             {
-
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    //register the customer model
+                    Customer customer = new Customer()
+                    {
+                        City = model.City,
+                        Email = model.Email,
+                        FirstName = model.FirstName,
+                        LastName = model.LastName,
+                        Province = model.Province,
+                        Street = model.Street,
+                        PostalCode = model.PostalCode,
+                        UserId = user.Id
+                    };
+
+                    customerRepository.Insert(customer);
+                    customerRepository.Commit();
+
                     //Assign Role
                     await this.UserManager.AddToRoleAsync(user.Id, RoleName.AskUser);
 
-
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id,  code }, protocol: Request.Url.Scheme);
                     await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    //string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirm your account");
-                    //To debug locally
-                    //TempData["ViewBagLink"] = callbackUrl;
-
-                    ViewBag.Message = "Check your email and confirm you account, you must be confirmed " +
-                        "before you can log in.";
-                    return View("Info");
-                    // return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Home");
                 }
                 AddErrors(result);
             }
@@ -214,6 +243,51 @@ namespace AskYourMechanicDon.WebUI.Controllers
             // If we got this far, something failed, redisplay form
             return View(model);
         }
+
+        ////
+        //// POST: /Account/Register
+        //[HttpPost]
+        //[AllowAnonymous]
+        ////[Authorize(Roles = RoleName.AskAdmin + "," + RoleName.AskUser)]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> Register(RegisterViewModel model)
+        //{
+        //    ViewBag.IsIndexHome = false;
+
+        //    if (ModelState.IsValid)
+        //    {
+
+        //        var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+        //        var result = await UserManager.CreateAsync(user, model.Password);
+        //        if (result.Succeeded)
+        //        {
+        //            //Assign Role
+        //            await this.UserManager.AddToRoleAsync(user.Id, RoleName.AskUser);
+
+
+        //            await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+        //            // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+        //            // Send an email with this link
+        //            string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+        //            var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+        //            await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+        //            //string callbackUrl = await SendEmailConfirmationTokenAsync(user.Id, "Confirm your account");
+        //            //To debug locally
+        //            //TempData["ViewBagLink"] = callbackUrl;
+
+        //            ViewBag.Message = "Check your email and confirm you account, you must be confirmed " +
+        //                "before you can log in.";
+        //            return View("Info");
+        //            // return RedirectToAction("Index", "Home");
+        //        }
+        //        AddErrors(result);
+        //    }
+
+        //    // If we got this far, something failed, redisplay form
+        //    return View(model);
+        //}
 
         //
         // GET: /Account/ConfirmEmail
@@ -258,7 +332,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
                 // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                 // Send an email with this link
                 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id,  code }, protocol: Request.Url.Scheme);
                 await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
                 return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }
@@ -367,7 +441,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
             {
                 return View("Error");
             }
-            return RedirectToAction("VerifyCode", new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl, RememberMe = model.RememberMe });
+            return RedirectToAction("VerifyCode", new { Provider = model.SelectedProvider,  model.ReturnUrl,  model.RememberMe });
         }
 
         //
@@ -541,7 +615,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
         {
             string code = await UserManager.GenerateEmailConfirmationTokenAsync(userID);
             var callbackUrl = Url.Action("ConfirmEmail", "Account",
-               new { userId = userID, code = code }, protocol: Request.Url.Scheme);
+               new { userId = userID,  code }, protocol: Request.Url.Scheme);
             await UserManager.SendEmailAsync(userID, subject,
                "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
