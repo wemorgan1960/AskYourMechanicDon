@@ -66,24 +66,27 @@
         <td class="grandtotal"><b>Grand total</b> Canadian Dollars $<span><b>@gTotal</b></span></td>
     </tr>
 </table>
-    <div class="paypaldiv">
-        <form class="paypalform" action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
-            <input type="hidden" name="cmd" value="_cart">
-            <input type="hidden" name="upload" value="1">
-            <input type="hidden" name="business" value="bmorgan-facilitator@telusplanet.net">
+<div class="paypaldiv">
+    <form class="paypalform" action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
+        <input type="hidden" name="cmd" value="_cart">
+        <<input type="hidden" name="hosted_button_id" value="ENLYF2UB52CTE">
+        <input type="hidden" name="upload" value="1">
+        <input type="hidden" name="business" value="bmorgan-facilitator@telusplanet.net">
 
-            @foreach (var item in Model)
-            {
-                <input type="hidden" name="item_name_@count" value="@item.ProductName">
-                <input type="hidden" name="amount_@count" value="@item.Price">
-                <input type="hidden" name="quantity_@count" value="@item.Quanity">
-                count++;
-            }
+        @foreach (var item in Model)
+    {
+        <input type="hidden" name="item_name_@count" value="@item.ProductName">
+        <input type="hidden" name="amount_@count" value="@item.Price">
+        <input type="hidden" name="quantity_@count" value="@item.Quanity">
+    count++;
+}
 
-            <input type="hidden" name="currency_code" value="CAD">
-            <input type="image" src="http://www.paypal.com/en_US/i/btn/x-click-but01.gif" name="submit" alt="Make payments with PayPal - it's fast, free and secure!">
-        </form>
-    </div>
+        <input type="hidden" name="currency_code" value="CAD">
+        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_paynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+        <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+
+    </form>
+</div>
     <br />
 
     @section Scripts {
