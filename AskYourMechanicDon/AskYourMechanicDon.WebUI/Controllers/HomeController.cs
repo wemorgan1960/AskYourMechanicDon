@@ -45,9 +45,11 @@ namespace AskYourMechanicDon.WebUI.Controllers
                 products = context.Collection().Where(p => p.Category == Category).ToList();
             }
 
-            ProductListViewModel model = new ProductListViewModel();
-            model.Products = products;
-            model.ProductCategories = categories;
+            ProductListViewModel model = new ProductListViewModel
+            {
+                Products = products,
+                ProductCategories = categories
+            };
 
             return View(model);
         }
@@ -112,7 +114,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
                     smtp.Timeout = 20000;
                 }
 
-                smtp.Send(toAddress, toAddress, subject, emailBody);
+                smtp.Send(fromAddress, toAddress, subject, emailBody);
                 return RedirectToAction("Sent");
             }
             else

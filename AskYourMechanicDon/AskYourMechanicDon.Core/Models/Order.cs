@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,9 @@ namespace AskYourMechanicDon.Core.Models
         public string Province { get; set; }
         public string PostalCode { get; set; }
         public string OrderStatus { get; set; }
+        public string OrderNumber { get; set; }
+        public string InvoiceNumber { get; set; }
+        public string TotalOrder { get; set; }
         public virtual ICollection<OrderItem> OrderItems { get; set; }
     }
 }

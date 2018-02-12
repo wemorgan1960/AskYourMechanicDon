@@ -32,12 +32,12 @@
             <dd>
                 @Html.DisplayFor(model => model.Price)
             </dd>
-            <dt></dt>
-
-
-            <dd><a href="@Url.Action("AddToBasket","Basket",new {Id = Model.Id})" class="btn btn-default">Add to Basket</a></dd>-->
-
-            <dt></dt>
+            <dt>
+            @if (Request.IsAuthenticated && User.IsInRole("AskUser"))
+                {
+                    <dd><a href="@Url.Action("AddToBasket", "Basket", new { Id = Model.Id })" class="btn btn-default">Add to Basket</a></dd>
+                }
+            </dt>
             <dd>@Html.ActionLink("Back to List", "Products")</dd>
         </dl>
 

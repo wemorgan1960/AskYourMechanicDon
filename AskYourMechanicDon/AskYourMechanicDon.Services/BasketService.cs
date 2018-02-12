@@ -57,35 +57,42 @@ namespace AskYourMechanicDon.Services
             basketContext.Insert(basket);
             basketContext.Commit();
 
-            HttpCookie cookie = new HttpCookie(BasketSessionName);
-            cookie.Value = basket.Id;
-            cookie.Expires = DateTime.Now.AddDays(1);
+            HttpCookie cookie = new HttpCookie(BasketSessionName)
+            {
+                Value = basket.Id,
+                Expires = DateTime.Now.AddDays(1)
+            };
             httpContext.Response.Cookies.Add(cookie);
 
             return basket;
         }
         public void AddToBasket(HttpContextBase httpContext, string productId, string vin, string question)
         {
-            Basket basket = GetBasket(httpContext, true);
-            BasketItem item = basket.BasketItems.FirstOrDefault(i => i.ProductId == productId);
+            if(productId != null)
+            {
+                Basket basket = GetBasket(httpContext, true);
+                BasketItem item = basket.BasketItems.FirstOrDefault(i => i.ProductId == productId);
 
-            if (item == null)
-            {
-                item = new BasketItem()
+                if (item == null)
                 {
-                    BasketId = basket.Id,
-                    ProductId = productId,
-                    Vin=vin,
-                    Question =question,
-                    Quanity = 1
-                };
-                basket.BasketItems.Add(item);
+                    item = new BasketItem()
+                    {
+                        BasketId = basket.Id,
+                        ProductId = productId,
+                        Vin = vin,
+                        Question = question,
+                        Quanity = 1
+                    };
+                    basket.BasketItems.Add(item);
+                }
+                else
+                {
+                    item.Quanity = item.Quanity + 1;
+                }
+                basketContext.Commit();
+
             }
-            else
-            {
-                item.Quanity = item.Quanity + 1;
-            }
-            basketContext.Commit();
+
         }
         public void RemoveFromBasket(HttpContextBase httpContext, string itemId)
         {

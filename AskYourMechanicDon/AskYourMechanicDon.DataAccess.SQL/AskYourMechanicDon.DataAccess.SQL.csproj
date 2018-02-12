@@ -68,6 +68,18 @@
     <Compile Include="Migrations\201801231738008_customer.Designer.cs">
       <DependentUpon>201801231738008_customer.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802071546321_order.cs" />
+    <Compile Include="Migrations\201802071546321_order.Designer.cs">
+      <DependentUpon>201802071546321_order.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802111458066_ordercustomer.cs" />
+    <Compile Include="Migrations\201802111458066_ordercustomer.Designer.cs">
+      <DependentUpon>201802111458066_ordercustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802111919177_orderRemoveIdentity.cs" />
+    <Compile Include="Migrations\201802111919177_orderRemoveIdentity.Designer.cs">
+      <DependentUpon>201802111919177_orderRemoveIdentity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SQLRepository.cs" />
@@ -101,6 +113,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201801231738008_customer.resx">
       <DependentUpon>201801231738008_customer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802071546321_order.resx">
+      <DependentUpon>201802071546321_order.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802111458066_ordercustomer.resx">
+      <DependentUpon>201802111458066_ordercustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802111919177_orderRemoveIdentity.resx">
+      <DependentUpon>201802111919177_orderRemoveIdentity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
