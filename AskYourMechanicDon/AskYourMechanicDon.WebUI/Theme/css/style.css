@@ -102,12 +102,15 @@ a:focus {
   color: #32c5d2;
 }
 
-/* Headings */
+/* Headings#060606 */
 h1, h2, h3, h4, h5, h6 {
-  color: #060606;
-  font-weight: 700;
-  margin: 0;
-  font-family: "Raleway", sans-serif;
+    color: #060606;
+    font-weight: 700;
+    margin: 0;
+    font-family: "Raleway", sans-serif;
+}
+h1.white{
+    color:floralwhite;
 }
 
 h1 {
