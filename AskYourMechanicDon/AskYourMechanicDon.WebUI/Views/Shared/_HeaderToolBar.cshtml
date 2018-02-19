@@ -18,12 +18,12 @@
                 @if (Request.IsAuthenticated && User.IsInRole("AskAdmin"))
                  {
                     <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
-                    }
+                 }
 
                  @Html.Partial("_LoginPartial")
                  @{
                     Html.RenderAction("BasketSummary", "Basket");
-                     }
+                 }
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown">About <b class="caret"></b></a>
                 <ul class="dropdown-menu" role="menu">

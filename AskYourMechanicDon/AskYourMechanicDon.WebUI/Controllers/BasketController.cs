@@ -111,25 +111,25 @@ namespace AskYourMechanicDon.WebUI.Controllers
             order.OrderStatus = "Payment Processed";
             orderService.UpdateOrder(order);
 
-            //Email Client
+            ////Email Client
 
             var subject = "AskYourMechanicDon.com New Order: " + order.OrderNumber;
             var body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
             var fromAddress = "admin@askyourmechanicdon.com";
-            var toAddress = order.Email ;
+            var toAddress = order.Email;
             var emailBody = string.Format(body, "You have new order: " + order.OrderNumber);
 
-            var smtp = new SmtpClient();
-            {
-                smtp.Host = "smtp.askyourmechanicdon.com";
-                smtp.Port = 587;
-                smtp.EnableSsl = false;
-                smtp.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
-                smtp.Credentials = new NetworkCredential("admin@askyourmechanicdon.com", "TtLUVAz5");
-                smtp.Timeout = 20000;
-            }
+            //var smtp = new SmtpClient();
+            //{
+            //    smtp.Host = "smtp.askyourmechanicdon.com";
+            //    smtp.Port = 587;
+            //    smtp.EnableSsl = false;
+            //    smtp.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
+            //    smtp.Credentials = new NetworkCredential("admin@askyourmechanicdon.com", "TtLUVAz5");
+            //    smtp.Timeout = 20000;
+            //}
 
-            smtp.Send(fromAddress, toAddress, subject, emailBody);
+            //smtp.Send(fromAddress, toAddress, subject, emailBody);
 
             //Email Admin 
             subject = "AskYourMechanicDon.com New Order: " + order.OrderNumber + " Recieved";
@@ -148,7 +148,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
                 smtp1.Timeout = 20000;
             }
 
-            smtp.Send(fromAddress, toAddress, subject, emailBody);
+            smtp1.Send(fromAddress, toAddress, subject, emailBody);
 
             //Clear session
 
