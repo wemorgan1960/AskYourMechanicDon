@@ -1,0 +1,85 @@
+﻿@model IEnumerable<AskYourMechanicDon.Core.Models.OrderItem>
+
+@{
+    ViewBag.Title = "OrderItems";
+}
+
+<h2>OrderItems</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CreateAt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quanity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Vin)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Question)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AnswerSubject)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AnswerContent)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AnswerTags)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AnswerCompleted)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreateAt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Quanity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Vin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Question)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AnswerSubject)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AnswerContent)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AnswerTags)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AnswerCompleted)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "Details", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

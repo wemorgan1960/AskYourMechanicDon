@@ -80,6 +80,46 @@
     <Compile Include="Migrations\201802111919177_orderRemoveIdentity.Designer.cs">
       <DependentUpon>201802111919177_orderRemoveIdentity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802191734011_answers.cs" />
+    <Compile Include="Migrations\201802191734011_answers.Designer.cs">
+      <DependentUpon>201802191734011_answers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802191735310_modelOrderItemCreatedAt.cs" />
+    <Compile Include="Migrations\201802191735310_modelOrderItemCreatedAt.Designer.cs">
+      <DependentUpon>201802191735310_modelOrderItemCreatedAt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802191832536_updateOrder.cs" />
+    <Compile Include="Migrations\201802191832536_updateOrder.Designer.cs">
+      <DependentUpon>201802191832536_updateOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802191929484_userIdOrder.cs" />
+    <Compile Include="Migrations\201802191929484_userIdOrder.Designer.cs">
+      <DependentUpon>201802191929484_userIdOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802201940459_Updatemodel.cs" />
+    <Compile Include="Migrations\201802201940459_Updatemodel.Designer.cs">
+      <DependentUpon>201802201940459_Updatemodel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802202158212_RemoveAnswer.cs" />
+    <Compile Include="Migrations\201802202158212_RemoveAnswer.Designer.cs">
+      <DependentUpon>201802202158212_RemoveAnswer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802230222098_datetimeOffsetOrder.cs" />
+    <Compile Include="Migrations\201802230222098_datetimeOffsetOrder.Designer.cs">
+      <DependentUpon>201802230222098_datetimeOffsetOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802230226229_datetimeOff.cs" />
+    <Compile Include="Migrations\201802230226229_datetimeOff.Designer.cs">
+      <DependentUpon>201802230226229_datetimeOff.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802230238201_datetimeOffOrder.cs" />
+    <Compile Include="Migrations\201802230238201_datetimeOffOrder.Designer.cs">
+      <DependentUpon>201802230238201_datetimeOffOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802230245032_removeCompletedAtOrder.cs" />
+    <Compile Include="Migrations\201802230245032_removeCompletedAtOrder.Designer.cs">
+      <DependentUpon>201802230245032_removeCompletedAtOrder.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SQLRepository.cs" />
@@ -122,6 +162,36 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802111919177_orderRemoveIdentity.resx">
       <DependentUpon>201802111919177_orderRemoveIdentity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802191734011_answers.resx">
+      <DependentUpon>201802191734011_answers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802191735310_modelOrderItemCreatedAt.resx">
+      <DependentUpon>201802191735310_modelOrderItemCreatedAt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802191832536_updateOrder.resx">
+      <DependentUpon>201802191832536_updateOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802191929484_userIdOrder.resx">
+      <DependentUpon>201802191929484_userIdOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802201940459_Updatemodel.resx">
+      <DependentUpon>201802201940459_Updatemodel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802202158212_RemoveAnswer.resx">
+      <DependentUpon>201802202158212_RemoveAnswer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802230222098_datetimeOffsetOrder.resx">
+      <DependentUpon>201802230222098_datetimeOffsetOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802230226229_datetimeOff.resx">
+      <DependentUpon>201802230226229_datetimeOff.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802230238201_datetimeOffOrder.resx">
+      <DependentUpon>201802230238201_datetimeOffOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802230245032_removeCompletedAtOrder.resx">
+      <DependentUpon>201802230245032_removeCompletedAtOrder.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

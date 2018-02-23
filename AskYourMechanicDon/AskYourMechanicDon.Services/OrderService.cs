@@ -22,10 +22,12 @@ namespace AskYourMechanicDon.Services
                 baseOrder.OrderItems.Add(new OrderItem()
                 {
                     ProductId = item.Id,
-                    Image = item.Image,
                     Price = item.Price,
                     ProductName = item.ProductName,
-                    Quanity = item.Quanity
+                    Quanity = item.Quanity,
+                    Vin=item.Vin,
+                    Question=item.Question,
+
                 });
             }
 

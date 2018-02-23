@@ -91,6 +91,8 @@ namespace AskYourMechanicDon.WebUI.Models
         public string Province { get; set; }
         [Required]
         public string PostalCode { get; set; }
+        [Required]
+        public string Country { get; set; }
     }
 
     public class ResetPasswordViewModel

@@ -27,7 +27,7 @@
                 </div>
 
 
-                @if (Request.IsAuthenticated && User.IsInRole("AskUser"))
+                @if (Request.IsAuthenticated)
     {
             <div class="col-md-10  col-lg-push-4">
                 <form action="@Url.Action("AddToBasket", "Basket")" method="post">

@@ -218,6 +218,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
                         Province = model.Province,
                         Street = model.Street,
                         PostalCode = model.PostalCode,
+                        Country = model.Country,
                         UserId = user.Id
                     };
 

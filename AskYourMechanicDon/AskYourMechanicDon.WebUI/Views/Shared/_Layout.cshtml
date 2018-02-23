@@ -43,9 +43,9 @@
 
     @if (!ViewBag.IsIndexHome)
     {
-    @Html.Partial("_FooterToolBar")
+        @Html.Partial("_FooterToolBar")
     }
-       <div id="back-to-top">
+    <div id="back-to-top">
         <a href="#top"><i class="fa fa-angle-up"></i></a>
     </div>
     <!-- jQuery-->
@@ -62,18 +62,10 @@
     <script src="~/Theme/js/jquery.flexslider-min.js" type="text/javascript"></script>
     <script src="~/Theme/owl-carousel/owl.carousel.min.js" type="text/javascript"></script>
     <script src="~/Theme/js/one-page.js" type="text/javascript"></script>
-    <!--cube portfolio plugin-->
-    @*<script src="~/Theme/cubeportfolio/js/jquery.cubeportfolio.min.js" type="text/javascript"></script>
-        <script src="~/Theme/js/cube-portfolio.js" type="text/javascript"></script>*@
-    <!--cantact form script-->
-    @*<script src="~/Theme/js/contact_me.js" type="text/javascript"></script>
-        <script src="~/Theme/js/jqBootstrapValidation.js" type="text/javascript"></script>
-        <script type="text/javascript" src="~/Theme/js/jasny-bootstrap.min.js"></script>
-        <script type="text/javascript" src="~/Theme/js/pace.min.js"></script>*@
-    <!--revolution slider plugins-->
     <script src="~/Theme/rs-plugin/js/jquery.themepunch.tools.min.js" type="text/javascript"></script>
     <script src="~/Theme/rs-plugin/js/jquery.themepunch.revolution.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="~/Theme/js/revolution-custom.js"></script>
+    @*@Scripts.Render("~/bundles/scripts")*@
     @RenderSection("scripts", required: false)
 </body>
 </html>

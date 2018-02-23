@@ -92,6 +92,9 @@
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="PayPal, Version=1.9.1.0, Culture=neutral, PublicKeyToken=5b4afc1ccaef40fb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PayPal.1.9.1\lib\net451\PayPal.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.2.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -190,6 +193,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BasketController.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OrderManagerController.cs" />
@@ -253,6 +257,7 @@
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Scripts.js" />
     <Content Include="Theme\ajax\project1.html" />
     <Content Include="Theme\bootstrap\css\bootstrap-theme.css" />
     <Content Include="Theme\bootstrap\css\bootstrap-theme.min.css" />
@@ -853,22 +858,24 @@
     <Content Include="Theme\themify-icons\fonts\themify.woff" />
     <Content Include="Theme\themify-icons\Themify IconFonts 5-23-2014.json" />
     <Content Include="Views\Basket\Checkout.cshtml" />
-    <Content Include="Views\Basket\ThankYou.cshtml" />
-    <Content Include="Views\OrderManager\Index.cshtml" />
-    <Content Include="Views\OrderManager\OrderItems.cshtml" />
-    <Content Include="Views\OrderManager\UpdateOrder.cshtml" />
     <Content Include="Views\Home\Products.cshtml" />
     <Content Include="Views\Shared\_FooterToolBar.cshtml" />
     <Content Include="Views\Shared\_HeaderToolBar.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Home\UnderConstruction.cshtml" />
     <Content Include="Views\Basket\ReviewOrder.cshtml" />
+    <Content Include="Views\Customer\Index.cshtml" />
+    <Content Include="Views\Customer\Orders.cshtml" />
+    <Content Include="Views\ProductManager\Details.cshtml" />
+    <Content Include="Views\Customer\OrderItems.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Controllers\" />
     <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Content\img\" />
     <Folder Include="Theme\img\imgs\" />
+    <Folder Include="Views\OrderManager\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

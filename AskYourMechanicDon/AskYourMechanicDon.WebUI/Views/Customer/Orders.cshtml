@@ -1,0 +1,73 @@
+﻿@model AskYourMechanicDon.Core.ViewModels.CustomerOrdersViewModel
+
+@{
+    ViewBag.Title = "Orders";
+}
+
+<h2>Orders</h2>
+
+<div>
+    <h4>Customer</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Customer.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Customer.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer.LastName)
+        </dt>
+
+    </dl>
+</div>
+<div>
+    <h4>Customer Orders</h4>
+    <hr />
+    <table class="table">
+        <tr>
+            <th>
+                Invoice Number
+            </th>
+            <th>
+                Order Status
+            </th>
+            <th>
+                TotalOrder
+            </th>
+        </tr>
+
+        @foreach (var item in Model.Orders)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.InvoiceNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalOrder)
+            </td>
+            <td>
+                @Html.ActionLink("Order Items", "OrderItems", new { id = item.Id }) |
+            </td>
+        </tr>
+        }
+
+    </table>
+</div>
+    <p>
+        @Html.ActionLink("Back to List", "Index")
+    </p>

@@ -1,5 +1,6 @@
 ﻿using AskYourMechanicDon.Core.Contracts;
 using AskYourMechanicDon.Core.Models;
+using AskYourMechanicDon.Core.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +13,16 @@ namespace MyShop.WebUI.Controllers
     public class OrderManagerController : Controller
     {
         IOrderService orderService;
+        IRepository<OrderItem> orderItems;
 
-        public OrderManagerController(IOrderService OrderService) {
+        IRepository<Customer> customers;
+
+        public OrderManagerController(IOrderService OrderService, IRepository<OrderItem> orderItemsContext,
+             IRepository<Customer> customersContext) {
             this.orderService = OrderService;
+            this.orderItems = orderItemsContext;
+            this.customers = customersContext;
+
         }
         // GET: OrderManager
         public ActionResult Index()
@@ -47,5 +55,6 @@ namespace MyShop.WebUI.Controllers
             ViewBag.IsIndexHome = false;
             return RedirectToAction("Index");
         }
+
     }
 }

@@ -12,18 +12,14 @@ namespace AskYourMechanicDon.Core.Models
         public Order() {
             this.OrderItems = new List<OrderItem>();
         }
-
-        public string FirstName { get; set; }
-        public string Surname { get; set; }
-        public string Email { get; set; }
-        public string Street { get; set; }
-        public string City { get; set; }
-        public string Province { get; set; }
-        public string PostalCode { get; set; }
-        public string OrderStatus { get; set; }
+        public string OrderId { get; set; }
         public string OrderNumber { get; set; }
         public string InvoiceNumber { get; set; }
+        //public DateTimeOffset CompletedAt { get; set; }
+        public string OrderStatus { get; set; }
+
         public string TotalOrder { get; set; }
+
         public virtual ICollection<OrderItem> OrderItems { get; set; }
     }
 }

@@ -32,10 +32,11 @@ namespace AskYourMechanicDon.WebUI.Controllers
         public ActionResult Create()
         {
             ViewBag.IsIndexHome = false;
-            ProductManagerViewModel viewModel = new ProductManagerViewModel();
-            
-            viewModel.Product = new Product();
-            viewModel.ProductCategories = productCategories.Collection();
+            ProductManagerViewModel viewModel = new ProductManagerViewModel
+            {
+                Product = new Product(),
+                ProductCategories = productCategories.Collection()
+            };
 
             return View(viewModel);
         }
@@ -71,9 +72,11 @@ namespace AskYourMechanicDon.WebUI.Controllers
             }
             else
             {
-                ProductManagerViewModel viewModel = new ProductManagerViewModel();
-                viewModel.Product = product;
-                viewModel.ProductCategories = productCategories.Collection();
+                ProductManagerViewModel viewModel = new ProductManagerViewModel
+                {
+                    Product = product,
+                    ProductCategories = productCategories.Collection()
+                };
 
                 return View(viewModel);
             }
@@ -107,6 +110,21 @@ namespace AskYourMechanicDon.WebUI.Controllers
                 context.Commit();
 
                 return RedirectToAction("Index");
+            }
+
+        }
+
+        public ActionResult Details(string Id)
+        {
+            ViewBag.IsIndexHome = false;
+            Product product = context.Find(Id);
+            if(product == null)
+            {
+                return HttpNotFound();
+            }
+            else
+            {
+                return View(product);
             }
 
         }

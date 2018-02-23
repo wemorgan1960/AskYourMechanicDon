@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace AskYourMechanicDon.WebUI.Models
+namespace MvcApplication1.Models
 {
     public class Logger
     {
@@ -22,7 +22,7 @@ namespace AskYourMechanicDon.WebUI.Models
             }
             catch
             {
-
+                
             }
         }
     }

@@ -74,45 +74,47 @@
         <input type="hidden" name="business" value="bmorgan-facilitator@telusplanet.net">
 
         @foreach (var item in Model)
-    {
-        <input type="hidden" name="item_name_@count" value="@item.ProductName">
-        <input type="hidden" name="amount_@count" value="@item.Price">
-        <input type="hidden" name="quantity_@count" value="@item.Quanity">
-    count++;
-}
+        {
+            <input type="hidden" name="item_name_@count" value="@item.ProductName">
+            <input type="hidden" name="amount_@count" value="@item.Price">
+            <input type="hidden" name="quantity_@count" value="@item.Quanity">
+            count++;
+        }
 
         <input type="hidden" name="currency_code" value="CAD">
+        @*<input type="image" src="http://www.paypal.com/en_US/i/btn/x-click-but01.gif" name="submit" alt="Make payments with PayPal - it's fast, free and secure!">*@
         <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_paynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-        <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+            <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
 
     </form>
 </div>
-    <br />
+<br />
+<a href="#" class="PlaceOrder btn btn-primary pull-right">Payment Method</a>
+@section Scripts {
 
-    @section Scripts {
-        <script>
+    <script>
 
-            $(function () {
+        $(function () {
 
-                $("a.paypalpayment").click(function (e) {
-                    e.preventDefault();
+            $("a.PlaceOrder").click(function (e) {
+                e.preventDefault();
 
-                    var $this = $(this);
+                var $this = $(this);
 
-                    var url = "/Basket/PayPalPayment";
+                var url = "/Basket/PlaceOrder";
 
-                    $(".ajaxbg").show();
+                $(".ajaxbg").show();
 
-                    $.post(url, {}, function (data) {
-                        $(".ajaxbg span").text("Thank you. You will now be redirected to paypal.");
-                        setTimeout(function () {
-                            $('form input[name="submit"]').click();
-                        }, 2000);
-                    });
+                $.post(url, {}, function (data) {
+                    $(".ajaxbg span").text("Thank you. You will now be redirected to paypal.");
+                    setTimeout(function () {
+                        $('form input[name="submit"]').click();
+                    }, 2000);
                 });
-
             });
 
-        </script>
+        });
 
+    </script>
     }
+

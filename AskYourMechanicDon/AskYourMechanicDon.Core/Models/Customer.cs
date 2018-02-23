@@ -8,6 +8,10 @@ namespace AskYourMechanicDon.Core.Models
 {
     public class Customer : BaseEntity
     {
+        public Customer()
+        {
+            this.Orders = new List<Order>();
+        }
         public string UserId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -16,5 +20,8 @@ namespace AskYourMechanicDon.Core.Models
         public string City { get; set; }
         public string Province { get; set; }
         public string PostalCode { get; set; }
+        public string Country { get; set; }
+
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

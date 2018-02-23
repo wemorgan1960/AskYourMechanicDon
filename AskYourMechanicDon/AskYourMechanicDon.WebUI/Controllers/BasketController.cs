@@ -65,19 +65,21 @@ namespace AskYourMechanicDon.WebUI.Controllers
 
             if (customer != null)
             {
-                Core.Models.Order order = new Core.Models.Order()
-                {
-                    Email = customer.Email,
-                    City = customer.City,
-                    Province = customer.Province,
-                    Street = customer.Street,
-                    FirstName = customer.FirstName,
-                    Surname = customer.LastName,
-                    PostalCode = customer.PostalCode,
 
-                };
+                //Core.Models.Order order = new Core.Models.Order()
+                //{
+                //    Email = customer.Email,
+                //    City = customer.City,
+                //    Province = customer.Province,
+                //    Street = customer.Street,
+                //    FirstName = customer.FirstName,
+                //    Surname = customer.LastName,
+                //    PostalCode = customer.PostalCode,
 
-                return View(order);
+                //};
+                
+
+                return View(customer);
             }
             else
             {
@@ -94,42 +96,42 @@ namespace AskYourMechanicDon.WebUI.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = RoleName.AskAdmin + "," + RoleName.AskUser)]
-        public ActionResult PayPalPayment()
+        //[Authorize(Roles = RoleName.AskAdmin + "," + RoleName.AskUser)]
+        public void PlaceOrder()
         {
             var basketItems = basketService.GetBasketItems(this.HttpContext);
             var order = new Core.Models.Order
             {
-
-                //Create Order
-                Email = User.Identity.Name,
                 OrderNumber = Common.GetRandomInvoiceNumber()
             };
             order.InvoiceNumber = "AskDon" + @DateTime.Now.Year + order.OrderNumber;
             order.OrderStatus = "Order Created";
             orderService.CreateOrder(order, basketItems);
             order.OrderStatus = "Payment Processed";
+            //order.CompletedAt = DateTime.Now; 
             orderService.UpdateOrder(order);
 
-            ////Email Client
+            //Email Customer
+            string CustomerEmail = User.Identity.Name; ;
 
-            var subject = "AskYourMechanicDon.com New Order: " + order.OrderNumber;
+            var subject = "AskYourMechanicDon.com New Order: " + order.OrderNumber + " Recieved";
             var body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
             var fromAddress = "admin@askyourmechanicdon.com";
-            var toAddress = order.Email;
+            var toAddress = CustomerEmail;
             var emailBody = string.Format(body, "You have new order: " + order.OrderNumber);
 
-            //var smtp = new SmtpClient();
-            //{
-            //    smtp.Host = "smtp.askyourmechanicdon.com";
-            //    smtp.Port = 587;
-            //    smtp.EnableSsl = false;
-            //    smtp.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
-            //    smtp.Credentials = new NetworkCredential("admin@askyourmechanicdon.com", "TtLUVAz5");
-            //    smtp.Timeout = 20000;
-            //}
+            var smtp = new SmtpClient();
+            {
+                smtp.Host = "smtp.askyourmechanicdon.com";
+                smtp.Port = 587;
+                smtp.EnableSsl = false;
+                smtp.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
+                smtp.Credentials = new NetworkCredential("admin@askyourmechanicdon.com", "TtLUVAz5");
+                smtp.Timeout = 20000;
+            }
 
-            //smtp.Send(fromAddress, toAddress, subject, emailBody);
+            smtp.Send(fromAddress, toAddress, subject, emailBody);
+
 
             //Email Admin 
             subject = "AskYourMechanicDon.com New Order: " + order.OrderNumber + " Recieved";
@@ -150,19 +152,9 @@ namespace AskYourMechanicDon.WebUI.Controllers
 
             smtp1.Send(fromAddress, toAddress, subject, emailBody);
 
-            //Clear session
-
             basketService.ClearBasket(this.HttpContext);
 
-            return RedirectToAction("Thankyou", new {  order.InvoiceNumber });
         }
-
-        public ActionResult ThankYou(string InvoiceNumber)
-        {
-            ViewBag.IsIndexHome = false;
-            ViewBag.InvoiceNumber = InvoiceNumber;
-            return View();
-        }
-        
+                
     }
 }
