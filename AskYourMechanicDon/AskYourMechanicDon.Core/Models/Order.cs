@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,7 @@ namespace AskYourMechanicDon.Core.Models
         public string OrderId { get; set; }
         public string OrderNumber { get; set; }
         public string InvoiceNumber { get; set; }
-        //public DateTimeOffset CompletedAt { get; set; }
+        public  Nullable<DateTime> CompletedAt { get; set; }
         public string OrderStatus { get; set; }
 
         public string TotalOrder { get; set; }

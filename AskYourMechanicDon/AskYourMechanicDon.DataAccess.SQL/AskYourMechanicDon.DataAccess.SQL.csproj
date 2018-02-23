@@ -120,6 +120,10 @@
     <Compile Include="Migrations\201802230245032_removeCompletedAtOrder.Designer.cs">
       <DependentUpon>201802230245032_removeCompletedAtOrder.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802231305157_dateNullable.cs" />
+    <Compile Include="Migrations\201802231305157_dateNullable.Designer.cs">
+      <DependentUpon>201802231305157_dateNullable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SQLRepository.cs" />
@@ -192,6 +196,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802230245032_removeCompletedAtOrder.resx">
       <DependentUpon>201802230245032_removeCompletedAtOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802231305157_dateNullable.resx">
+      <DependentUpon>201802231305157_dateNullable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -22,6 +22,6 @@ namespace AskYourMechanicDon.Core.Models
         public string AnswerContent { get; set; }
         public string AnswerTags { get; set; }
         [Display(Name = "Answer Completed")]
-        public DateTime AnswerCompleted { get; set; }
+        public Nullable<DateTime> AnswerCompleted { get; set; }
     }
 }

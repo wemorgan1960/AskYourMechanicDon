@@ -115,10 +115,9 @@ namespace AskYourMechanicDon.WebUI.Controllers
             string CustomerEmail = User.Identity.Name; ;
 
             var subject = "AskYourMechanicDon.com New Order: " + order.OrderNumber + " Recieved";
-            var body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
             var fromAddress = "admin@askyourmechanicdon.com";
             var toAddress = CustomerEmail;
-            var emailBody = string.Format(body, "You have new order: " + order.OrderNumber);
+            var emailBody = "<p>Email From: AskYourMechanicDon.com </p><p>Message:</p><p>You have new order: " + order.OrderNumber + "</p>";
 
             var smtp = new SmtpClient();
             {
@@ -134,11 +133,10 @@ namespace AskYourMechanicDon.WebUI.Controllers
 
 
             //Email Admin 
-            subject = "AskYourMechanicDon.com New Order: " + order.OrderNumber + " Recieved";
-            body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
+            subject = "AskYourMechanicDon.com New Question: " + order.OrderNumber ;
             fromAddress = "admin@askyourmechanicdon.com";
             toAddress = "admin@askyourmechanicdon.com";
-            emailBody = string.Format(body, "You have new order: " + order.OrderNumber);
+            emailBody = "<p>Email From: AskYourMechanicDon.com </p><p>Message:</p><p> A New Question: " + order.OrderNumber + "</p>";
 
             var smtp1 = new SmtpClient();
             {
