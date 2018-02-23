@@ -65,21 +65,16 @@ namespace AskYourMechanicDon.WebUI.Controllers
 
             if (customer != null)
             {
-
-                //Core.Models.Order order = new Core.Models.Order()
-                //{
-                //    Email = customer.Email,
-                //    City = customer.City,
-                //    Province = customer.Province,
-                //    Street = customer.Street,
-                //    FirstName = customer.FirstName,
-                //    Surname = customer.LastName,
-                //    PostalCode = customer.PostalCode,
-
-                //};
-                
-
-                return View(customer);
+                var model = basketService.GetBasketItems(this.HttpContext);
+                if (model != null)
+                {
+                    return View(customer);
+                }
+                else
+                {
+                    return RedirectToAction("Products", "Home");
+                }
+                    
             }
             else
             {
@@ -92,7 +87,15 @@ namespace AskYourMechanicDon.WebUI.Controllers
         {
             ViewBag.IsIndexHome = false;
             var model = basketService.GetBasketItems(this.HttpContext);
-            return View(model);
+            if(model!= null)
+            {
+                return View(model);
+            }
+            else
+            {
+                return RedirectToAction("Products", "Home");
+            }
+            
         }
 
         [HttpPost]
@@ -117,7 +120,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
             var subject = "AskYourMechanicDon.com New Order: " + order.OrderNumber + " Recieved";
             var fromAddress = "admin@askyourmechanicdon.com";
             var toAddress = CustomerEmail;
-            var emailBody = "<p>Email From: AskYourMechanicDon.com </p><p>Message:</p><p>You have new order: " + order.OrderNumber + "</p>";
+            var emailBody = "Email From: AskYourMechanicDon.com Message: Thank you for your order: " + order.OrderNumber;
 
             var smtp = new SmtpClient();
             {
@@ -136,7 +139,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
             subject = "AskYourMechanicDon.com New Question: " + order.OrderNumber ;
             fromAddress = "admin@askyourmechanicdon.com";
             toAddress = "admin@askyourmechanicdon.com";
-            emailBody = "<p>Email From: AskYourMechanicDon.com </p><p>Message:</p><p> A New Question: " + order.OrderNumber + "</p>";
+            emailBody = "Email From: AskYourMechanicDon.com Message: A New Question: " + order.OrderNumber;
 
             var smtp1 = new SmtpClient();
             {

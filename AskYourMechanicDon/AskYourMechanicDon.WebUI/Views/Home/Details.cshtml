@@ -1,9 +1,9 @@
 ﻿@model AskYourMechanicDon.Core.Models.Product
-    @{
-        ViewBag.Title = Model.Name + "Details";
-    }
+@{
+    ViewBag.Title = Model.Name + "Details";
+}
 
-<h2>@Html.DisplayFor(model=>model.Name)</h2>
+<h2>@Html.DisplayFor(model => model.Name)</h2>
 <div>
     <div class="col-md-2">
         <img class="img-responsive" style="height:50px" scr="~/Content/ProductImages/@Model.Image" />
@@ -33,14 +33,14 @@
                 @Html.DisplayFor(model => model.Price)
             </dd>
             <dt>
-            @if (Request.IsAuthenticated && User.IsInRole("AskUser"))
+                @if (Request.IsAuthenticated && User.IsInRole("AskUser"))
                 {
-                    <dd><a href="@Url.Action("AddToBasket", "Basket", new { Id = Model.Id })" class="btn btn-default">Add to Basket</a></dd>
-                }
-            </dt>
-            <dd>@Html.ActionLink("Back to List", "Products")</dd>
-        </dl>
+                <dd><a href="@Url.Action("AddToBasket", "Basket", new { Id = Model.Id })" class="btn btn-default">Add to Basket</a></dd>
+            }
 
+                <dd><a href="@Html.Action("Products","Home")" class="btn btn-default">Back to List</a></dd>
+            </dl>
+
+        </div>
     </div>
-</div>
-<div class="col-md-12 clearfix"></div>
+    <div class="col-md-12 clearfix"></div>

@@ -10,18 +10,22 @@ using System.Web.Mvc;
 
 namespace AskYourMechanicDon.WebUI.Controllers
 {
+    [Authorize(Roles = RoleName.AskAdmin + "," + RoleName.AskUser)]
     public class CustomerController : Controller
     {
         IRepository<Customer> context;
         IRepository<Order> orderContext;
+        IRepository<OrderItem> orderItemContext;
 
-        public CustomerController(IRepository<Customer> Customers, IRepository<Order> order   )
+        
+        public CustomerController(IRepository<Customer> Customers, IRepository<Order> order, IRepository<OrderItem> orderItem  )
         {
             this.context = Customers;
             this.orderContext = order;
+            this.orderItemContext = orderItem;
         }
-
         // GET: Customer
+        [Authorize(Roles = RoleName.AskAdmin )]
         public ActionResult Index()
         {
             ViewBag.IsIndexHome = false;
@@ -29,9 +33,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
             return View(customers);
         }
 
-
-        // GET: Customer/Details/5
-        public ActionResult Orders(string id)
+        public ActionResult Details(string id)
         {
             ViewBag.IsIndexHome = false;
             if (id == null)
@@ -39,29 +41,55 @@ namespace AskYourMechanicDon.WebUI.Controllers
                 id = User.Identity.GetUserId();
             }
             Customer customer = context.Find(id);
-            CustomerOrdersViewModel viewModel = new CustomerOrdersViewModel
-            {
-                Customer = customer,
-                Orders = customer.Orders
-            };
 
-            return View(viewModel);
-        }
+            return View(customer); 
+            }
 
-        public ActionResult OrderItems(string id)
+        public ActionResult Edit(string Id)
         {
             ViewBag.IsIndexHome = false;
-            Order order = orderContext.Find(id);
-            OrderOrderItemViewModel viewModel = new OrderOrderItemViewModel
+            Customer customer = context.Find(Id);
+            if (customer == null)
             {
-                Order = order,
-                OrderItems = order.OrderItems
-            };
-            List<OrderItem> orderItems = order.OrderItems.ToList();
+                return HttpNotFound();
+            }
+            else
+            {
+                return View(customer);
+            }
+        }
+        [HttpPost]
+        public ActionResult Edit(Customer customer, string Id, HttpPostedFileBase file)
+        {
+            ViewBag.IsIndexHome = false;
+            Customer customerToEdit = context.Find(Id);
+            if (customer == null)
+            {
+                return HttpNotFound();
+            }
+            else
+            {
+                if (!ModelState.IsValid)
+                {
+                    return View(customer);
+                }
 
+                customerToEdit.FirstName = customer.FirstName;
+                customerToEdit.LastName = customer.LastName;
+                customerToEdit.Street = customer.Street;
+                customerToEdit.City = customer.City;
+                customerToEdit.Province = customer.Province;
+                customerToEdit.Country = customer.Country;
 
-            return View(viewModel);
+                context.Commit();
+
+                return RedirectToAction("Index");
+            }
+
         }
 
+
     }
+
+
 }

@@ -14,7 +14,7 @@ namespace AskYourMechanicDon.WebUI
         {
 
             ConfigureAuth(app);
-            CreateRoles();
+            //CreateRoles();
         }
         private void CreateRoles()
         {

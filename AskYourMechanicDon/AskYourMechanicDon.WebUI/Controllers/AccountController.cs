@@ -129,6 +129,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    //return RedirectToAction("Products", "Home");
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");

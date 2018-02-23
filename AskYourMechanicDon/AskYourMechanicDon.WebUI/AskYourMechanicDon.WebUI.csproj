@@ -196,7 +196,8 @@
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\OrderManagerController.cs" />
+    <Compile Include="Controllers\OrderItemsController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductCategoryManagerController.cs" />
     <Compile Include="Controllers\ProductManagerController.cs" />
     <Compile Include="Global.asax.cs">
@@ -865,9 +866,13 @@
     <Content Include="Views\Home\UnderConstruction.cshtml" />
     <Content Include="Views\Basket\ReviewOrder.cshtml" />
     <Content Include="Views\Customer\Index.cshtml" />
-    <Content Include="Views\Customer\Orders.cshtml" />
+    <Content Include="Views\Order\Orders.cshtml" />
     <Content Include="Views\ProductManager\Details.cshtml" />
-    <Content Include="Views\Customer\OrderItems.cshtml" />
+    <Content Include="Views\OrderItems\Index.cshtml" />
+    <Content Include="Views\Customer\Details.cshtml" />
+    <Content Include="Views\Customer\Edit.cshtml" />
+    <Content Include="Views\OrderItems\IndexAdmin.cshtml" />
+    <Content Include="Views\OrderItems\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -875,7 +880,6 @@
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Content\img\" />
     <Folder Include="Theme\img\imgs\" />
-    <Folder Include="Views\OrderManager\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

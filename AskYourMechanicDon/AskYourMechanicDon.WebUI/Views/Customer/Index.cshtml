@@ -6,9 +6,6 @@
 
 <h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -65,7 +62,7 @@
             @Html.DisplayFor(modelItem => item.Country)
         </td>
         <td>
-            @Html.ActionLink("Orders", "Orders", new { id=item.Id })
+            <a href="@Html.Action("Orders", "Order", new { id=item.Id })" class="btn btn-default">Orders</a>
         </td>
     </tr>
 }

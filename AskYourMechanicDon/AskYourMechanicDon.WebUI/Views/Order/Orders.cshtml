@@ -61,13 +61,13 @@
                 @Html.DisplayFor(modelItem => item.TotalOrder)
             </td>
             <td>
-                @Html.ActionLink("Order Items", "OrderItems", new { id = item.Id }) |
+                <a href="@Html.Action("Index", "OrderItems", new { id = item.Id }) " class="btn btn-default">Order Items</a>
             </td>
         </tr>
         }
-
+        
     </table>
 </div>
     <p>
-        @Html.ActionLink("Back to List", "Index")
+        <a href="@Html.Action("Index", "Customer")" class="btn btn default">Back to Index</a>
     </p>
