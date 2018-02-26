@@ -61,7 +61,7 @@
                 @Html.DisplayFor(modelItem => item.TotalOrder)
             </td>
             <td>
-                <a href="@Html.Action("Index", "OrderItems", new { id = item.Id }) " class="btn btn-default">Order Items</a>
+                @Html.ActionLink("Order Items","Index", "OrderItems", new { id = item.Id },new{@class="btn btn-default"})
             </td>
         </tr>
         }
@@ -69,5 +69,5 @@
     </table>
 </div>
     <p>
-        <a href="@Html.Action("Index", "Customer")" class="btn btn default">Back to Index</a>
+        @Html.ActionLink("Customers","Index", "Customer",new { @class = "btn btn-default" })
     </p>

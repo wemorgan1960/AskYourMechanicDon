@@ -76,6 +76,6 @@
 
     </dl>
 </div>
-<p>
-    <a href="@Html.Action("Edit", "Customer", new { id = Model.Id })" class="btn btn-danger">Edit</a>
-</p>
+<div>
+     @Html.ActionLink("Edit","Edit", "Customer", new{ id = Model.Id }, new { @class = "btn btn-default" })
+</div>

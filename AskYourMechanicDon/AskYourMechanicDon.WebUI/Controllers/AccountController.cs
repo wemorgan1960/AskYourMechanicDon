@@ -12,6 +12,7 @@ using AskYourMechanicDon.WebUI.Models;
 using AskYourMechanicDon.Core.Models;
 using AskYourMechanicDon.Core.Contracts;
 
+
 namespace AskYourMechanicDon.WebUI.Controllers
 {
     [Authorize]
@@ -190,11 +191,12 @@ namespace AskYourMechanicDon.WebUI.Controllers
         //
         // GET: /Account/Register
         [AllowAnonymous]
-        //[Authorize(Roles = RoleName.AskAdmin + "," + RoleName.AskUser)]
+        [Authorize(Roles = RoleName.AskAdmin + "," + RoleName.AskUser)]
         public ActionResult Register()
         {
-            ViewBag.IsIndexHome = false;
-            return View();
+                ViewBag.IsIndexHome = false;
+                return View();
+
         }
         // POST: /Account/Register
         [HttpPost]

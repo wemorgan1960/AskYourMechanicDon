@@ -62,7 +62,7 @@
             @Html.DisplayFor(modelItem => item.Country)
         </td>
         <td>
-            <a href="@Html.Action("Orders", "Order", new { id=item.Id })" class="btn btn-default">Orders</a>
+            @Html.ActionLink("Orders","Orders", "Order", new { id=item.Id }, new {@class="btn btn-default") 
         </td>
     </tr>
 }

@@ -62,7 +62,7 @@
             @Html.DisplayFor(modelItem => item.AnswerTags)
         </td>
         <td>
-            <a href="@Html.ActionLink("Edit", "OrderItem", new { id=item.Id })" class="btn btn-default">Edit</a>
+            @Html.ActionLink("Edit","Edit", "OrderItems", new { id=item.Id }, new { @class = "btn btn-default" })
         </td>
     </tr>
 }
