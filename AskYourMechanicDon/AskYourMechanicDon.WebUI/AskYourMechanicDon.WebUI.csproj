@@ -200,6 +200,7 @@
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductCategoryManagerController.cs" />
     <Compile Include="Controllers\ProductManagerController.cs" />
+    <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -823,7 +824,6 @@
     <Content Include="Views\ProductCategoryManager\Create.cshtml" />
     <Content Include="Views\ProductCategoryManager\Edit.cshtml" />
     <Content Include="Views\ProductCategoryManager\Delete.cshtml" />
-    <Content Include="Views\Home\Details.cshtml" />
     <Content Include="Views\Basket\Index.cshtml" />
     <Content Include="Views\Basket\BasketSummary.cshtml" />
     <Content Include="Views\Home\Disclaimer.cshtml" />
@@ -860,7 +860,6 @@
     <Content Include="Theme\themify-icons\fonts\themify.woff" />
     <Content Include="Theme\themify-icons\Themify IconFonts 5-23-2014.json" />
     <Content Include="Views\Basket\Checkout.cshtml" />
-    <Content Include="Views\Home\Products.cshtml" />
     <Content Include="Views\Shared\_FooterToolBar.cshtml" />
     <Content Include="Views\Shared\_HeaderToolBar.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
@@ -874,6 +873,8 @@
     <Content Include="Views\Customer\Edit.cshtml" />
     <Content Include="Views\OrderItems\IndexAdmin.cshtml" />
     <Content Include="Views\OrderItems\Edit.cshtml" />
+    <Content Include="Views\Products\Index.cshtml" />
+    <Content Include="Views\Products\AddToCart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

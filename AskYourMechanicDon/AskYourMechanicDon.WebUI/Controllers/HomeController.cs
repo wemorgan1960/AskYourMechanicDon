@@ -1,74 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+﻿using System.Net;
 using System.Net.Mail;
-using System.Web;
 using System.Web.Mvc;
-using AskYourMechanicDon.Core.Contracts;
-using AskYourMechanicDon.Core.Models;
-using AskYourMechanicDon.Core.ViewModels;
 using AskYourMechanicDon.WebUI.Models;
 
 namespace AskYourMechanicDon.WebUI.Controllers
 {
     public class HomeController : Controller
     {
-        IRepository<Product> context;
-        IRepository<ProductCategory> productCategories;
-
-        public HomeController(IRepository<Product> productContext, IRepository<ProductCategory> productCategoryContext)
-        {
-            context = productContext;
-            productCategories = productCategoryContext;
-        }
         public ActionResult Index()
         {
             ViewBag.IsIndexHome = true;
             //return RedirectToAction("UnderConstruction");
             return View() ;
         }
-
-        public ActionResult Products(string Category = null)
-        {
-            ViewBag.IsIndexHome = false;
-
-            List<Product> products = context.Collection().ToList();
-            List<ProductCategory> categories = productCategories.Collection().ToList();
-
-            if (Category == null)
-            {
-            products = context.Collection().ToList();
-            }
-            else
-            {
-                products = context.Collection().Where(p => p.Category == Category).ToList();
-            }
-
-            ProductListViewModel model = new ProductListViewModel
-            {
-                Products = products,
-                ProductCategories = categories
-            };
-
-            return View(model);
-        }
-
-        public ActionResult Details(string Id)
-        {
-            ViewBag.IsIndexHome = false;
-            Product product = context.Find(Id);
-            if (product == null)
-            {
-                return HttpNotFound();
-            }
-            else
-            {
-                return View(product);
-            }
-
-        }
-
         public ActionResult About()
         {
             ViewBag.IsIndexHome = false;

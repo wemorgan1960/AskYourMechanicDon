@@ -33,12 +33,13 @@ namespace AskYourMechanicDon.WebUI.Controllers
             return View(model);
         }
         [Authorize(Roles = RoleName.AskAdmin + "," + RoleName.AskUser)]
+        [HttpPost]
         public ActionResult AddToBasket(string Id, string vin, string question)
         {
             ViewBag.IsIndexHome = false;
             basketService.AddToBasket(this.HttpContext, Id, vin, question);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Products");
         }
         [Authorize(Roles = RoleName.AskAdmin + "," + RoleName.AskUser)]
         public ActionResult RemoveFromBasket(string Id)
@@ -46,7 +47,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
             ViewBag.IsIndexHome = false;
             basketService.RemoveFromBasket(this.HttpContext, Id);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Products");
         }
 
         public PartialViewResult BasketSummary()
@@ -57,7 +58,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
             return PartialView(basketSummary);
         }
 
-        [Authorize(Roles = RoleName.AskAdmin +","+ RoleName.AskUser)]
+        [Authorize(Roles = RoleName.AskAdmin + "," + RoleName.AskUser)]
         public ActionResult Checkout()
         {
             ViewBag.IsIndexHome = false;
@@ -72,9 +73,9 @@ namespace AskYourMechanicDon.WebUI.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("Products", "Home");
+                    return RedirectToAction("Index", "Products");
                 }
-                    
+
             }
             else
             {
@@ -87,15 +88,15 @@ namespace AskYourMechanicDon.WebUI.Controllers
         {
             ViewBag.IsIndexHome = false;
             var model = basketService.GetBasketItems(this.HttpContext);
-            if(model!= null)
+            if (model != null)
             {
                 return View(model);
             }
             else
             {
-                return RedirectToAction("Products", "Home");
+                return RedirectToAction("Index", "Products");
             }
-            
+
         }
 
         [HttpPost]
@@ -136,7 +137,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
 
 
             //Email Admin 
-            subject = "AskYourMechanicDon.com New Question: " + order.OrderNumber ;
+            subject = "AskYourMechanicDon.com New Question: " + order.OrderNumber;
             fromAddress = "admin@askyourmechanicdon.com";
             toAddress = "admin@askyourmechanicdon.com";
             emailBody = "Email From: AskYourMechanicDon.com Message: A New Question: " + order.OrderNumber;
@@ -156,6 +157,6 @@ namespace AskYourMechanicDon.WebUI.Controllers
             basketService.ClearBasket(this.HttpContext);
 
         }
-                
+
     }
 }

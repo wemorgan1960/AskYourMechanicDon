@@ -71,11 +71,11 @@ namespace AskYourMechanicDon.Services
             if(productId != null)
             {
                 Basket basket = GetBasket(httpContext, true);
-                BasketItem item = basket.BasketItems.FirstOrDefault(i => i.ProductId == productId);
+                //BasketItem item = basket.BasketItems.FirstOrDefault(i => i.ProductId == productId);
 
-                if (item == null)
-                {
-                    item = new BasketItem()
+                //if (item == null)
+                //{
+                BasketItem item = new BasketItem()
                     {
                         BasketId = basket.Id,
                         ProductId = productId,
@@ -84,11 +84,11 @@ namespace AskYourMechanicDon.Services
                         Quanity = 1
                     };
                     basket.BasketItems.Add(item);
-                }
-                else
-                {
-                    item.Quanity = item.Quanity + 1;
-                }
+                //}
+                //else
+                //{
+                //    item.Quanity = item.Quanity + 1;
+                //}
                 basketContext.Commit();
 
             }

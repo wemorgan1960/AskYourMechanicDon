@@ -11,5 +11,6 @@ namespace AskYourMechanicDon.Core.ViewModels
     {
         public Product Product { get; set; }
         public IEnumerable<ProductCategory> ProductCategories { get; set; }
+
     }
 }
