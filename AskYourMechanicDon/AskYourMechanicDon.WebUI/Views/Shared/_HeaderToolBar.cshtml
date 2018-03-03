@@ -14,23 +14,42 @@
 
             <ul class="nav navbar-nav  navbar-right">
 
+                <!-- Currency -->
+                <li><span class="bfh-countries" data-country="US" data-flags="true" ></span></li>
+                <li class="list-inline-item">
+                    <a id="currency-dropdown-invoker-2" class="g-color-white-opacity-0_6 g-color-primary--hover g-font-weight-400 g-text-underline--none--hover" href="#!"
+                       aria-controls="currency-dropdown-2"
+                       aria-haspopup="true"
+                       aria-expanded="false"
+                       data-dropdown-event="hover"
+                       data-dropdown-target="#currency-dropdown-2"
+                       data-dropdown-type="css-animation"
+                       data-dropdown-duration="300"
+                       data-dropdown-hide-on-scroll="false"
+                       data-dropdown-animation-in="fadeIn"
+                       data-dropdown-animation-out="fadeOut">
+                        <i class="g-ml-20--md mr-2 fa fa-dollar"></i>
+                        Canadian
+                    </a>
+                </li>
+                <!-- End Currency -->
 
                 <li>@Html.ActionLink("Home", "Index", "Products")</li>
 
                 @if (Request.IsAuthenticated && (User.IsInRole("AskUser") || User.IsInRole("AskAdmin")))
-                {
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown">Profile <b class="caret"></b></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li role="menuitem">@Html.ActionLink("Profile", "Details", "Customer")</li>
-                            <li role="menuitem">@Html.ActionLink("Orders", "Orders", "Order")</li>
-                        </ul>
-                    </li>
-                }
+    {
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown">Profile <b class="caret"></b></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li role="menuitem">@Html.ActionLink("Profile", "Details", "Customer")</li>
+                    <li role="menuitem">@Html.ActionLink("Orders", "Orders", "Order")</li>
+                </ul>
+            </li>
+}
                 @if (Request.IsAuthenticated && User.IsInRole("AskAdmin"))
-                {
-                    <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
-                }
+    {
+            <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
+}
                 @Html.Partial("_LoginPartial")
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown">About <b class="caret"></b></a>
