@@ -66,7 +66,7 @@ textarea{max-width:500px;}
         left: 50%;
     }
 
-form.paypalform {
+.paypalform {
     position: absolute;
     left: -2000px;
 }
@@ -75,3 +75,14 @@ form.paypalform {
     position: relative;
 }
 
+.badge {
+    background-color: #6394F8;
+    border-radius: 10px;
+    color: white;
+    display: inline-block;
+    font-size: 14px;
+    line-height: 1;
+    padding: 3px 7px;
+    vertical-align: middle;
+    white-space: nowrap;
+}

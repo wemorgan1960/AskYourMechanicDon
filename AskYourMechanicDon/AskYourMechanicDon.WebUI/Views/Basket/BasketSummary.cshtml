@@ -1,7 +1,10 @@
 ﻿@model AskYourMechanicDon.Core.ViewModels.BasketSummaryViewModel
 
-    <ul class="nav navbar-nav">
+@*<ul class="navbar">*@
+<li><a href="@Url.Action("Index","Basket")" id="cart"><i class="fa fa-shopping-cart"></i>Cart<span class="badge">@Model.BasketCount</span></a></li>
+@*</ul>*@
+
+@*<ul class="nav navbar-nav">
         <li><a href="@Url.Action("Index","Basket")">>  @Model.BasketCount items ></a></li>
         <li><a href="@Url.Action("Index","Basket")">> @String.Format("{0:c}", Model.BasketTotal)></a></li>
-    </ul>
-
+    </ul>*@

@@ -45,7 +45,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
                 var subject = "AskYourMechanicDon.com Contact Form Email";
                 var body = "<p>Email From: {0} ({1})</p><p>Message:</p><p>{2}</p>";
                 var fromAddress = model.FromEmail;
-                var toAddress = "admin@askyourmechanicdon.com";
+                var toAddress = "admin@askyourmechanicdon.com;donrmorgan@shaw.ca";
                 var emailBody = string.Format(body, model.FromName, model.FromEmail, model.Message);
 
                 var smtp = new SmtpClient();

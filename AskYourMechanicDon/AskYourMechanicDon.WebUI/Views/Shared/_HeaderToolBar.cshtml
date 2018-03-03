@@ -14,11 +14,9 @@
 
             <ul class="nav navbar-nav  navbar-right">
 
-                <li>@Html.ActionLink("Home", "Products", "Home")</li>
-                @Html.Partial("_LoginPartial")
-                @{
-                    Html.RenderAction("BasketSummary", "Basket");
-                }
+
+                <li>@Html.ActionLink("Home", "Index", "Products")</li>
+
                 @if (Request.IsAuthenticated && (User.IsInRole("AskUser") || User.IsInRole("AskAdmin")))
                 {
                     <li class="dropdown">
@@ -33,6 +31,7 @@
                 {
                     <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
                 }
+                @Html.Partial("_LoginPartial")
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown">About <b class="caret"></b></a>
                     <ul class="dropdown-menu" role="menu">
@@ -41,6 +40,7 @@
                         <li role="menuitem">@Html.ActionLink("Contact Us", "Contact", "Home")</li>
                     </ul>
                 </li>
+                @{Html.RenderAction("BasketSummary", "Basket"); }
             </ul>
         </div><!--/.nav-collapse -->
         @*<button type="button" class="navbar-toggle side-panel" data-toggle="offcanvas" data-target=".navmenu" data-canvas="body"><i class="ti-menu-alt"></i></button>*@
