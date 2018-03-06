@@ -96,7 +96,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
                 orderItemsContext.Commit();
 
                 //Email Customer
-                string CustomerEmail = User.Identity.Name; ;
+                string CustomerEmail = User.Identity.Name; 
 
                 var subject = "AskYourMechanicDon.com Order has been Answered: " + orderItem.OrderId;
                 var fromAddress = "admin@askyourmechanicdon.com";
@@ -116,7 +116,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
 
                 smtp.Send(fromAddress, toAddress, subject, emailBody);
 
-                return RedirectToAction("OrderItemsDetails");
+                return RedirectToAction("Index");
             }
 
         }

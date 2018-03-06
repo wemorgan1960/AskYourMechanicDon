@@ -139,7 +139,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
             //Email Admin 
             subject = "AskYourMechanicDon.com New Question: " + order.OrderNumber;
             fromAddress = "admin@askyourmechanicdon.com";
-            toAddress = "admin@askyourmechanicdon.com;donmorgan@shaw.ca";
+            toAddress = "admin@askyourmechanicdon.com,donmorgan@shaw.ca";
             emailBody = "Email From: AskYourMechanicDon.com Message: A New Question: " + order.OrderNumber;
 
             var smtp1 = new SmtpClient();
