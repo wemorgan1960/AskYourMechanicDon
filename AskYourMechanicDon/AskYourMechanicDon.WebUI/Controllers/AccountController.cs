@@ -130,8 +130,15 @@ namespace AskYourMechanicDon.WebUI.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    //return RedirectToAction("Products", "Home");
-                    return RedirectToLocal(returnUrl);
+                    if (returnUrl == null)
+                    {
+                        return RedirectToAction("Index", "Products");
+                    }
+                    else
+                    {
+                        return RedirectToLocal(returnUrl);
+                    }
+                    
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:

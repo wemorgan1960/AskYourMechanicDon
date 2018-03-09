@@ -25,12 +25,10 @@ namespace AskYourMechanicDon.Services
                     Price = item.Price,
                     ProductName = item.ProductName,
                     Quanity = item.Quanity,
-                    Vin=item.Vin,
-                    Question=item.Question,
-
+                    Vin = item.Vin,
+                    Question = item.Question,
                 });
             }
-
             orderContext.Insert(baseOrder);
             orderContext.Commit();
         }

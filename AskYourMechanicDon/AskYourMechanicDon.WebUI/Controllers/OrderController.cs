@@ -15,14 +15,15 @@ namespace MyShop.WebUI.Controllers
     {
         IOrderService orderService;
         IRepository<OrderItem> orderItems;
-
+        IRepository<Order> order;
         IRepository<Customer> customers;
 
         public OrderController(IOrderService OrderService, IRepository<OrderItem> orderItemsContext,
-             IRepository<Customer> customersContext) {
+             IRepository<Customer> customersContext, IRepository<Order> orderContext) {
             this.orderService = OrderService;
             this.orderItems = orderItemsContext;
             this.customers = customersContext;
+            this.order = orderContext;
 
         }
         // GET: OrderManager
@@ -65,10 +66,13 @@ namespace MyShop.WebUI.Controllers
                 id = User.Identity.GetUserId();
             }
             Customer customer = customers.Find(id);
+            List<Order> orders = order.Collection().ToList();
+            IEnumerable<Order> orderx = orders.Where(o => o.CustomerUserId.CompareTo(customer.Id) <1);
+
             CustomerOrdersViewModel viewModel = new CustomerOrdersViewModel
             {
                 Customer = customer,
-                Orders = customer.Orders
+                Orders = orderx
             };
 
             return View(viewModel);

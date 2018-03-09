@@ -39,7 +39,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
             ViewBag.IsIndexHome = false;
             basketService.AddToBasket(this.HttpContext, Id, vin, question);
 
-            return RedirectToAction("Index","Products");
+            return RedirectToAction("Index", "Products");
         }
         [Authorize(Roles = RoleName.AskAdmin + "," + RoleName.AskUser)]
         public ActionResult RemoveFromBasket(string Id)
@@ -47,7 +47,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
             ViewBag.IsIndexHome = false;
             basketService.RemoveFromBasket(this.HttpContext, Id);
 
-            return RedirectToAction("Index","Products");
+            return RedirectToAction("Index", "Products");
         }
 
         public PartialViewResult BasketSummary()
@@ -104,15 +104,26 @@ namespace AskYourMechanicDon.WebUI.Controllers
         public void PlaceOrder()
         {
             var basketItems = basketService.GetBasketItems(this.HttpContext);
-            var order = new Core.Models.Order
+            var order = new Order
             {
                 OrderNumber = Common.GetRandomInvoiceNumber()
             };
+
+            //Get the customer UserId
+            Customer customer = customers.Collection().FirstOrDefault(c => c.Email == User.Identity.Name);
+            order.CustomerUserId = customer.UserId;
+
+            //Get the Invoice and Status
             order.InvoiceNumber = "AskDon" + @DateTime.Now.Year + order.OrderNumber;
             order.OrderStatus = "Order Created";
+            order.OrderStatusDate = @DateTime.Now;
+
+            //Create the Order
             orderService.CreateOrder(order, basketItems);
+
+            //Update the Payment Processed.
             order.OrderStatus = "Payment Processed";
-            //order.CompletedAt = DateTime.Now; 
+            order.OrderStatusDate = @DateTime.Now;
             orderService.UpdateOrder(order);
 
             //Email Customer
@@ -135,11 +146,20 @@ namespace AskYourMechanicDon.WebUI.Controllers
 
             smtp.Send(fromAddress, toAddress, subject, emailBody);
 
+            string emailAddress = "admin@askyourmechanicdon.com";
 
+            if (Production.IsProduction == true)
+            {
+                emailAddress = "admin@askyourmechanicdon.com,donmorgan@shaw.ca";
+            }
+            else
+            {
+                emailAddress = "admin@askyourmechanicdon.com";
+            }
             //Email Admin 
             subject = "AskYourMechanicDon.com New Question: " + order.OrderNumber;
             fromAddress = "admin@askyourmechanicdon.com";
-            toAddress = "admin@askyourmechanicdon.com,donmorgan@shaw.ca";
+            toAddress = emailAddress;
             emailBody = "Email From: AskYourMechanicDon.com Message: A New Question: " + order.OrderNumber;
 
             var smtp1 = new SmtpClient();

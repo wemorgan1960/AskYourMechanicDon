@@ -128,6 +128,14 @@
     <Compile Include="Migrations\201802270211574_updateProduct.Designer.cs">
       <DependentUpon>201802270211574_updateProduct.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803091625090_updateOrder1.cs" />
+    <Compile Include="Migrations\201803091625090_updateOrder1.Designer.cs">
+      <DependentUpon>201803091625090_updateOrder1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803091805522_updateOrderCustomer.cs" />
+    <Compile Include="Migrations\201803091805522_updateOrderCustomer.Designer.cs">
+      <DependentUpon>201803091805522_updateOrderCustomer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SQLRepository.cs" />
@@ -206,6 +214,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802270211574_updateProduct.resx">
       <DependentUpon>201802270211574_updateProduct.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803091625090_updateOrder1.resx">
+      <DependentUpon>201803091625090_updateOrder1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803091805522_updateOrderCustomer.resx">
+      <DependentUpon>201803091805522_updateOrderCustomer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

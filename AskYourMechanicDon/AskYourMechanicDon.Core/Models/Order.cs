@@ -13,13 +13,11 @@ namespace AskYourMechanicDon.Core.Models
         public Order() {
             this.OrderItems = new List<OrderItem>();
         }
-        public string OrderId { get; set; }
+        public string CustomerUserId { get; set; }
         public string OrderNumber { get; set; }
         public string InvoiceNumber { get; set; }
-        public  Nullable<DateTime> CompletedAt { get; set; }
+        public  Nullable<DateTime> OrderStatusDate { get; set; }
         public string OrderStatus { get; set; }
-
-        public string TotalOrder { get; set; }
 
         public virtual ICollection<OrderItem> OrderItems { get; set; }
     }

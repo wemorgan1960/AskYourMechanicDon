@@ -41,10 +41,10 @@
                 Invoice Number
             </th>
             <th>
-                Order Status
+                Order Number
             </th>
             <th>
-                TotalOrder
+                Order Status
             </th>
         </tr>
 
@@ -55,10 +55,10 @@
                 @Html.DisplayFor(modelItem => item.InvoiceNumber)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.OrderStatus)
+                @Html.DisplayFor(modelItem => item.OrderNumber)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TotalOrder)
+                @Html.DisplayFor(modelItem => item.OrderStatus)
             </td>
             <td>
                 @Html.ActionLink("Order Items","Index", "OrderItems", new { id = item.Id },new{@class="btn btn-default"})

@@ -95,13 +95,18 @@ namespace AskYourMechanicDon.WebUI.Controllers
 
                 orderItemsContext.Commit();
 
+                //Get OrderId
+
+                Order order = orderContext.Find(orderItemToEdit.OrderId);
+                
+
                 //Email Customer
                 string CustomerEmail = User.Identity.Name; 
 
-                var subject = "AskYourMechanicDon.com Order has been Answered: " + orderItem.OrderId;
+                var subject = "AskYourMechanicDon.com Order " + order.OrderNumber + " has been Answered: ";
                 var fromAddress = "admin@askyourmechanicdon.com";
                 var toAddress = CustomerEmail;
-                var emailBody = "Email From: AskYourMechanicDon.com Message: the answer to your order: " 
+                var emailBody = "The answer to your order: " + order.OrderNumber
                     + orderItem.Question + " " + orderItem.AnswerContent;
 
                 var smtp = new SmtpClient();
