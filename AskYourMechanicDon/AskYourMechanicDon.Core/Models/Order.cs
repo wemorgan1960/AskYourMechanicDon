@@ -19,6 +19,6 @@ namespace AskYourMechanicDon.Core.Models
         public  Nullable<DateTime> OrderStatusDate { get; set; }
         public string OrderStatus { get; set; }
 
-        public virtual ICollection<OrderItem> OrderItems { get; set; }
+        public virtual List<OrderItem> OrderItems { get; set; }
     }
 }

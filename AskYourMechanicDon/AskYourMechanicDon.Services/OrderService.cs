@@ -12,8 +12,11 @@ namespace AskYourMechanicDon.Services
     public class OrderService : IOrderService
     {
         IRepository<Order> orderContext;
-        public OrderService(IRepository<Order> OrderContext) {
+        IRepository<OrderItem> orderItemContext;
+        public OrderService(IRepository<Order> OrderContext, IRepository<OrderItem> OrderItemContext)
+        {
             this.orderContext = OrderContext;
+            this.orderItemContext = OrderItemContext;
         }
 
         public void CreateOrder(Order baseOrder, List<BasketItemViewModel> basketItems)
@@ -36,14 +39,26 @@ namespace AskYourMechanicDon.Services
         public List<Order> GetOrderList() {
             return orderContext.Collection().ToList();
         }
+        public List<OrderItem> GetOrderItemList(string Id)
+        {
+            List<OrderItem> orderItems = orderItemContext.Collection().ToList();
+            List<OrderItem> orderItemsOut = orderItems.Where(o=>o.OrderId.CompareTo(Id)<2).ToList();
+            return orderItemsOut;
+        }
 
         public Order GetOrder(string Id) {
             return orderContext.Find(Id);
+        }
+
+        public Order GetOrderFromOrderNumber(string Id)
+        {
+            return orderContext.Collection().Where(o => o.OrderNumber.CompareTo(Id) < 1).FirstOrDefault();
         }
 
         public void UpdateOrder(Order updatedOrder) {
             orderContext.Update(updatedOrder);
             orderContext.Commit();
         }
+
     }
 }

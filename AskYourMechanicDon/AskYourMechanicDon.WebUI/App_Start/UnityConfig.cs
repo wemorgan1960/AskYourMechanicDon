@@ -59,6 +59,9 @@ namespace AskYourMechanicDon.WebUI
             container.RegisterType<IOrderService, OrderService>();
             container.RegisterType<IBasketService, BasketService>();
 
+            container.RegisterType<IRepository<Request>, SQLRepository<Request>>();
+            container.RegisterType<IRepository<Error>, SQLRepository<Error>>();
+
 
             //container.RegisterType<AccountController>(new InjectionConstructor());
             //container.RegisterType<RolesAdminController>(new InjectionConstructor());

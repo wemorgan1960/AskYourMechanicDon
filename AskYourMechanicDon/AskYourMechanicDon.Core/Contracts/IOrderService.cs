@@ -12,7 +12,9 @@ namespace AskYourMechanicDon.Core.Contracts
     {
         void CreateOrder(Order baseOrder, List<BasketItemViewModel> basketItems);
         List<Order> GetOrderList();
+        List<OrderItem> GetOrderItemList(string Id);
         Order GetOrder(string Id);
+        Order GetOrderFromOrderNumber(string Id);
         void UpdateOrder(Order updatedOrder);
     }
 }

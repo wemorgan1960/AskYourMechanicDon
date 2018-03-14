@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace AskYourMechanicDon.Core.Models
 {
-    public static class Production
+    public class Error:BaseEntity
     {
-        public const Boolean IsProduction = true;
+        public string Message { get; set; }
     }
 }

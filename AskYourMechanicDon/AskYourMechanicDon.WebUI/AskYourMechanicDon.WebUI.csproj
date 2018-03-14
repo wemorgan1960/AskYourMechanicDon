@@ -864,7 +864,7 @@
     <Content Include="Views\Shared\_HeaderToolBar.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Home\UnderConstruction.cshtml" />
-    <Content Include="Views\Basket\ReviewOrder.cshtml" />
+    <Content Include="Views\Basket\PlaceOrderx.cshtml" />
     <Content Include="Views\Customer\Index.cshtml" />
     <Content Include="Views\Order\Orders.cshtml" />
     <Content Include="Views\ProductManager\Details.cshtml" />
@@ -875,6 +875,11 @@
     <Content Include="Views\OrderItems\Edit.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Products\AddToCart.cshtml" />
+    <Content Include="Views\Basket\ReturnFromPayPal.cshtml" />
+    <Content Include="Views\Basket\ReviewPlaceOrder.cshtml" />
+    <Content Include="Views\Basket\CancelFromPayPal.cshtml" />
+    <Content Include="Views\Basket\NotifyFromPayPal.cshtml" />
+    <Content Include="Views\Basket\IPNPayPal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,27 +1,28 @@
-﻿@model IEnumerable<AskYourMechanicDon.Core.ViewModels.BasketItemViewModel>
+﻿@model AskYourMechanicDon.Core.ViewModels.OrderNumberOrderItemsViewModel
 
 @{ViewBag.Title = "Basket";
     int count = 1;
-    decimal gTotal = 0;}
+    decimal gTotal = 0;
+}
 
 <table class="table">
     <tr>
         <th>
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ProductName)
+            Product Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Vin)
+            VIN
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Question)
+            Your Question
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Quanity)
+            Quanity
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Price)
+            Price
         </th>
         <th>
             Line Total
@@ -29,10 +30,9 @@
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (var item in Model.OrderItems)
     {
         <tr>
-            <td><img class="img" src="~/Content/ProductImages/@item.Image" style="height:50px" /></td>
             <td>
                 @Html.DisplayFor(modelItem => item.ProductName)
             </td>
@@ -56,6 +56,7 @@
         gTotal = gTotal + item.Price;
 
     }
+
     <tr>
         <td></td>
         <td></td>
@@ -72,8 +73,11 @@
         <input type="hidden" name="hosted_button_id" value="ENLYF2UB52CTE">
         <input type="hidden" name="upload" value="1">
         <input type="hidden" name="business" value="bmorgan@telusplanet.net">
-
-        @foreach (var item in Model)
+        <input type="hidden" name="return" value="http://localhost:5112/Basket/ReturnFromPayPal" />
+        <input type="hidden" name="cancel_return" value="http://localhost:5112/Basket/CancelFromPayPal" />
+        <input type="hidden" name="notify_url" value="http://localhost:5112/Basket/NotifiyFromPayPal" />
+        <input type="hidden" name="item_number" value="@Model.OrderNumber" />
+        @foreach (var item in Model.OrderItems)
         {
             <input type="hidden" name="item_name_@count" value="@item.ProductName">
             <input type="hidden" name="amount_@count" value="@item.Price">
@@ -82,9 +86,8 @@
         }
 
         <input type="hidden" name="currency_code" value="CAD">
-        @*<input type="image" src="http://www.paypal.com/en_US/i/btn/x-click-but01.gif" name="submit" alt="Make payments with PayPal - it's fast, free and secure!">*@
         <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_paynowCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-            <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+        <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
 
     </form>
 </div>
@@ -116,5 +119,59 @@
         });
 
     </script>
-    }
+}
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<h2>ReviewPlaceOrder</h2>
+
+    <div>
+        <h4>OrderNumberOrderItemsViewModel</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.OrderNumber)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.OrderNumber)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>*@
