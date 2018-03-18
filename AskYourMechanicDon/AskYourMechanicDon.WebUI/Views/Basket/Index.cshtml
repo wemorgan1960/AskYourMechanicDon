@@ -11,6 +11,9 @@
             @Html.DisplayNameFor(model => model.ProductName)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.ProductCategory)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Vin)
         </th>
         <th>
@@ -30,31 +33,33 @@
 
     @foreach (var item in Model)
     {
-        <tr>
-            <td><img class="img" src="~/Content/ProductImages/@item.Image" style="height:50px" /></td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductName)
-            </td>
-
-            <td>
-                @Html.DisplayFor(modelItem => item.Vin)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Question)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Quanity)
-            </td>
-            <td>
-                @String.Format("{0:c}", item.Price)
-            </td>
-            <td>
-                @String.Format("{0:c}", item.Price * item.Quanity)
-            </td>
-            <td>
-                <a href="@Url.Action("RemoveFromBasket","Basket", new { id = item.Id })" class="btn btn-default"><span>Delete</span><i class="icon-angle-right"></i></a>
-            </td>
-        </tr>
+    <tr>
+        <td><img class="img" src="~/Content/ProductImages/@item.Image" style="height:50px" /></td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductCategory)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Vin)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Question)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Quanity)
+        </td>
+        <td>
+            @String.Format("{0:c}", item.Price)
+        </td>
+        <td>
+            @String.Format("{0:c}", item.Price * item.Quanity)
+        </td>
+        <td>
+            <a href="@Url.Action("RemoveFromBasket","Basket", new { id = item.Id })" class="btn btn-default"><span>Delete</span><i class="icon-angle-right"></i></a>
+        </td>
+    </tr>
         gTotal = gTotal + item.Price;
 
     }
@@ -68,4 +73,5 @@
         <td class="grandtotal"><b>Grand total</b>Canadian Dollars $<span><b>@gTotal</b></span></td>
     </tr>
 </table>
-<a href="@Url.Action("Checkout","Basket")" class="placeorder btn btn-primary pull-right">Checkout</a>
+<a href="@Url.Action("Index","Products")" class="index btn btn-primary pull-right">Continue Shopping</a>
+<a href="@Url.Action("DetailsCheckout","Customer")" class="placeorder btn btn-danger pull-right">Continue to Checkout</a>

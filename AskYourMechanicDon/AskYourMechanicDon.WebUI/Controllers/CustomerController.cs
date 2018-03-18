@@ -13,23 +13,23 @@ namespace AskYourMechanicDon.WebUI.Controllers
     [Authorize(Roles = RoleName.AskAdmin + "," + RoleName.AskUser)]
     public class CustomerController : Controller
     {
-        IRepository<Customer> context;
+        IRepository<Customer> customerContext;
         IRepository<Order> orderContext;
         IRepository<OrderItem> orderItemContext;
 
-        
-        public CustomerController(IRepository<Customer> Customers, IRepository<Order> order, IRepository<OrderItem> orderItem  )
+
+        public CustomerController(IRepository<Customer> Customers, IRepository<Order> order, IRepository<OrderItem> orderItem)
         {
-            this.context = Customers;
+            this.customerContext = Customers;
             this.orderContext = order;
             this.orderItemContext = orderItem;
         }
         // GET: Customer
-        [Authorize(Roles = RoleName.AskAdmin )]
+        [Authorize(Roles = RoleName.AskAdmin)]
         public ActionResult Index()
         {
             ViewBag.IsIndexHome = false;
-            List<Customer> customers = context.Collection().ToList();
+            List<Customer> customers = customerContext.Collection().ToList();
             return View(customers);
         }
 
@@ -40,15 +40,28 @@ namespace AskYourMechanicDon.WebUI.Controllers
             {
                 id = User.Identity.GetUserId();
             }
-            Customer customer = context.Find(id);
+            Customer customer = customerContext.Find(id);
 
-            return View(customer); 
-            }
+            return View(customer);
+        }
 
-        public ActionResult Edit(string Id)
+        [Authorize]
+        public ActionResult DetailsCheckOut(string id)
         {
             ViewBag.IsIndexHome = false;
-            Customer customer = context.Find(Id);
+            if (id == null)
+            {
+                id = User.Identity.GetUserId();
+            }
+            Customer customer = customerContext.Find(id);
+
+            return View(customer);
+        }
+
+        public ActionResult EditCheckOut(string Id)
+        {
+            ViewBag.IsIndexHome = false;
+            Customer customer = customerContext.Find(Id);
             if (customer == null)
             {
                 return HttpNotFound();
@@ -59,10 +72,10 @@ namespace AskYourMechanicDon.WebUI.Controllers
             }
         }
         [HttpPost]
-        public ActionResult Edit(Customer customer, string Id, HttpPostedFileBase file)
+        public ActionResult EditCheckOut(Customer customer, string Id, HttpPostedFileBase file)
         {
             ViewBag.IsIndexHome = false;
-            Customer customerToEdit = context.Find(Id);
+            Customer customerToEdit = customerContext.Find(Id);
             if (customer == null)
             {
                 return HttpNotFound();
@@ -81,7 +94,74 @@ namespace AskYourMechanicDon.WebUI.Controllers
                 customerToEdit.Province = customer.Province;
                 customerToEdit.Country = customer.Country;
 
-                context.Commit();
+                customerContext.Commit();
+
+                return RedirectToAction("PlaceOrder", "Basket");
+            }
+        }
+
+            //[Authorize]
+            //public ActionResult ReviewProfile()
+            //{
+            //    ViewBag.IsIndexHome = false;
+            //    Customer customer = customerContext.Collection().FirstOrDefault(c => c.Email == User.Identity.Name);
+
+            //    if (customer != null)
+            //    {
+            //        var model = basketService.GetBasketItems(this.HttpContext);
+            //        if (model != null)
+            //        {
+            //            return View(customer);
+            //        }
+            //        else
+            //        {
+            //            return RedirectToAction("Index", "Products");
+            //        }
+            //    }
+            //    else
+            //    {
+            //        return RedirectToAction("Error");
+            //    }
+
+            //}
+
+            public ActionResult Edit(string Id)
+            {
+                ViewBag.IsIndexHome = false;
+                Customer customer = customerContext.Find(Id);
+                if (customer == null)
+                {
+                    return HttpNotFound();
+                }
+                else
+                {
+                    return View(customer);
+                }
+            }
+        [HttpPost]
+        public ActionResult Edit(Customer customer, string Id, HttpPostedFileBase file)
+        {
+            ViewBag.IsIndexHome = false;
+            Customer customerToEdit = customerContext.Find(Id);
+            if (customer == null)
+            {
+                return HttpNotFound();
+            }
+            else
+            {
+                if (!ModelState.IsValid)
+                {
+                    return View(customer);
+                }
+
+                customerToEdit.FirstName = customer.FirstName;
+                customerToEdit.LastName = customer.LastName;
+                customerToEdit.Street = customer.Street;
+                customerToEdit.City = customer.City;
+                customerToEdit.Province = customer.Province;
+                customerToEdit.Country = customer.Country;
+
+                customerContext.Commit();
 
                 return RedirectToAction("Index");
             }

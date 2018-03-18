@@ -12,13 +12,16 @@ namespace AskYourMechanicDon.Services
     {
         IRepository<Product> productContext;
         IRepository<Basket> basketContext;
+        IRepository<BasketItem> basketItemContext;
 
-        public const string BasketSessionName = "eCommerceBasket";
 
-        public BasketService(IRepository<Product> ProductContext, IRepository<Basket> BasketContext)
+        public const string BasketSessionName = "eAskYourMechanicDonBasket";
+
+        public BasketService(IRepository<Product> product, IRepository<Basket> basket, IRepository<BasketItem> basketItem)
         {
-            this.basketContext=BasketContext;
-            this.productContext = ProductContext;
+            this.basketContext = basket;
+            this.productContext = product;
+            this.basketItemContext = basketItem;
         }
 
         private Basket GetBasket(HttpContextBase httpContext, bool createIfNull)
@@ -33,6 +36,10 @@ namespace AskYourMechanicDon.Services
                 if (!string.IsNullOrEmpty(basketId))
                 {
                     basket = basketContext.Find(basketId);
+                    if (basket == null)
+                    {
+                        basket = CreateNewBasket(httpContext);
+                    }
                 }
                 else
                 {
@@ -51,6 +58,8 @@ namespace AskYourMechanicDon.Services
             }
             return basket;
         }
+
+
         private Basket CreateNewBasket(HttpContextBase httpContext)
         {
             Basket basket = new Basket();
@@ -60,7 +69,8 @@ namespace AskYourMechanicDon.Services
             HttpCookie cookie = new HttpCookie(BasketSessionName)
             {
                 Value = basket.Id,
-                Expires = DateTime.Now.AddDays(1)
+                //Expires = DateTime.Now.AddDays(1)
+                Expires = DateTime.Now.AddMinutes(4)
             };
             httpContext.Response.Cookies.Add(cookie);
 
@@ -68,31 +78,41 @@ namespace AskYourMechanicDon.Services
         }
         public void AddToBasket(HttpContextBase httpContext, string productId, string vin, string question)
         {
-            if(productId != null)
+            Basket basket = GetBasket(httpContext, true);
+            BasketItem item = basket.BasketItems.FirstOrDefault(i => i.ProductId == productId);
+            if(item==null)
             {
-                Basket basket = GetBasket(httpContext, true);
-                //BasketItem item = basket.BasketItems.FirstOrDefault(i => i.ProductId == productId);
-
-                //if (item == null)
-                //{
-                BasketItem item = new BasketItem()
+                item = new BasketItem()
+                {
+                    BasketId = basket.Id,
+                    ProductId = productId,
+                    Quanity = 1,
+                    Vin = vin,
+                    Question = question
+                };
+                basket.BasketItems.Add(item);
+            }
+            else
+            {
+                if (item.Question == question)
+                {
+                    item.Quanity = 1;
+                }
+                else
+                {
+                    BasketItem newitem = new BasketItem()
                     {
                         BasketId = basket.Id,
                         ProductId = productId,
+                        Quanity = 1,
                         Vin = vin,
-                        Question = question,
-                        Quanity = 1
+                        Question = question
                     };
-                    basket.BasketItems.Add(item);
-                //}
-                //else
-                //{
-                //    item.Quanity = item.Quanity + 1;
-                //}
-                basketContext.Commit();
-
+                    basket.BasketItems.Add(newitem);
+                }
             }
 
+            basketContext.Commit();
         }
         public void RemoveFromBasket(HttpContextBase httpContext, string itemId)
         {
@@ -105,25 +125,30 @@ namespace AskYourMechanicDon.Services
                 basketContext.Commit();
             }
         }
-        public List<BasketItemViewModel>GetBasketItems(HttpContextBase httpContext)
+        public List<BasketItemViewModel> GetBasketItems(HttpContextBase httpContext)
         {
             Basket basket = GetBasket(httpContext, false);
 
             if (basket != null)
             {
-                var results = (from b in basket.BasketItems
-                              join p in productContext.Collection()
-                              on b.ProductId equals p.Id
-                              select new BasketItemViewModel()
-                              {
-                                  Id = b.Id,
-                                  Quanity = b.Quanity,
-                                  ProductName = p.Name,
-                                  Vin = b.Vin,
-                                  Question = b.Question,
-                                  Image = p.Image,
-                                  Price = p.Price
-                              }).ToList();
+                List<BasketItem> basketItems = basketItemContext.Collection().Where(b=> b.BasketId == basket.Id).ToList();
+                List<Product> products = productContext.Collection().ToList();
+
+
+                var results = (from b in basketItems
+                               join p in productContext.Collection() 
+                                    on b.ProductId equals p.Id
+                               where b.BasketId == basket.Id
+                               select new BasketItemViewModel()
+                               {
+                                   Id = b.Id,
+                                   Quanity = b.Quanity,
+                                   ProductName = p.Name,
+                                   Vin = b.Vin,
+                                   Question = b.Question,
+                                   Image = p.Image,
+                                   Price = p.Price
+                               }).ToList();
                 return results;
             }
             else

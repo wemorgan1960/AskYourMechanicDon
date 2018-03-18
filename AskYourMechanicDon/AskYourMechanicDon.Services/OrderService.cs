@@ -42,8 +42,21 @@ namespace AskYourMechanicDon.Services
         public List<OrderItem> GetOrderItemList(string Id)
         {
             List<OrderItem> orderItems = orderItemContext.Collection().ToList();
-            List<OrderItem> orderItemsOut = orderItems.Where(o=>o.OrderId.CompareTo(Id)<2).ToList();
-            return orderItemsOut;
+
+            var results = (from b in orderItems
+                           where b.OrderId== Id
+                           select new OrderItem()
+                           {
+                               Id = b.Id,
+                               ProductId=b.ProductId,
+                               ProductName = b.ProductName,
+                               Price = b.Price,
+                               Quanity = b.Quanity,
+                               Vin = b.Vin,
+                               Question = b.Question,
+                           }).ToList();
+
+            return results;
         }
 
         public Order GetOrder(string Id) {

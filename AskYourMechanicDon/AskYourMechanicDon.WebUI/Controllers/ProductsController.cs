@@ -12,21 +12,21 @@ namespace AskYourMechanicDon.WebUI.Controllers
 {
     public class ProductsController : Controller
     {
-        IRepository<Product> context;
-        IRepository<ProductCategory> productCategories;
-        IBasketService basketService;
+        IRepository<Product> ProductContext;
+        IRepository<ProductCategory> productCategoriesContext;
 
-        public ProductsController(IBasketService BasketService, IRepository<Product> productContext, IRepository<ProductCategory> productCategoryContext)
+        public ProductsController( IRepository<Product> product, IRepository<ProductCategory> productCategory)
         {
-            this.context = productContext;
-            this.productCategories = productCategoryContext;
-            this.basketService = BasketService;
+            this.ProductContext = product;
+            this.productCategoriesContext = productCategory;
         }
+
+
         public ActionResult Index()
         {
             ViewBag.IsIndexHome = false;
 
-            List<Product> products = context.Collection().ToList();
+            List<Product> products = ProductContext.Collection().ToList();
 
             return View(products);
         }
@@ -34,7 +34,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
         public ActionResult Details(string Id)
         {
             ViewBag.IsIndexHome = false;
-            Product product = context.Find(Id);
+            Product product = ProductContext.Find(Id);
             if (product == null)
             {
                 return HttpNotFound();
@@ -45,39 +45,6 @@ namespace AskYourMechanicDon.WebUI.Controllers
             }
 
         }
-        public ActionResult AddToCart(string Id)
-        {
-            ViewBag.IsIndexHome = false;
-            Product product = context.Find(Id);
-            if (product == null)
-            {
-                return HttpNotFound();
-            }
-            else
-            {
-                ProductManagerViewModel viewModel = new ProductManagerViewModel
-                {
-                    Product = product,
-                    ProductCategories = productCategories.Collection()
-                };
 
-                return View(viewModel);
-            }
-        }
-        [HttpPost]
-        public ActionResult AddToCart(Product product, string Id, HttpPostedFileBase file)
-        {
-            ViewBag.IsIndexHome = false;
-
-            string vin = product.VIN;
-            string question = product.Question;
-
-
-            basketService.AddToBasket(this.HttpContext, Id, vin, question);
-
-
-            return RedirectToAction("Index");
-
-        }
     }
 }

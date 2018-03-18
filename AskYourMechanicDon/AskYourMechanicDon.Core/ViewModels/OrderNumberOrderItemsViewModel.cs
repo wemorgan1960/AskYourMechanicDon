@@ -10,6 +10,7 @@ namespace AskYourMechanicDon.Core.ViewModels
     public class OrderNumberOrderItemsViewModel
     {
         public string OrderNumber { get; set; }
+        public string OrderId { get; set; }
         public List<OrderItem> OrderItems { get; set; }
     }
 }

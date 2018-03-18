@@ -64,19 +64,20 @@
         <td></td>
         <td></td>
         <td></td>
-        <td class="grandtotal"><b>Grand total</b> Canadian Dollars $<span><b>@gTotal</b></span></td>
+        <td class="grandtotal"><b>Grand total Canadian Dollars $</b><span><b>@gTotal</b></span></td>
     </tr>
 </table>
 <div class="paypaldiv">
-    <form class="paypalform" action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
+    <form class="paypalform" action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
         <input type="hidden" name="cmd" value="_cart">
         <input type="hidden" name="hosted_button_id" value="ENLYF2UB52CTE">
         <input type="hidden" name="upload" value="1">
         <input type="hidden" name="business" value="bmorgan@telusplanet.net">
-        <input type="hidden" name="return" value="http://localhost:5112/Basket/ReturnFromPayPal" />
-        <input type="hidden" name="cancel_return" value="http://localhost:5112/Basket/CancelFromPayPal" />
-        <input type="hidden" name="notify_url" value="http://localhost:5112/Basket/NotifiyFromPayPal" />
-        <input type="hidden" name="item_number" value="@Model.OrderNumber" />
+        <input type="hidden" name="returnurl" value="http://aksyourmechanicdon.com/Basket/ReturnFromPayPal" />
+        <input type="hidden" name="return" value="http://aksyourmechanicdon.com/Basket/ReturnFromPayPal" />
+        <input type="hidden" name="cancel_return" value="http://aksyourmechanicdon.com/Basket/ReturnFromPayPal" />
+        <input type="hidden" name="notify_url" value="http://aksyourmechanicdon.com/Basket/ReturnFromPayPal" />
+        <input type="hidden" name="item_number" value="@Model.OrderId" />
         @foreach (var item in Model.OrderItems)
         {
             <input type="hidden" name="item_name_@count" value="@item.ProductName">
@@ -104,7 +105,7 @@
 
                 var $this = $(this);
 
-                var url = "/Basket/PlaceOrder";
+                var url = "/Basket/PlaceOrder1";
 
                 $(".ajaxbg").show();
 

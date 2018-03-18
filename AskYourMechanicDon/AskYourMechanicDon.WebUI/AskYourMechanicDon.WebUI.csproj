@@ -859,12 +859,11 @@
     <Content Include="Theme\themify-icons\fonts\themify.ttf" />
     <Content Include="Theme\themify-icons\fonts\themify.woff" />
     <Content Include="Theme\themify-icons\Themify IconFonts 5-23-2014.json" />
-    <Content Include="Views\Basket\Checkout.cshtml" />
+    <Content Include="Views\Customer\ReviewProfile.cshtml" />
     <Content Include="Views\Shared\_FooterToolBar.cshtml" />
     <Content Include="Views\Shared\_HeaderToolBar.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Home\UnderConstruction.cshtml" />
-    <Content Include="Views\Basket\PlaceOrderx.cshtml" />
     <Content Include="Views\Customer\Index.cshtml" />
     <Content Include="Views\Order\Orders.cshtml" />
     <Content Include="Views\ProductManager\Details.cshtml" />
@@ -874,12 +873,12 @@
     <Content Include="Views\OrderItems\IndexAdmin.cshtml" />
     <Content Include="Views\OrderItems\Edit.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
-    <Content Include="Views\Products\AddToCart.cshtml" />
+    <Content Include="Views\Products\Details.cshtml" />
     <Content Include="Views\Basket\ReturnFromPayPal.cshtml" />
-    <Content Include="Views\Basket\ReviewPlaceOrder.cshtml" />
+    <Content Include="Views\Basket\PlaceOrder.cshtml" />
     <Content Include="Views\Basket\CancelFromPayPal.cshtml" />
-    <Content Include="Views\Basket\NotifyFromPayPal.cshtml" />
-    <Content Include="Views\Basket\IPNPayPal.cshtml" />
+    <Content Include="Views\Customer\DetailsCheckOut.cshtml" />
+    <Content Include="Views\Customer\EditCheckOut.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

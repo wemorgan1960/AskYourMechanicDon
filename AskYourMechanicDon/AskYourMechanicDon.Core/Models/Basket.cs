@@ -13,7 +13,6 @@ namespace AskYourMechanicDon.Core.Models
         public Basket()
         {
             this.BasketItems = new List<BasketItem>();
-
         }
     }
 }

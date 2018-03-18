@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -9,50 +11,59 @@ using System.Web.Mvc;
 using AskYourMechanicDon.Core.Contracts;
 using AskYourMechanicDon.Core.Models;
 using AskYourMechanicDon.Core.ViewModels;
+using Microsoft.AspNet.Identity;
 
 namespace AskYourMechanicDon.WebUI.Controllers
 {
 
     public class BasketController : Controller
     {
-        IRepository<Customer> customers;
+        IRepository<Customer> customersContext;
         IBasketService basketService;
         IOrderService orderService;
+        IRepository<Product> productContext;
+        IRepository<ProductCategory> productCategoryContext;
         IRepository<Request> requestContext;
         IRepository<Error> errorContext;
 
-        public BasketController(IBasketService BasketService, IOrderService OrderService, IRepository<Customer> Customers, 
-            IRepository<Request> requestcontext, IRepository<Error> errorcontext)
+        public BasketController(IBasketService basketService, IOrderService orderService,IRepository<Product> product,
+            IRepository<ProductCategory> productCategory,
+            IRepository<Customer> customer,
+            IRepository<Request> requests, IRepository<Error> errors)
         {
-            this.basketService = BasketService;
-            this.orderService = OrderService;
-            this.customers = Customers;
-            this.requestContext = requestcontext;
-            this.errorContext = errorcontext;
+            this.basketService = basketService;
+            this.orderService = orderService;
+            this.productContext = product;
+            this.productCategoryContext = productCategory;
+            this.customersContext = customer;
+            this.requestContext = requests;
+            this.errorContext = errors;
         }
-        // GET: Basket2
+
+
         public ActionResult Index()
         {
             ViewBag.IsIndexHome = false;
             var model = basketService.GetBasketItems(this.HttpContext);
             return View(model);
         }
-        [Authorize(Roles = RoleName.AskAdmin + "," + RoleName.AskUser)]
+
         [HttpPost]
         public ActionResult AddToBasket(string Id, string vin, string question)
         {
             ViewBag.IsIndexHome = false;
             basketService.AddToBasket(this.HttpContext, Id, vin, question);
 
-            return RedirectToAction("Index", "Products");
+            return RedirectToAction("Index");
         }
-        [Authorize(Roles = RoleName.AskAdmin + "," + RoleName.AskUser)]
+
+
         public ActionResult RemoveFromBasket(string Id)
         {
             ViewBag.IsIndexHome = false;
             basketService.RemoveFromBasket(this.HttpContext, Id);
 
-            return RedirectToAction("Index", "Products");
+            return RedirectToAction("Index");
         }
 
         public PartialViewResult BasketSummary()
@@ -63,33 +74,33 @@ namespace AskYourMechanicDon.WebUI.Controllers
             return PartialView(basketSummary);
         }
 
-        [Authorize(Roles = RoleName.AskAdmin + "," + RoleName.AskUser)]
-        public ActionResult Checkout()
-        {
-            ViewBag.IsIndexHome = false;
-            Customer customer = customers.Collection().FirstOrDefault(c => c.Email == User.Identity.Name);
+        //[Authorize]
+        //public ActionResult Checkout()
+        //{
+        //    ViewBag.IsIndexHome = false;
+        //    Customer customer = customersContext.Collection().FirstOrDefault(c => c.Email == User.Identity.Name);
 
-            if (customer != null)
-            {
-                var model = basketService.GetBasketItems(this.HttpContext);
-                if (model != null)
-                {
-                    return View(customer);
-                }
-                else
-                {
-                    return RedirectToAction("Index", "Products");
-                }
+        //    if (customer != null)
+        //    {
+        //        var model = basketService.GetBasketItems(this.HttpContext);
+        //        if (model != null)
+        //        {
+        //            return View(customer);
+        //        }
+        //        else
+        //        {
+        //            return RedirectToAction("Index", "Products");
+        //        }
+        //    }
+        //    else
+        //    {
+        //        return RedirectToAction("Error");
+        //    }
 
-            }
-            else
-            {
-                return RedirectToAction("Error");
-            }
+        //}
 
-        }
-        [Authorize(Roles = RoleName.AskAdmin + "," + RoleName.AskUser)]
-        public ActionResult ReviewPlaceOrder()
+        [Authorize]
+        public ActionResult PlaceOrder()
         {
             ViewBag.IsIndexHome = false;
 
@@ -100,14 +111,14 @@ namespace AskYourMechanicDon.WebUI.Controllers
                 OrderNumberOrderItemsViewModel model = new OrderNumberOrderItemsViewModel();
 
                 //Get the customer UserId
-                Customer customer = customers.Collection().FirstOrDefault(c => c.Email == User.Identity.Name);
+                Customer customer = customersContext.Collection().FirstOrDefault(c => c.Email == User.Identity.Name);
 
                 //Set Order Number and Create a new order
                 var order = new Order
                 {
                     CustomerUserId = customer.UserId,
                     OrderNumber = customer.UserId + Common.GetRandomInvoiceNumber(),
-                    OrderStatus = "Order Created Not Commited",
+                    OrderStatus = "Order Created",
                     OrderStatusDate = @DateTime.Now
                 };
 
@@ -135,224 +146,136 @@ namespace AskYourMechanicDon.WebUI.Controllers
             }
 
         }
-        [HttpPost]
+        //[HttpPost]
         public ActionResult ReturnFromPayPal()
         {
-            var ret = GetResponse();
+            //Recieve IPN request
 
-            ViewBag.Cancel = ret;
+            var formVals = new Dictionary<string, string>();
+            formVals.Add("cmd", "_notify-sych");
+            formVals.Add("at", "eG_hkGDHC-hYxU7d0u6yM5Nl_e-Uk7IdiTUUaCRV1AvL0PfYFHUZt1ZUK6y");
+            formVals.Add("tx", Request["tx"]);
 
-            return View();
+            string response = GetPayPalResponse(formVals, true);
 
-        }
-
-
-        [HttpPost]
-        public void PlaceOrder(Order order)
-        {
-            //var basketItems = basketService.GetBasketItems(this.HttpContext);
-            //var order = new Order
-            //{
-            //    OrderNumber = Common.GetRandomInvoiceNumber()
-            //};
-
-            ////Get the customer UserId
-            //Customer customer = customers.Collection().FirstOrDefault(c => c.Email == User.Identity.Name);
-            //order.CustomerUserId = customer.UserId;
-
-            ////Get the Invoice and Status
-            //order.InvoiceNumber = "AskDon" + @DateTime.Now.Year + order.OrderNumber;
-            //order.OrderStatus = "Order Created";
-            //order.OrderStatusDate = @DateTime.Now;
-
-            ////Create the Order
-            //orderService.CreateOrder(order, basketItems);
-
-            //Update the Payment Processed.
-            //order.OrderStatus = "Payment Pending";
-            //order.OrderStatusDate = @DateTime.Now;
-            //orderService.UpdateOrder(order);
-
-
-
-            ////Email Customer
-            //string CustomerEmail = User.Identity.Name; ;
-
-            //var email = new EmailService();
-            //var message = new IdentityMessage();
-
-            //message.Destination = CustomerEmail;
-            //message.Subject = "AskYourMechanicDon.com New Order: " + order.OrderNumber + " Recieved";
-            //message.Body = "Email From: AskYourMechanicDon.com Message: Thank you for your order: " + order.OrderNumber;
-
-            //email.SendAsync(message);
-
-            ////Email Admin 
-            //message.Destination = "admin@askyourmechanicdon.com,donmorgan@shaw.ca;
-            //message.Subject = "AskYourMechanicDon.com New Question: " + order.OrderNumber;
-            //message.Body= "Email From: AskYourMechanicDon.com Message: A New Question: " + order.OrderNumber;
-
-
-            //basketService.ClearBasket(this.HttpContext);
-
-        }
-
-        [HttpPost]
-        public ActionResult CancelFromPayPal()
-        {
-            var ret = GetResponse();
-
-            ViewBag.Cancel = ret;
-
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult NotifyFromPayPal()
-        {
-           var ret = GetResponse();
-
-            ViewBag.Notify = ret;
-
-            return View();
-        }
-
-
-
-
-
-
-        //IPN Listener
-
-        [HttpPost]
-        public HttpStatusCodeResult IPNPayPal()
-        {
-            //Store the IPN received from PayPal
-            LogRequest(Request);
-
-            //Fire and forget verification task
-            Task.Run(() => VerifyTask(Request));
-
-            //Reply back a 200 code
-            return new HttpStatusCodeResult(HttpStatusCode.OK);
-        }
-
-        private void VerifyTask(HttpRequestBase ipnRequest)
-        {
-            var verificationResponse = string.Empty;
-
-            try
+            if (response.Contains("SUCCESS"))
             {
-                var verificationRequest = (HttpWebRequest)WebRequest.Create("https://www.sandbox.paypal.com/cgi-bin/webscr");
+                string transactionId = GetPDTValue(response, "txn_id");
+                string sAmountPaid = GetPDTValue(response, "mc_gross");
+                string deviceId = GetPDTValue(response, "custom");
+                string paypayEmail = GetPDTValue(response, "payer_email");
+                string Item = GetPDTValue(response, "item_name");
+                string Id = GetPDTValue(response, "item_number");
 
-                //Set values for the verification request
-                verificationRequest.Method = "POST";
-                verificationRequest.ContentType = "application/x-www-form-urlencoded";
-                var param = Request.BinaryRead(ipnRequest.ContentLength);
-                var strRequest = Encoding.ASCII.GetString(param);
+                //Get Order
 
-                //Add cmd=_notify-validate to the payload
-                strRequest = "cmd=_notify-validate&" + strRequest;
-                verificationRequest.ContentLength = strRequest.Length;
+                Order order = orderService.GetOrder(Id);
 
-                //Attach payload to the verification request
-                var streamOut = new StreamWriter(verificationRequest.GetRequestStream(), Encoding.ASCII);
-                streamOut.Write(strRequest);
-                streamOut.Close();
-
-                //Send the request to PayPal and get the response
-                var streamIn = new StreamReader(verificationRequest.GetResponse().GetResponseStream());
-                verificationResponse = streamIn.ReadToEnd();
-                streamIn.Close();
-
-            }
-            catch (Exception e)
-            {
-                //Capture exception for manual investigation
-                Error err = new Error
+                //Valid Order?
+                if (order != null)
                 {
-                    Message = e.ToString()
-                };
-                errorContext.Insert(err);
-                errorContext.Commit();
-            }
+                    //Update the Payment Processed.
+                    order.OrderStatus = "Payment Processed";
+                    order.OrderStatusDate = @DateTime.Now;
+                    orderService.UpdateOrder(order);
 
-            ProcessVerificationResponse(verificationResponse);
-        }
+                    var email = new EmailService();
+                    var message = new IdentityMessage();
 
+                    message.Destination = paypayEmail;
+                    message.Subject = "AskYourMechanicDon.com New Order: " + order.OrderNumber + " Recieved";
+                    message.Body = "Email From: AskYourMechanicDon.com Message: Thank you for your order: " + order.OrderNumber;
 
-        private void LogRequest(HttpRequestBase request)
-        {
-            Request r = new Request
-            {
-                Message = request.ToString()
-            };
-            requestContext.Insert(r);
-            requestContext.Commit();
-        }
+                    email.SendAsync(message);
 
-        private void ProcessVerificationResponse(string verificationResponse)
-        {
-            if (verificationResponse.Equals("VERIFIED"))
-            {
-                // check that Payment_status=Completed
-                // check that Txn_id has not been previously processed
-                // check that Receiver_email is your Primary PayPal email
-                // check that Payment_amount/Payment_currency are correct
-                // process payment
-            }
-            else if (verificationResponse.Equals("INVALID"))
-            {
-                //Log for manual investigation
+                    //Email Admin 
+                    message.Destination = "admin@askyourmechanicdon.com,donmorgan@shaw.ca";
+                    message.Subject = "AskYourMechanicDon.com New Question: " + order.OrderNumber;
+                    message.Body = "Email From: AskYourMechanicDon.com Message: A New Question: " + order.OrderNumber;
+                }
+                else
+                {
+                    return View();
+                }
             }
             else
             {
-                //Log error
+                LogRequest(response);
+                ViewBag.Message = "Something Went Wrong";
             }
+
+            ViewBag.Message = "Success";
+            return View();
+
         }
 
-
-
-        //Read Response
-
-        private string status;
-        private WebRequest request;
-        private Stream dataStream;
-
-        public String Status
+        private string GetPayPalResponse(Dictionary<string, string> formVals, bool useSandbox)
         {
-            get
+            string paypalURL = useSandbox ? "https://www.sandbox.paypal.com/cgi-bin/webscr" : "https://www.paypal.com/cgi-bin/webscr";
+
+            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(paypalURL);
+
+            //Set values for the request back
+
+            req.Method = "POST";
+            req.ContentType = "application/x-www-fomr-urlendcoded";
+            byte[] parm = Request.BinaryRead(Request.ContentLength);
+            string strRequest = Encoding.ASCII.GetString(parm);
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append(strRequest);
+
+            foreach (string key in formVals.Keys)
             {
-                return status;
+                sb.AppendFormat("&{0}={1}", key, formVals[key]);
             }
-            set
+
+            strRequest += sb.ToString();
+            req.ContentType = strRequest.Length.ToString();
+
+            string response = "";
+            using (StreamWriter streamOut = new StreamWriter(req.GetRequestStream(), System.Text.Encoding.ASCII))
             {
-                status = value;
+                streamOut.Write(strRequest);
+                streamOut.Close();
+                using (StreamReader streamIn = new StreamReader(req.GetResponse().GetResponseStream()))
+                {
+                    response = streamIn.ReadToEnd();
+                }
             }
+
+            return response;
+
+
+        }
+        private string GetPDTValue(string pdt, string key)
+        {
+            string[] keys = pdt.Split('\n');
+            string thisVal = "";
+            string thisKey = "";
+            foreach (string s in keys)
+            {
+                string[] bits = s.Split('=');
+                if (bits.Length > 1)
+                {
+                    thisVal = bits[1];
+                    thisKey = bits[0];
+                    if (thisKey.Equals(key, StringComparison.InvariantCultureIgnoreCase))
+                        break;
+                }
+
+            }
+            return thisVal;
         }
 
-        public string GetResponse()
+        private void LogRequest(string requestIn)
         {
-            // Get the original response.
-            WebResponse response = request.GetResponse();
-
-            this.Status = ((HttpWebResponse)response).StatusDescription;
-
-            // Get the stream containing all content returned by the requested server.
-            dataStream = response.GetResponseStream();
-
-            // Open the stream using a StreamReader for easy access.
-            StreamReader reader = new StreamReader(dataStream);
-
-            // Read the content fully up to the end.
-            string responseFromServer = reader.ReadToEnd();
-
-            // Clean up the streams.
-            reader.Close();
-            dataStream.Close();
-            response.Close();
-
-            return responseFromServer;
+            Request r = new Request
+            {
+                Message = requestIn
+            };
+            requestContext.Insert(r);
+            requestContext.Commit();
         }
 
     }

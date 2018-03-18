@@ -1,11 +1,11 @@
 ﻿@model AskYourMechanicDon.Core.Models.Customer
 
-@using (Html.BeginForm("ReviewPlaceOrder", "Basket"))
+@using (Html.BeginForm("PlaceOrder", "Basket"))
 {
     @Html.AntiForgeryToken()
 
 <div class="form-horizontal">
-    <h4>Order</h4>
+    <h4>Review Customer Profile</h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
