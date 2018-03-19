@@ -69,8 +69,8 @@ namespace AskYourMechanicDon.Services
             HttpCookie cookie = new HttpCookie(BasketSessionName)
             {
                 Value = basket.Id,
-                //Expires = DateTime.Now.AddDays(1)
-                Expires = DateTime.Now.AddMinutes(4)
+                Expires = DateTime.Now.AddHours(2)
+                //Expires = DateTime.Now.AddMinutes(15)
             };
             httpContext.Response.Cookies.Add(cookie);
 

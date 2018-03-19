@@ -100,44 +100,19 @@ namespace AskYourMechanicDon.WebUI.Controllers
             }
         }
 
-            //[Authorize]
-            //public ActionResult ReviewProfile()
-            //{
-            //    ViewBag.IsIndexHome = false;
-            //    Customer customer = customerContext.Collection().FirstOrDefault(c => c.Email == User.Identity.Name);
-
-            //    if (customer != null)
-            //    {
-            //        var model = basketService.GetBasketItems(this.HttpContext);
-            //        if (model != null)
-            //        {
-            //            return View(customer);
-            //        }
-            //        else
-            //        {
-            //            return RedirectToAction("Index", "Products");
-            //        }
-            //    }
-            //    else
-            //    {
-            //        return RedirectToAction("Error");
-            //    }
-
-            //}
-
-            public ActionResult Edit(string Id)
+        public ActionResult Edit(string Id)
+        {
+            ViewBag.IsIndexHome = false;
+            Customer customer = customerContext.Find(Id);
+            if (customer == null)
             {
-                ViewBag.IsIndexHome = false;
-                Customer customer = customerContext.Find(Id);
-                if (customer == null)
-                {
-                    return HttpNotFound();
-                }
-                else
-                {
-                    return View(customer);
-                }
+                return HttpNotFound();
             }
+            else
+            {
+                return View(customer);
+            }
+        }
         [HttpPost]
         public ActionResult Edit(Customer customer, string Id, HttpPostedFileBase file)
         {

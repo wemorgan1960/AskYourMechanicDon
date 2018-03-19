@@ -144,6 +144,18 @@
     <Compile Include="Migrations\201803151508402_check.Designer.cs">
       <DependentUpon>201803151508402_check.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201803191733103_AddPayPalOrder.cs" />
+    <Compile Include="Migrations\201803191733103_AddPayPalOrder.Designer.cs">
+      <DependentUpon>201803191733103_AddPayPalOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803191845124_AmountPaidOrder.cs" />
+    <Compile Include="Migrations\201803191845124_AmountPaidOrder.Designer.cs">
+      <DependentUpon>201803191845124_AmountPaidOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201803191912100_updateRequest.cs" />
+    <Compile Include="Migrations\201803191912100_updateRequest.Designer.cs">
+      <DependentUpon>201803191912100_updateRequest.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SQLRepository.cs" />
@@ -234,6 +246,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201803151508402_check.resx">
       <DependentUpon>201803151508402_check.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803191733103_AddPayPalOrder.resx">
+      <DependentUpon>201803191733103_AddPayPalOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803191845124_AmountPaidOrder.resx">
+      <DependentUpon>201803191845124_AmountPaidOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201803191912100_updateRequest.resx">
+      <DependentUpon>201803191912100_updateRequest.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

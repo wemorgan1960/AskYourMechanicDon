@@ -62,10 +62,63 @@ namespace AskYourMechanicDon.Services
         public Order GetOrder(string Id) {
             return orderContext.Find(Id);
         }
+        public List<OrderItem> GetOrderItemListFromOrderNumber(string Id)
+        {
+            List<Order> orders = orderContext.Collection().ToList();
+            List<OrderItem> orderItems = orderItemContext.Collection().ToList();
+
+            var results = (from b in orderItems
+                           join o in orders on b.OrderId equals o.Id
+                           where o.OrderNumber == Id
+                           select new OrderItem()
+                           {
+                               Id = b.Id,
+                               ProductId = b.ProductId,
+                               ProductName = b.ProductName,
+                               Price = b.Price,
+                               Quanity = b.Quanity,
+                               Vin = b.Vin,
+                               Question = b.Question,
+                               OrderId =b.OrderId
+                           }).ToList();
+
+            return results;
+        }
+
+        public decimal OrderTotalFromOrderNumber(string Id)
+        {
+            List<Order> orders = orderContext.Collection().ToList();
+            List<OrderItem> orderItems = orderItemContext.Collection().ToList();
+
+            var result = (from b in orderItems
+                           join o in orders on b.OrderId equals o.Id
+                           where o.OrderNumber == Id
+                           select (b.Price*b.Quanity)  ).Sum();
+
+            return result;
+        }
 
         public Order GetOrderFromOrderNumber(string Id)
         {
             return orderContext.Collection().Where(o => o.OrderNumber.CompareTo(Id) < 1).FirstOrDefault();
+        }
+
+        public Boolean IsOrderPayPalTranxFound(string txnId)
+        {
+            List<Order> orders = orderContext.Collection().ToList();
+            var results = (from  o in orders
+                           where o.PayPalTxnId == txnId
+                           select o.Id
+                           ).ToList();
+
+            if(results.Count !=0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public void UpdateOrder(Order updatedOrder) {

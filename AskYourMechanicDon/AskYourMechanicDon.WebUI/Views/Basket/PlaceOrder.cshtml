@@ -73,10 +73,10 @@
         <input type="hidden" name="hosted_button_id" value="ENLYF2UB52CTE">
         <input type="hidden" name="upload" value="1">
         <input type="hidden" name="business" value="bmorgan@telusplanet.net">
-        <input type="hidden" name="returnurl" value="http://aksyourmechanicdon.com/Basket/ReturnFromPayPal" />
-        <input type="hidden" name="return" value="http://aksyourmechanicdon.com/Basket/ReturnFromPayPal" />
-        <input type="hidden" name="cancel_return" value="http://aksyourmechanicdon.com/Basket/ReturnFromPayPal" />
-        <input type="hidden" name="notify_url" value="http://aksyourmechanicdon.com/Basket/ReturnFromPayPal" />
+        <input type="hidden" name="returnurl" value="http:///0580fcbd.ngrok.io/IPN/Recieve" />
+        <input type="hidden" name="return" value="http:///0580fcbd.ngrok.io/IPN/Recieve" />
+        <input type="hidden" name="cancel_return" value="http:///0580fcbd.ngrok.io/IPN/Recieve" />
+        <input type="hidden" name="notify_url" value="http:///0580fcbd.ngrok.io/IPN/Recieve" />
         <input type="hidden" name="item_number" value="@Model.OrderId" />
         @foreach (var item in Model.OrderItems)
         {
@@ -105,7 +105,7 @@
 
                 var $this = $(this);
 
-                var url = "/Basket/PlaceOrder1";
+                var url = "/Basket/PlaceOrder";
 
                 $(".ajaxbg").show();
 

@@ -9,5 +9,6 @@ namespace AskYourMechanicDon.Core.Models
     public class Request:BaseEntity
     {
         public string Message { get; set; }
+        public string IsErrored { get; set; }
     }
 }

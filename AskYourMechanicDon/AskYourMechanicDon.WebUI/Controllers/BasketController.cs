@@ -45,7 +45,15 @@ namespace AskYourMechanicDon.WebUI.Controllers
         {
             ViewBag.IsIndexHome = false;
             var model = basketService.GetBasketItems(this.HttpContext);
-            return View(model);
+            if(model.Count!=0)
+            {
+                return View(model);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Products");
+            }
+            
         }
 
         [HttpPost]
@@ -107,7 +115,11 @@ namespace AskYourMechanicDon.WebUI.Controllers
             var basketItems = basketService.GetBasketItems(this.HttpContext);
 
             if (basketItems != null)
+                
             {
+                if (basketItems.Count != 0)
+                {
+
                 OrderNumberOrderItemsViewModel model = new OrderNumberOrderItemsViewModel();
 
                 //Get the customer UserId
@@ -133,12 +145,17 @@ namespace AskYourMechanicDon.WebUI.Controllers
                 order = orderService.GetOrderFromOrderNumber(orderNumber);
 
                 model.OrderNumber = orderNumber;
-                model.OrderItems = orderService.GetOrderItemList(order.Id);
+                model.OrderItems = orderService.GetOrderItemListFromOrderNumber(orderNumber);
 
                 //Clear the basket
                 basketService.ClearBasket(this.HttpContext);
 
                 return View(model);
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Products");
+                }
             }
             else
             {

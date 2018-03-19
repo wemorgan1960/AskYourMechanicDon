@@ -28,7 +28,9 @@
         <th>
             Line Total
         </th>
-        <th></th>
+        <th>
+
+        </th>
     </tr>
 
     @foreach (var item in Model)
@@ -70,7 +72,7 @@
         <td></td>
         <td></td>
         <td></td>
-        <td class="grandtotal"><b>Grand total</b>Canadian Dollars $<span><b>@gTotal</b></span></td>
+        <td class="grandtotal"><b>Grand Total in Canadian Dollars $</b><span><b>@gTotal</b></span></td>
     </tr>
 </table>
 <a href="@Url.Action("Index","Products")" class="index btn btn-primary pull-right">Continue Shopping</a>

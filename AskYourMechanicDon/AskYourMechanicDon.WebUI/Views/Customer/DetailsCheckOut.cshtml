@@ -79,8 +79,8 @@
 <div>
     @Html.ActionLink("Edit", "Edit", "Customer", new { id = Model.Id }, new { @class = "btn btn-default" })
 </div>
-<div>
-    @Html.ActionLink("Check Out", "PlaceOrder", "Basket", new { @class = "btn btn-danger" })
-</div>
+<td>
+    @Html.ActionLink("Check Out", "PlaceOrder", "Basket", new { id = Model.Id }, new { @class = "btn btn-danger" })
+</td>
 
 

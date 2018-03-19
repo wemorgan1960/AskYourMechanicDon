@@ -13,8 +13,11 @@ namespace AskYourMechanicDon.Core.Contracts
         void CreateOrder(Order baseOrder, List<BasketItemViewModel> basketItems);
         List<Order> GetOrderList();
         List<OrderItem> GetOrderItemList(string Id);
+        List<OrderItem> GetOrderItemListFromOrderNumber(string Id);
         Order GetOrder(string Id);
         Order GetOrderFromOrderNumber(string Id);
+        Boolean IsOrderPayPalTranxFound(string txnId);
         void UpdateOrder(Order updatedOrder);
+        decimal OrderTotalFromOrderNumber(string Id);
     }
 }
