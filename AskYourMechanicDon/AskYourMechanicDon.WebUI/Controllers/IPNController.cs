@@ -47,7 +47,11 @@ namespace AskYourMechanicDon.WebUI.Controllers
 
             var formVals = new Dictionary<string, string>();
             formVals.Add("cmd", "_notify-validate");
-            formVals.Add("at", "7BiLzbRCzn_Ob8ZfKMNvliNH4R3MhaF_B7sptpteroc0D-glX2lhV4Ci3sS");
+
+            //formVals.Add("at", "eG_hkGDHC-hYxU7d0u6yM5Nl_e-Uk7IdiTUUaCRV1AvL0PfYFHUZt1ZUK6y"); //Bills
+
+            formVals.Add("at", "7BiLzbRCzn_Ob8ZfKMNvliNH4R3MhaF_B7sptpteroc0D-glX2lhV4Ci3sS"); 
+
             formVals.Add("txn_id", Request["txn_id"]);
             formVals.Add("payment_status", Request["payment_status"]);
             formVals.Add("payer_email", Request["payer_email"]);
@@ -135,7 +139,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
                 string paymentStatus = GetPDTValue(request, "payment_status");
                 string paypayEmail = GetPDTValue(request, "payer_email");
                 string sAmountPaid = GetPDTValue(request, "mc_gross");
-                string Id = GetPDTValue(request, "item_number1");
+                string Id = GetPDTValue(request, "item_number");
 
                 // check that Txn_id has not been previously processed
                 //Get the Order
