@@ -42,32 +42,51 @@ namespace AskYourMechanicDon.WebUI.Controllers
         public HttpStatusCodeResult Receive()
         {
             //Store the IPN received from PayPal
-            string result = Request.ToString();
+            string result = Request.Params.ToString();
             LogRequest(result);
 
+            var formVals = new Dictionary<string, string>();
+            formVals.Add("cmd", "_notify-validate");
+            formVals.Add("at", "eG_hkGDHC-hYxU7d0u6yM5Nl_e-Uk7IdiTUUaCRV1AvL0PfYFHUZt1ZUK6y");
+            formVals.Add("txn_id", Request["txn_id"]);
+            formVals.Add("payment_status", Request["payment_status"]);
+            formVals.Add("payer_email", Request["payer_email"]);
+            formVals.Add("mc_gross", Request["mc_gross"]);
+            formVals.Add("item_number", Request["item_number"]);
+
             //Fire and forget verification task
-            Task.Run(() => VerifyTask(Request));
+            Task.Run(() => VerifyTask(formVals, Request));
 
             //Reply back a 200 code
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
-        private void VerifyTask(HttpRequestBase ipnRequest)
+        private void VerifyTask(Dictionary<string, string> formVals, HttpRequestBase ipnRequest)
         {
             var verificationResponse = string.Empty;
+            var strRequest = string.Empty;
 
             try
             {
-                var verificationRequest = (HttpWebRequest)WebRequest.Create("https://www.sandbox.paypal.com/cgi-bin/webscr");
+                var verificationRequest = (HttpWebRequest)WebRequest.Create("https://www.paypal.com/cgi-bin/webscr");
 
                 //Set values for the verification request
                 verificationRequest.Method = "POST";
                 verificationRequest.ContentType = "application/x-www-form-urlencoded";
-                var param = Request.BinaryRead(ipnRequest.ContentLength);
-                var strRequest = Encoding.ASCII.GetString(param);
+                byte[] param = Request.BinaryRead(ipnRequest.ContentLength);
+                strRequest = Encoding.ASCII.GetString(param);
 
                 //Add cmd=_notify-validate to the payload
-                strRequest = "cmd=_notify-validate&" + strRequest;
+                StringBuilder sb = new StringBuilder();
+                sb.Append(strRequest);
+
+                foreach(string key in formVals.Keys)
+                {
+                    sb.AppendFormat("&{0}={1}", key, formVals[key]);
+                }
+                strRequest += sb.ToString();
+
+                //strRequest = "cmd=_notify-validate&" + strRequest;
                 verificationRequest.ContentLength = strRequest.Length;
 
                 //Attach payload to the verification request
@@ -90,7 +109,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
 
             }
 
-            ProcessVerificationResponse(verificationResponse);
+            ProcessVerificationResponse(verificationResponse, strRequest);
         }
 
 
@@ -104,20 +123,19 @@ namespace AskYourMechanicDon.WebUI.Controllers
             requestContext.Commit();
         }
 
-        private void ProcessVerificationResponse(string verificationResponse)
+        private void ProcessVerificationResponse(string verificationResponse, string request)
         {
             var email = new EmailService();
             var message = new IdentityMessage();
 
-            if (verificationResponse.Equals("VERIFIED"))
+            if (verificationResponse.Contains("VERIFIED"))
             {
                 // check that Payment_status=Completed
-                string transactionId = GetPDTValue(verificationResponse, "txn_id");
-                string sAmountPaid = GetPDTValue(verificationResponse, "mc_gross");
-                string deviceId = GetPDTValue(verificationResponse, "custom");
-                string paypayEmail = GetPDTValue(verificationResponse, "payer_email");
-                string Item = GetPDTValue(verificationResponse, "item_name");
-                string Id = GetPDTValue(verificationResponse, "item_number");
+                string transactionId = GetPDTValue(request, "txn_id");
+                string paymentStatus = GetPDTValue(request, "payment_status");
+                string paypayEmail = GetPDTValue(request, "payer_email");
+                string sAmountPaid = GetPDTValue(request, "mc_gross");
+                string Id = GetPDTValue(request, "item_number1");
 
                 // check that Txn_id has not been previously processed
                 //Get the Order
@@ -213,7 +231,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
         }
         private string GetPDTValue(string pdt, string key)
         {
-            string[] keys = pdt.Split('\n');
+            string[] keys = pdt.Split('&');
             string thisVal = "";
             string thisKey = "";
             foreach (string s in keys)

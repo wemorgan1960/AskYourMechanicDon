@@ -163,137 +163,137 @@ namespace AskYourMechanicDon.WebUI.Controllers
             }
 
         }
-        //[HttpPost]
-        public ActionResult ReturnFromPayPal()
-        {
-            //Recieve IPN request
+        ////[HttpPost]
+        //public ActionResult ReturnFromPayPal()
+        //{
+        //    //Recieve IPN request
 
-            var formVals = new Dictionary<string, string>();
-            formVals.Add("cmd", "_notify-sych");
-            formVals.Add("at", "eG_hkGDHC-hYxU7d0u6yM5Nl_e-Uk7IdiTUUaCRV1AvL0PfYFHUZt1ZUK6y");
-            formVals.Add("tx", Request["tx"]);
+        //    var formVals = new Dictionary<string, string>();
+        //    formVals.Add("cmd", "_notify-sych");
+        //    formVals.Add("at", "eG_hkGDHC-hYxU7d0u6yM5Nl_e-Uk7IdiTUUaCRV1AvL0PfYFHUZt1ZUK6y");
+        //    formVals.Add("tx", Request["tx"]);
 
-            string response = GetPayPalResponse(formVals, true);
+        //    string response = GetPayPalResponse(formVals, true);
 
-            if (response.Contains("SUCCESS"))
-            {
-                string transactionId = GetPDTValue(response, "txn_id");
-                string sAmountPaid = GetPDTValue(response, "mc_gross");
-                string deviceId = GetPDTValue(response, "custom");
-                string paypayEmail = GetPDTValue(response, "payer_email");
-                string Item = GetPDTValue(response, "item_name");
-                string Id = GetPDTValue(response, "item_number");
+        //    if (response.Contains("SUCCESS"))
+        //    {
+        //        string transactionId = GetPDTValue(response, "txn_id");
+        //        string sAmountPaid = GetPDTValue(response, "mc_gross");
+        //        string deviceId = GetPDTValue(response, "custom");
+        //        string paypayEmail = GetPDTValue(response, "payer_email");
+        //        string Item = GetPDTValue(response, "item_name");
+        //        string Id = GetPDTValue(response, "item_number");
 
-                //Get Order
+        //        //Get Order
 
-                Order order = orderService.GetOrder(Id);
+        //        Order order = orderService.GetOrder(Id);
 
-                //Valid Order?
-                if (order != null)
-                {
-                    //Update the Payment Processed.
-                    order.OrderStatus = "Payment Processed";
-                    order.OrderStatusDate = @DateTime.Now;
-                    orderService.UpdateOrder(order);
+        //        //Valid Order?
+        //        if (order != null)
+        //        {
+        //            //Update the Payment Processed.
+        //            order.OrderStatus = "Payment Processed";
+        //            order.OrderStatusDate = @DateTime.Now;
+        //            orderService.UpdateOrder(order);
 
-                    var email = new EmailService();
-                    var message = new IdentityMessage();
+        //            var email = new EmailService();
+        //            var message = new IdentityMessage();
 
-                    message.Destination = paypayEmail;
-                    message.Subject = "AskYourMechanicDon.com New Order: " + order.OrderNumber + " Recieved";
-                    message.Body = "Email From: AskYourMechanicDon.com Message: Thank you for your order: " + order.OrderNumber;
+        //            message.Destination = paypayEmail;
+        //            message.Subject = "AskYourMechanicDon.com New Order: " + order.OrderNumber + " Recieved";
+        //            message.Body = "Email From: AskYourMechanicDon.com Message: Thank you for your order: " + order.OrderNumber;
 
-                    email.SendAsync(message);
+        //            email.SendAsync(message);
 
-                    //Email Admin 
-                    message.Destination = "admin@askyourmechanicdon.com,donmorgan@shaw.ca";
-                    message.Subject = "AskYourMechanicDon.com New Question: " + order.OrderNumber;
-                    message.Body = "Email From: AskYourMechanicDon.com Message: A New Question: " + order.OrderNumber;
-                }
-                else
-                {
-                    return View();
-                }
-            }
-            else
-            {
-                LogRequest(response);
-                ViewBag.Message = "Something Went Wrong";
-            }
+        //            //Email Admin 
+        //            message.Destination = "admin@askyourmechanicdon.com,donmorgan@shaw.ca";
+        //            message.Subject = "AskYourMechanicDon.com New Question: " + order.OrderNumber;
+        //            message.Body = "Email From: AskYourMechanicDon.com Message: A New Question: " + order.OrderNumber;
+        //        }
+        //        else
+        //        {
+        //            return View();
+        //        }
+        //    }
+        //    else
+        //    {
+        //        LogRequest(response);
+        //        ViewBag.Message = "Something Went Wrong";
+        //    }
 
-            ViewBag.Message = "Success";
-            return View();
+        //    ViewBag.Message = "Success";
+        //    return View();
 
-        }
+        //}
 
-        private string GetPayPalResponse(Dictionary<string, string> formVals, bool useSandbox)
-        {
-            string paypalURL = useSandbox ? "https://www.sandbox.paypal.com/cgi-bin/webscr" : "https://www.paypal.com/cgi-bin/webscr";
+        //private string GetPayPalResponse(Dictionary<string, string> formVals, bool useSandbox)
+        //{
+        //    string paypalURL = useSandbox ? "https://www.sandbox.paypal.com/cgi-bin/webscr" : "https://www.paypal.com/cgi-bin/webscr";
 
-            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(paypalURL);
+        //    HttpWebRequest req = (HttpWebRequest)WebRequest.Create(paypalURL);
 
-            //Set values for the request back
+        //    //Set values for the request back
 
-            req.Method = "POST";
-            req.ContentType = "application/x-www-fomr-urlendcoded";
-            byte[] parm = Request.BinaryRead(Request.ContentLength);
-            string strRequest = Encoding.ASCII.GetString(parm);
+        //    req.Method = "POST";
+        //    req.ContentType = "application/x-www-fomr-urlendcoded";
+        //    byte[] parm = Request.BinaryRead(Request.ContentLength);
+        //    string strRequest = Encoding.ASCII.GetString(parm);
 
-            StringBuilder sb = new StringBuilder();
-            sb.Append(strRequest);
+        //    StringBuilder sb = new StringBuilder();
+        //    sb.Append(strRequest);
 
-            foreach (string key in formVals.Keys)
-            {
-                sb.AppendFormat("&{0}={1}", key, formVals[key]);
-            }
+        //    foreach (string key in formVals.Keys)
+        //    {
+        //        sb.AppendFormat("&{0}={1}", key, formVals[key]);
+        //    }
 
-            strRequest += sb.ToString();
-            req.ContentType = strRequest.Length.ToString();
+        //    strRequest += sb.ToString();
+        //    req.ContentType = strRequest.Length.ToString();
 
-            string response = "";
-            using (StreamWriter streamOut = new StreamWriter(req.GetRequestStream(), System.Text.Encoding.ASCII))
-            {
-                streamOut.Write(strRequest);
-                streamOut.Close();
-                using (StreamReader streamIn = new StreamReader(req.GetResponse().GetResponseStream()))
-                {
-                    response = streamIn.ReadToEnd();
-                }
-            }
+        //    string response = "";
+        //    using (StreamWriter streamOut = new StreamWriter(req.GetRequestStream(), System.Text.Encoding.ASCII))
+        //    {
+        //        streamOut.Write(strRequest);
+        //        streamOut.Close();
+        //        using (StreamReader streamIn = new StreamReader(req.GetResponse().GetResponseStream()))
+        //        {
+        //            response = streamIn.ReadToEnd();
+        //        }
+        //    }
 
-            return response;
+        //    return response;
 
 
-        }
-        private string GetPDTValue(string pdt, string key)
-        {
-            string[] keys = pdt.Split('\n');
-            string thisVal = "";
-            string thisKey = "";
-            foreach (string s in keys)
-            {
-                string[] bits = s.Split('=');
-                if (bits.Length > 1)
-                {
-                    thisVal = bits[1];
-                    thisKey = bits[0];
-                    if (thisKey.Equals(key, StringComparison.InvariantCultureIgnoreCase))
-                        break;
-                }
+        //}
+        //private string GetPDTValue(string pdt, string key)
+        //{
+        //    string[] keys = pdt.Split('\n');
+        //    string thisVal = "";
+        //    string thisKey = "";
+        //    foreach (string s in keys)
+        //    {
+        //        string[] bits = s.Split('=');
+        //        if (bits.Length > 1)
+        //        {
+        //            thisVal = bits[1];
+        //            thisKey = bits[0];
+        //            if (thisKey.Equals(key, StringComparison.InvariantCultureIgnoreCase))
+        //                break;
+        //        }
 
-            }
-            return thisVal;
-        }
+        //    }
+        //    return thisVal;
+        //}
 
-        private void LogRequest(string requestIn)
-        {
-            Request r = new Request
-            {
-                Message = requestIn
-            };
-            requestContext.Insert(r);
-            requestContext.Commit();
-        }
+        //private void LogRequest(string requestIn)
+        //{
+        //    Request r = new Request
+        //    {
+        //        Message = requestIn
+        //    };
+        //    requestContext.Insert(r);
+        //    requestContext.Commit();
+        //}
 
     }
 }
