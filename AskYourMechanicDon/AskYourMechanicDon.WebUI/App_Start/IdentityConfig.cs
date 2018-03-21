@@ -33,7 +33,7 @@ namespace AskYourMechanicDon.WebUI
                 smtp.Port = 587;
                 smtp.EnableSsl = false;
                 smtp.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
-                smtp.Credentials = new NetworkCredential("admin@askyourmechanicdon.com", "TtLUVAz5");
+                smtp.Credentials = new NetworkCredential("admin@askyourmechanicdon.com", "fgEmnz*hk8");
                 smtp.Timeout = 20000;
             }
 

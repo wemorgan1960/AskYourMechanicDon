@@ -50,14 +50,14 @@ namespace AskYourMechanicDon.WebUI.Controllers
 
             //formVals.Add("at", "eG_hkGDHC-hYxU7d0u6yM5Nl_e-Uk7IdiTUUaCRV1AvL0PfYFHUZt1ZUK6y"); //Bills
 
-            formVals.Add("at", "7BiLzbRCzn_Ob8ZfKMNvliNH4R3MhaF_B7sptpteroc0D-glX2lhV4Ci3sS"); 
+            formVals.Add("at", "7BiLzbRCzn_Ob8ZfKMNvliNH4R3MhaF_B7sptpteroc0D-glX2lhV4Ci3sS");
 
             formVals.Add("txn_id", Request["txn_id"]);
             formVals.Add("payment_status", Request["payment_status"]);
             formVals.Add("payer_email", Request["payer_email"]);
             formVals.Add("mc_gross", Request["mc_gross"]);
             formVals.Add("custom", Request["custom"]);
-            formVals.Add("invoice",Request["invoice"]);
+            formVals.Add("invoice", Request["invoice"]);
 
             //Fire and forget verification task
             Task.Run(() => VerifyTask(formVals, Request));
@@ -85,7 +85,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
                 StringBuilder sb = new StringBuilder();
                 sb.Append(strRequest);
 
-                foreach(string key in formVals.Keys)
+                foreach (string key in formVals.Keys)
                 {
                     sb.AppendFormat("&{0}={1}", key, formVals[key]);
                 }
@@ -112,7 +112,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
             {
                 //Capture exception for manual investigation
                 Error e = new Error();
-                e.Message= exception.Message;
+                e.Message = exception.Message;
                 errorContext.Commit();
 
             }
@@ -144,32 +144,20 @@ namespace AskYourMechanicDon.WebUI.Controllers
                 string paypayEmail = GetPDTValue(request, "payer_email");
                 string sAmountPaid = GetPDTValue(request, "mc_gross");
                 string Id = GetPDTValue(request, "custom");
-                string invoiceNumber = GetPDTValue(request,"invoice");
+                string invoiceNumber = GetPDTValue(request, "invoice");
 
                 // check that Txn_id has not been previously processed
                 //Get the Order
                 if (Id != null)
                 {
-                    //var order = new Order();
-                    var order = orderService.GetOrderFromOrderNumber(Id);
+                    Order order = orderService.GetOrderFromOrderNumber(Id);
 
                     if (order != null)
                     {
-                        if (order.PayPalTxnId == null && orderService.IsOrderPayPalTranxFound(transactionId)==false)
+                        if (order.PayPalTxnId == null && orderService.IsOrderPayPalTranxFound(transactionId) == false)
                         {
 
-                            //// check that Receiver_email is your Primary PayPal email
-                            //List<Customer> customers = customersContext.Collection().ToList();
-                            //var result = (from c in customers
-                            //               where c.Email == paypayEmail
-                            //               select c.Id ).FirstOrDefault();
-
-                            //if (paypayEmail !=result)
-                            //{
-                            //    //get customer email
-                                Customer customer = customersContext.Find(order.CustomerUserId);
-                            //    string Cemail = customer.Email;
-                            //}
+                            Customer customer = customersContext.Find(order.CustomerUserId);
 
                             // check that Payment_amount/Payment_currency are correct
                             decimal OrderTotal = orderService.OrderTotalFromOrderNumber(order.OrderNumber);
@@ -200,7 +188,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
                             var a4 = "Thank you for your order!";
 
                             var body = "<p>Email From: {0} </p><p>Message:</p><p>{1}</p><p>{2}</p></br></br><p>{3}</p>";
-                            var emailBody = string.Format(body,a1, a2, a3, a4);
+                            var emailBody = string.Format(body, a1, a2, a3, a4);
 
                             message.Body = emailBody;
 
