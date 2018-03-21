@@ -100,7 +100,23 @@ namespace AskYourMechanicDon.Services
 
         public Order GetOrderFromOrderNumber(string Id)
         {
-            return orderContext.Collection().Where(o => o.OrderNumber.CompareTo(Id) < 1).FirstOrDefault();
+            var result = (from o in orderContext.Collection().ToList()
+                          where o.OrderNumber == Id
+                          select new Order()
+                          {
+                              Id = o.Id,
+                              CustomerUserId = o.CustomerUserId,
+                              OrderNumber = o.OrderNumber,
+                              InvoiceNumber = o.InvoiceNumber,
+                              PayPalTxnId = o.PayPalTxnId,
+                              AmountPaid = o.AmountPaid,
+                              Currency = o.Currency,
+                              PayPalPaidDate = o.PayPalPaidDate,
+                              OrderStatusDate = o.OrderStatusDate,
+                              OrderStatus = o.OrderStatus,
+                              OrderItems = o.OrderItems
+                          });
+            return result.SingleOrDefault();
         }
 
         public Boolean IsOrderPayPalTranxFound(string txnId)

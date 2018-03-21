@@ -56,7 +56,8 @@ namespace AskYourMechanicDon.WebUI.Controllers
             formVals.Add("payment_status", Request["payment_status"]);
             formVals.Add("payer_email", Request["payer_email"]);
             formVals.Add("mc_gross", Request["mc_gross"]);
-            formVals.Add("item_number", Request["item_number"]);
+            formVals.Add("custom", Request["custom"]);
+            formVals.Add("invoice",Request["invoice"]);
 
             //Fire and forget verification task
             Task.Run(() => VerifyTask(formVals, Request));
@@ -101,6 +102,9 @@ namespace AskYourMechanicDon.WebUI.Controllers
                 //Send the request to PayPal and get the response
                 var streamIn = new StreamReader(verificationRequest.GetResponse().GetResponseStream());
                 verificationResponse = streamIn.ReadToEnd();
+
+                LogRequest(verificationResponse);
+
                 streamIn.Close();
 
             }
@@ -139,34 +143,33 @@ namespace AskYourMechanicDon.WebUI.Controllers
                 string paymentStatus = GetPDTValue(request, "payment_status");
                 string paypayEmail = GetPDTValue(request, "payer_email");
                 string sAmountPaid = GetPDTValue(request, "mc_gross");
-                string Id = GetPDTValue(request, "item_number");
+                string Id = GetPDTValue(request, "custom");
+                string invoiceNumber = GetPDTValue(request,"invoice");
 
                 // check that Txn_id has not been previously processed
                 //Get the Order
                 if (Id != null)
                 {
-                    var order = new Order();
-                    order = orderService.GetOrderFromOrderNumber(Id);
+                    //var order = new Order();
+                    var order = orderService.GetOrderFromOrderNumber(Id);
 
                     if (order != null)
                     {
-                        if (order.PayPalTxnId == null && orderService.IsOrderPayPalTranxFound(transactionId))
+                        if (order.PayPalTxnId == null && orderService.IsOrderPayPalTranxFound(transactionId)==false)
                         {
 
-                            // check that Receiver_email is your Primary PayPal email
-                            List<Customer> customers = customersContext.Collection().ToList();
-                            var result = (from c in customers
-                                           where c.Email == paypayEmail
-                                           select c.Id ).FirstOrDefault();
+                            //// check that Receiver_email is your Primary PayPal email
+                            //List<Customer> customers = customersContext.Collection().ToList();
+                            //var result = (from c in customers
+                            //               where c.Email == paypayEmail
+                            //               select c.Id ).FirstOrDefault();
 
-                            if (paypayEmail !=result)
-                            {
-                                //update the customer email
-                                Customer customer = customersContext.Find(result);
-
-                                customer.Email = paypayEmail;
-                                customersContext.Update(customer);
-                            }
+                            //if (paypayEmail !=result)
+                            //{
+                            //    //get customer email
+                                Customer customer = customersContext.Find(order.CustomerUserId);
+                            //    string Cemail = customer.Email;
+                            //}
 
                             // check that Payment_amount/Payment_currency are correct
                             decimal OrderTotal = orderService.OrderTotalFromOrderNumber(order.OrderNumber);
@@ -183,11 +186,12 @@ namespace AskYourMechanicDon.WebUI.Controllers
                             order.OrderStatus = "Payment Processed";
                             order.OrderStatusDate = @DateTime.Now;
                             order.AmountPaid = sAmountPaid;
+
                             orderService.UpdateOrder(order);
 
                             // Email the Reciever
 
-                            message.Destination = paypayEmail;
+                            message.Destination = customer.Email;
                             message.Subject = "AskYourMechanicDon.com New Order: " + order.OrderNumber + " Recieved";
 
                             var a1 = "AskYourMechanicDon.com";
@@ -195,7 +199,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
                             var a3 = "For the amount of CAD $" + sAmountPaid;
                             var a4 = "Thank you for your order!";
 
-                            var body = "<p>Email From: {0} </p><p>Message:</p><p>{1}</p><p>{2}</p><p>{3}</p></br></br><p>{a4}</p>";
+                            var body = "<p>Email From: {0} </p><p>Message:</p><p>{1}</p><p>{2}</p></br></br><p>{3}</p>";
                             var emailBody = string.Format(body,a1, a2, a3, a4);
 
                             message.Body = emailBody;
@@ -203,7 +207,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
                             email.SendAsync(message);
 
                             //Email Admin 
-                            message.Destination = "admin@askyourmechanicdon.com,donmorgan@shaw.ca";
+                            message.Destination = "admin@askyourmechanicdon.com,donmorgan@shaw.ca,bmorgan@telusplanet.net";
                             message.Subject = "AskYourMechanicDon.com New Question: " + order.OrderNumber;
                             message.Body = "Email From: AskYourMechanicDon.com Message: A New Question: " + order.OrderNumber + " " + warningAmount;
 
@@ -218,7 +222,7 @@ namespace AskYourMechanicDon.WebUI.Controllers
                 //Log for manual investigation
 
                 //Email Admin 
-                message.Destination = "admin@askyourmechanicdon.com,donmorgan@shaw.ca";
+                message.Destination = "admin@askyourmechanicdon.com,donmorgan@shaw.ca,bmorgan@telusplanet.net";
                 message.Subject = "AskYourMechanicDon.com INVALID PayPal Payment";
                 message.Body = "Check the Request Table for the Return from PayPal Response";
 
